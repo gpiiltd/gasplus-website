@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Heading, Paragraph, Text, Label } from "../components/Typography";
+import bgimage from "../assets/images/about2.png";
 
 interface FormData {
   firstName: string;
@@ -97,13 +98,13 @@ const ContactPage: React.FC = () => {
       {/* HERO */}
       <section
         className="relative flex min-h-[160px] items-center justify-center bg-cover bg-center px-4 py-10"
-        style={{ backgroundImage: "url('/images/contact-hero.jpg')" }}
+        style={{ backgroundImage: `url(${bgimage})` }}
       >
         <div className="absolute inset-0 bg-black/55" />
-        <div className="relative z-10 max-w-3xl text-center">
+        <div className="relative z-10 text-center">
           <Heading
             level={1}
-            className="text-xl leading-tight text-white md:text-3xl lg:text-4xl"
+            className="text-xl leading-tight text-white md:text-2xl lg:text-3xl"
           >
             GasPlus is your trusted partner in
             <br />

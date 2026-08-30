@@ -1,5 +1,5 @@
 
-import visionImg from "../assets/images/hero.png";
+import visionImg from "../assets/images/about-hero.png";
 import { Heading, Paragraph } from "../components/Typography";
 import Badge from "./about/Badge";
 import MissionSection from "./about/Vission";

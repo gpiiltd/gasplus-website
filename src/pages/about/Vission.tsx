@@ -1,6 +1,6 @@
 import { Heading, Paragraph, } from "../../components/Typography";
 import Badge from "./Badge";
-import visionImg from "../../assets/images/hero.png";
+import visionImg from "../../assets/images/about2.png";
 
 export default function VisionSection() {
   return (

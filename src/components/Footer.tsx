@@ -2,6 +2,8 @@ import {ArrowRight } from "lucide-react";
 import LOGO from "../assets/images/logo.svg";
 import { Button } from "./Button";
 import { containerClass } from "../utils/constants";
+import routeNames from "../routes/routes";
+import { useNavigate } from "react-router-dom";
 
 
 // const footerLinks = {
@@ -64,6 +66,8 @@ import { containerClass } from "../utils/constants";
 
 
 export default function Footer() {
+  const navigate = useNavigate();
+
   return (
     <footer className="relative w-full overflow-hidden bg-white">
       {/* Diagonal black cutout, top right */}
@@ -90,7 +94,12 @@ export default function Footer() {
           your needs and propose the right solution for your facility.
         </p>
         <div className="mt-8 flex justify-center gap-4">
-          <Button icon={<ArrowRight size={18} />}>Contact Us</Button>
+          <Button
+            onClick={() => navigate(`/${routeNames.contact}`)}
+            icon={<ArrowRight size={18} />}
+          >
+            Contact Us
+          </Button>
         </div>
       </div>
 

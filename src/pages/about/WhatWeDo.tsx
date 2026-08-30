@@ -65,14 +65,24 @@ const SERVICE_ITEMS: ServiceItem[] = [
   },
 ];
 
-function ServiceAccordionItem({ item }: { item: ServiceItem }) {
-  const [isOpen, setIsOpen] = useState(false);
-
+function ServiceAccordionItem({
+  item,
+  isOpen,
+  onToggle,
+}: {
+  item: ServiceItem;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
   return (
-    <div className="rounded-2xl bg-gray-100 p-6 transition-colors">
+    <div
+      className={`self-start rounded-2xl p-6 transition-colors duration-300 ${
+        isOpen ? "bg-[#CAE7B9]" : "bg-gray-100"
+      }`}
+    >
       <button
         type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={onToggle}
         className="flex w-full items-start justify-between gap-4 text-left"
         aria-expanded={isOpen}
       >
@@ -80,6 +90,7 @@ function ServiceAccordionItem({ item }: { item: ServiceItem }) {
           <Text variant="muted" size="base" className="font-semibold">
             {item.number}
           </Text>
+
           <Heading level={5} className="!text-gray-900">
             {item.title}
           </Heading>
@@ -100,7 +111,11 @@ function ServiceAccordionItem({ item }: { item: ServiceItem }) {
         }`}
       >
         <div className="overflow-hidden">
-          <Text variant="muted" size="base" className="block leading-relaxed">
+          <Text
+            variant="muted"
+            size="base"
+            className="block leading-relaxed"
+          >
             {item.description}
           </Text>
         </div>
@@ -110,6 +125,8 @@ function ServiceAccordionItem({ item }: { item: ServiceItem }) {
 }
 
 export default function WhatWeDoSection() {
+  const [openNumber, setOpenNumber] = useState<string | null>(null);
+
   return (
     <section className="bg-white px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
       <div className="mx-auto max-w-6xl">
@@ -125,7 +142,16 @@ export default function WhatWeDoSection() {
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICE_ITEMS.map((item) => (
-            <ServiceAccordionItem key={item.number} item={item} />
+            <ServiceAccordionItem
+              key={item.number}
+              item={item}
+              isOpen={openNumber === item.number}
+              onToggle={() =>
+                setOpenNumber((current) =>
+                  current === item.number ? null : item.number
+                )
+              }
+            />
           ))}
         </div>
       </div>

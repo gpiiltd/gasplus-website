@@ -1,8 +1,8 @@
 import bgImage from "../assets/images/Layout.png";
-import ippImg from "../assets/images/hero.png";
-import lngImg from "../assets/images/hero.png";
-import cngImg from "../assets/images/hero.png";
-import maintenanceImg from "../assets/images/hero.png";
+import ippImg from "../assets/images/energy1.png";
+import lngImg from "../assets/images/energy2.png";
+import cngImg from "../assets/images/energy3.png";
+import maintenanceImg from "../assets/images/energy4.png";
 import { useInView } from "../components/animations/useInView";
 import { containerClass } from "../utils/constants";
 
@@ -68,7 +68,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
       </div>
 
       <div
-        className={`overflow-hidden rounded-xl transition-all duration-700 ease-out ${
+        className={`overflow-hidden  transition-all duration-700 ease-out ${
           imageOnLeft ? "sm:order-1" : "sm:order-2"
         } ${
           inView
@@ -113,7 +113,7 @@ export default function Services() {
         style={{ clipPath: "polygon(0 0, 40% 0, 60% 100%, 0 100%)" }}
       />
 
-      <div className={`${containerClass} relative mx-auto px-4 py-16 sm:py-20 lg:py-28`}>
+      <div className={`${containerClass} relative mx-auto  px-4 py-16 sm:py-20 lg:py-28`}>
         {/* Header */}
         <div
           ref={headerRef}
@@ -123,10 +123,13 @@ export default function Services() {
               : "translate-y-6 opacity-0"
           }`}
         >
-          <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">
-            Energy solutions built for efficient{" "}
-            <span className="text-green-500">business operation</span>
-          </h2>
+         <div className="w-full pt-2 sm:w-3/4 lg:w-2/4">
+  <h2 className="text-2xl font-extrabold leading-tight text-white sm:text-3xl md:text-4xl">
+    Energy solutions built for efficient{" "}
+    <span className="text-green-500">business operation</span>
+  </h2>
+</div>
+       
           <p className="mt-4 max-w-2xl text-gray-300">
             At GasPlus, our advanced systems for gas power generation, CNG
             mother station management, and industrial generator maintenance

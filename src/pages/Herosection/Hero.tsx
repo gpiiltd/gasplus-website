@@ -3,6 +3,8 @@ import HERO_IMG from "../../assets/images/hero.png";
 import { Button } from "../../components/Button";
 import TrustSection from "./TrustSection";
 import { containerClass } from "../../utils/constants";
+import routeNames from "../../routes/routes";
+import { useNavigate } from "react-router-dom";
 
 const FEATURES = [
   "Independent Power Producer (IPP)",
@@ -12,6 +14,8 @@ const FEATURES = [
 ];
 
 export default function Hero() {
+  const navigate = useNavigate();
+
   return (
     <>
       <section className="relative overflow-hidden bg-gray-950">
@@ -28,7 +32,7 @@ export default function Hero() {
         {/* Content */}
         <div className={`relative mx-auto ${containerClass} px-6 py-20 sm:px-10 lg:px-16 lg:py-28`}>
           <div className="max-w-xl">
-            <h1 className="text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl">
+            <h1 className="animate-hero-title text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl">
               Dependable power and gas solutions for your operations
             </h1>
 
@@ -53,7 +57,13 @@ export default function Hero() {
             </div>
 
             <div className="mt-8 ">
-              <Button icon={<ArrowRight size={18} />}>Contact Us</Button>
+              
+              <Button
+                onClick={() => navigate(`/${routeNames.contact}`)}
+                icon={<ArrowRight size={18} />}
+              >
+                Contact Us
+              </Button>
             </div>
           </div>
         </div>
