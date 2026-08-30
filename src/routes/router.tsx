@@ -4,6 +4,7 @@ import routeNames from "./routes";
 import MainLayout from "../pages/MainLayout";
 import Landing from "../pages/Landing";
 import About from "../pages/About";
+import Contact from "../pages/Contact";
 
 const routes: RouteObject[] = [
   {
@@ -17,6 +18,10 @@ const routes: RouteObject[] = [
       {
         path: routeNames.about,
         element: <About />,
+      },
+      {
+        path: routeNames.contact,
+        element: <Contact />,
       },
     ],
   },
