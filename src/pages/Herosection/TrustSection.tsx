@@ -1,8 +1,5 @@
 import { useInView } from "../../components/animations/useInView";
-import { containerClass } from "../../utils/constants";
 
-const PARTNER_TEXT =
-  "We partner with manufacturing plants, commercial facilities, estates, and energy infrastructure projects that require stable, uninterrupted power supply.";
 
 export default function TrustSection() {
   const { ref, inView } = useInView<HTMLDivElement>({

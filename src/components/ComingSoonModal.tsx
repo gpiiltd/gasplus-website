@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Sparkles, X } from 'lucide-react';
-import { useComingSoon } from '../context/ComingSoonContext';
 
 export const ComingSoonModal: React.FC = () => {
   const { open, closeModal } = useComingSoon();
@@ -68,3 +67,7 @@ export const ComingSoonModal: React.FC = () => {
     </div>
   );
 };
+function useComingSoon(): { open: any; closeModal: any; } {
+  throw new Error('Function not implemented.');
+}
+
