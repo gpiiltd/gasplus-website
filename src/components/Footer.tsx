@@ -75,10 +75,10 @@ export default function Footer() {
               2022 Gasplus. All right reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-700">
-              <a href="/privacy" className="underline underline-offset-2">
+              <a href={routeNames.privacy_policy} className="underline underline-offset-2">
                 Privacy Policy
               </a>
-              <a href="/terms" className="underline underline-offset-2">
+              <a href={routeNames.terms_of_use} className="underline underline-offset-2">
                 Terms of Service
               </a>
             </div>
