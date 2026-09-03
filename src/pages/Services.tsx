@@ -4,6 +4,7 @@ import lngImg from "../assets/images/energy2.png";
 import cngImg from "../assets/images/energy3.png";
 import maintenanceImg from "../assets/images/energy4.png";
 import { useInView } from "../components/animations/useInView";
+import { Heading, Paragraph } from "../components/Typography";
 import { containerClass } from "../utils/constants";
 
 interface Service {
@@ -61,10 +62,10 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
         <span className="text-sm font-bold tracking-wide text-gray-400">
           {service.number}
         </span>
-        <h3 className="mt-2 text-2xl font-extrabold leading-snug text-white">
+        <Heading level={3} className="mt-2 !text-2xl font-extrabold leading-snug !text-white sm:!text-3xl">
           {service.title}
-        </h3>
-        <p className="mt-4 max-w-md text-gray-300">{service.description}</p>
+        </Heading>
+        <Paragraph className="mt-4 max-w-md !text-gray-300">{service.description}</Paragraph>
       </div>
 
       <div
@@ -124,17 +125,17 @@ export default function Services() {
           }`}
         >
          <div className="w-full pt-2 sm:w-3/4 lg:w-2/4">
-  <h2 className="text-2xl font-extrabold leading-tight text-white sm:text-3xl md:text-4xl">
+  <Heading level={2} className="!text-2xl font-extrabold leading-tight !text-white sm:!text-3xl md:!text-4xl">
     Energy solutions built for efficient{" "}
     <span className="text-green-500">business operation</span>
-  </h2>
+  </Heading>
 </div>
        
-          <p className="mt-4 max-w-2xl text-gray-300">
+          <Paragraph className="mt-4 max-w-2xl !text-gray-300">
             At GasPlus, our advanced systems for gas power generation, CNG
             mother station management, and industrial generator maintenance
             ensure reliable, cost-effective energy to power your operations.
-          </p>
+          </Paragraph>
         </div>
 
         {/* Rows */}

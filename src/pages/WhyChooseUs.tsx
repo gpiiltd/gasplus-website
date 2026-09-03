@@ -8,6 +8,7 @@ import WCU4 from "../assets/images/wcu4.png";
 
 
 import { containerClass } from "../utils/constants";
+import { Heading, Paragraph } from "../components/Typography";
 
 interface Feature {
   title: string;
@@ -145,14 +146,14 @@ function FeatureCard({
               transition: "opacity 0.1s linear, transform 0.1s linear",
             }}
           >
-            <h3 className="text-2xl font-extrabold leading-snug text-green-700 sm:text-3xl">
+            <Heading level={3} className="!text-2xl font-extrabold leading-snug !text-green-700 sm:!text-3xl">
               {feature.title}
-            </h3>
+            </Heading>
 
-            <p className="mt-4 max-w-md text-gray-700">{feature.description}</p>
+            <Paragraph className="mt-4 max-w-md !text-gray-700">{feature.description}</Paragraph>
           </div>
 
-          {/* IMAGE — ALWAYS CENTER */}
+          {/* IMAGE — Always Cent */}
           <div className="sm:col-start-2 sm:row-start-1">
             <div
               className="overflow-hidden shadow-sm"
@@ -193,13 +194,13 @@ export default function WhyChooseUs() {
               : "translate-y-6 opacity-0"
           }`}
         >
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+          <Heading level={2} className="!text-3xl font-extrabold !text-gray-900 sm:!text-4xl">
             Why industries choose Gasplus
-          </h2>
-          <p className="mt-4 max-w-xl text-gray-700">
+          </Heading>
+          <Paragraph className="mt-4 max-w-xl !text-gray-700">
             We combine technical depth with responsive service to deliver energy
             infrastructure that performs when it matters most.
-          </p>
+          </Paragraph>
         </div>
       </div>
 

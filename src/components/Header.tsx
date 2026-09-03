@@ -9,7 +9,7 @@ import routeNames from "../routes/routes";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About GasPlus", href: routeNames.about },
-  { label: "Our Team", href: routeNames.ourTeam },
+  // { label: "Our Team", href: routeNames.ourTeam },
   { label: "Contact Us", href: routeNames.contact },
 ];
 

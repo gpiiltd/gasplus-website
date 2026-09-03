@@ -14,7 +14,7 @@ export const Heading: React.FC<HeadingProps> = ({
   style,
 }) => {
   const baseClasses =
-    "font-outfit tracking-wide font-bold text-text-primary";
+    "font-sora tracking-wide font-bold text-text-primary";
 
   const sizeClasses = {
     1: "text-3xl md:text-4xl lg:text-6xl",

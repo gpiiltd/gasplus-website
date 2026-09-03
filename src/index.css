@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @font-face {
@@ -92,9 +93,11 @@
 }
 
 @theme {
-  --font-display: "Helvetica Now Display", sans-serif;
-  --font-outfit: "Outfit", sans-serif;
-  --font-euclid: "Euclid Circular A", sans-serif;
+  --font-display: "Avenir", "Avenir Next", sans-serif;
+  --font-outfit: "Sora", sans-serif;
+  --font-euclid: "Avenir", "Avenir Next", sans-serif;
+  --font-sora: "Sora", sans-serif;
+  --font-avenir: "Avenir", "Avenir Next", sans-serif;
   /* colors */
     --color-primary: #7BC24F;
   --color-secondary: #433e25;
@@ -107,6 +110,19 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Avenir", "Avenir Next", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Sora", sans-serif;
 }
 
 @keyframes slide-in-left {

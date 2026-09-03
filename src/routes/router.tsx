@@ -5,6 +5,8 @@ import MainLayout from "../pages/MainLayout";
 import Landing from "../pages/Landing";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+import PrivacyPolicyPage from "../pages/policies/PrivacyPolicyPage";
+import TermsOfUsePage from "../pages/policies/TermsOfUsePage";
 
 const routes: RouteObject[] = [
   {
@@ -22,6 +24,14 @@ const routes: RouteObject[] = [
       {
         path: routeNames.contact,
         element: <Contact />,
+      },
+       {
+        path: routeNames.privacy_policy,
+        element: <PrivacyPolicyPage />,
+      },
+         {
+        path: routeNames.terms_of_use,
+        element: <TermsOfUsePage />,
       },
     ],
   },

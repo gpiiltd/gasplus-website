@@ -1,6 +1,7 @@
 import { ArrowRight, Check } from "lucide-react";
 import HERO_IMG from "../../assets/images/hero.png";
 import { Button } from "../../components/Button";
+import { Heading, Paragraph } from "../../components/Typography";
 import TrustSection from "./TrustSection";
 import { containerClass } from "../../utils/constants";
 import routeNames from "../../routes/routes";
@@ -32,15 +33,15 @@ export default function Hero() {
         {/* Content */}
         <div className={`relative mx-auto ${containerClass} px-6 py-20 sm:px-10 lg:px-16 lg:py-28`}>
           <div className="max-w-xl">
-            <h1 className="animate-hero-title text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl">
+            <Heading level={1} className="animate-hero-title !text-4xl font-extrabold leading-[1.1] !text-white sm:!text-5xl">
               Dependable power and gas solutions for your operations
-            </h1>
+            </Heading>
 
-            <p className="mt-5 max-w-md text-base text-gray-200 sm:text-lg">
+            <Paragraph className="mt-5 max-w-md !text-base !text-gray-200 sm:!text-lg">
               GasPlus is committed to delivering high-quality, sustainable and
               advanced energy solutions, with extensive experience in gas power
               generation and maintenance.
-            </p>
+            </Paragraph>
 
             {/* Feature checklist card */}
             <div className="mt-8 grid grid-cols-1 divide-y divide-purple-900/10 overflow-hidden rounded-xl bg-[#DCCDDC] backdrop-blur-sm sm:grid-cols-2 sm:divide-x">

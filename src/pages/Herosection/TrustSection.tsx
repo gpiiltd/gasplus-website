@@ -1,4 +1,5 @@
 import { useInView } from "../../components/animations/useInView";
+import { Heading, Paragraph } from "../../components/Typography";
 
 
 export default function TrustSection() {
@@ -19,7 +20,8 @@ export default function TrustSection() {
     >
       <div className="mx-auto w-full">
         {/* Eyebrow */}
-        <p
+        <Paragraph
+          size="sm"
           className={`text-xs font-semibold uppercase tracking-widest transition-all duration-700 ease-out ${
             inView
               ? "translate-y-0 opacity-100 text-gray-400"
@@ -27,11 +29,11 @@ export default function TrustSection() {
           }`}
         >
           Trusted by operators across Nigeria
-        </p>
+        </Paragraph>
 
         {/* Full-width line reveal */}
         <div className="mt-4 w-full overflow-hidden">
-          <h2 className="w-full text-2xl font-extrabold leading-snug sm:text-3xl lg:text-4xl">
+          <Heading level={2} className="w-full !text-2xl font-extrabold leading-snug sm:!text-3xl lg:!text-4xl">
             {lines.map((line, index) => (
               <span
                 key={line}
@@ -56,7 +58,7 @@ export default function TrustSection() {
                 </span>
               </span>
             ))}
-          </h2>
+          </Heading>
         </div>
       </div>
     </section>

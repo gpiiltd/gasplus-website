@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Sparkles, X } from 'lucide-react';
+import { Heading, Paragraph } from './Typography';
 
 export const ComingSoonModal: React.FC = () => {
   const { open, closeModal } = useComingSoon();
@@ -49,13 +50,13 @@ export const ComingSoonModal: React.FC = () => {
           <Sparkles size={22} className="text-[#3D88A6]" />
         </div>
 
-        <h3 className="font-display font-semibold text-[#0f1117] text-lg tracking-wide mb-2">
+        <Heading level={3} className="!text-lg font-semibold !text-[#0f1117] tracking-wide mb-2">
           Coming soon
-        </h3>
-        <p className="font-display text-gray-500 text-sm tracking-wide leading-relaxed mb-6">
+        </Heading>
+        <Paragraph size="sm" className="!text-gray-500 tracking-wide leading-relaxed mb-6">
           We're putting the finishing touches on this. Check back shortly —
           we can't wait to show you what's next.
-        </p>
+        </Paragraph>
 
         <button
           onClick={closeModal}
@@ -70,4 +71,3 @@ export const ComingSoonModal: React.FC = () => {
 function useComingSoon(): { open: any; closeModal: any; } {
   throw new Error('Function not implemented.');
 }
-
