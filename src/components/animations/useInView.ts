@@ -1,30 +1,38 @@
 import { useEffect, useRef, useState } from "react";
 
-/**
- * Tracks whether an element has scrolled into the viewport.
- * Fires once and disconnects — good for one-time "fade in on scroll" reveals.
- */
-export function useInView<T extends HTMLElement>(
-  options: IntersectionObserverInit = { threshold: 0.3 },
-) {
+interface UseInViewOptions {
+  threshold?: number;
+  once?: boolean;
+  rootMargin?: string;
+}
+
+export function useInView<T extends HTMLElement = HTMLDivElement>({
+  threshold = 0.15,
+  once = true,
+  rootMargin = "0px",
+}: UseInViewOptions = {}): [React.RefObject<T | null>, boolean] {
   const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
+    const el = ref.current;
+    if (!el) return;
 
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setInView(true);
-        observer.disconnect();
-      }
-    }, options);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          if (once) observer.disconnect();
+        } else if (!once) {
+          setVisible(false);
+        }
+      },
+      { threshold, rootMargin }
+    );
 
-    observer.observe(node);
+    observer.observe(el);
     return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [threshold, once, rootMargin]);
 
-  return { ref, inView };
+  return [ref, visible];
 }

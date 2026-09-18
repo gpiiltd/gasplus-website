@@ -46,7 +46,8 @@ const SERVICES: Service[] = [
 ];
 
 function ServiceRow({ service, index }: { service: Service; index: number }) {
-  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 });
+   const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.3 });
+
   const imageOnLeft = index % 2 === 1;
 
   return (
@@ -88,7 +89,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
 }
 
 export default function Services() {
-  const { ref: headerRef, inView: headerInView } = useInView<HTMLDivElement>({
+   const [headerRef, headerInView] = useInView<HTMLDivElement>({
     threshold: 0.4,
   });
 

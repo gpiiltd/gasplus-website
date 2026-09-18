@@ -4,7 +4,7 @@ import WhyChooseUs from "./WhyChooseUs";
 
 const Landing = () => {
   return (
-    <div>
+    <div className="pt-12 md:pt-24">
       <Hero />
       <WhyChooseUs />
         <Services />

@@ -1,5 +1,6 @@
 import { Flame } from "lucide-react";
 import { Heading, Paragraph, Text } from "../../components/Typography";
+import { FadeIn, StaggerChildren } from "../../components/animations/Animations";
 
 interface Principle {
   title: string;
@@ -50,11 +51,7 @@ function PrincipleCard({ principle }: { principle: Principle }) {
         <Heading level={4} className="!text-gray-900">
           {principle.title}
         </Heading>
-        <Text
-          variant="muted"
-          size="base"
-          className="mt-3 block leading-relaxed"
-        >
+        <Text variant="muted" size="base" className="mt-3 block leading-relaxed">
           {principle.description}
         </Text>
       </div>
@@ -72,20 +69,29 @@ export default function PrinciplesSection() {
       />
 
       <div className="relative mx-auto max-w-6xl">
-        <Heading level={2} className="!text-white max-w-2xl">
-          The principles that govern how we operate at Gasplus
-        </Heading>
+        <FadeIn direction="up" delay={100}>
+          <Heading level={2} className="!text-white max-w-2xl">
+            The principles that govern how we operate at Gasplus
+          </Heading>
+        </FadeIn>
 
-        <Paragraph className="mt-4 max-w-xl !text-gray-300">
-          Every decision we make is built around one standard: Does this make
-          our client&apos;s operations more efficient?
-        </Paragraph>
+        <FadeIn direction="up" delay={250}>
+          <Paragraph className="mt-4 max-w-xl !text-gray-300">
+            Every decision we make is built around one standard: Does this make
+            our client&apos;s operations more efficient?
+          </Paragraph>
+        </FadeIn>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 pb-10 sm:grid-cols-2 sm:pb-14 lg:grid-cols-3">
+        <StaggerChildren
+          className="mt-10 grid grid-cols-1 gap-6 pb-10 sm:grid-cols-2 sm:pb-14 lg:grid-cols-3"
+          staggerDelay={100}
+          baseDelay={200}
+          direction="up"
+        >
           {PRINCIPLES.map((principle) => (
             <PrincipleCard key={principle.title} principle={principle} />
           ))}
-        </div>
+        </StaggerChildren>
       </div>
     </section>
   );

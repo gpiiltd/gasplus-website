@@ -3,9 +3,8 @@ import { Heading, Paragraph } from "../../components/Typography";
 
 
 export default function TrustSection() {
-  const { ref, inView } = useInView<HTMLDivElement>({
-    threshold: 0.15,
-  });
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.15 });
+
 
   const lines = [
     "We partner with manufacturing plants, commercial facilities, estates,",
@@ -20,16 +19,14 @@ export default function TrustSection() {
     >
       <div className="mx-auto w-full">
         {/* Eyebrow */}
-        <Paragraph
-          size="sm"
-          className={`text-xs font-semibold uppercase tracking-widest transition-all duration-700 ease-out ${
-            inView
-              ? "translate-y-0 opacity-100 text-gray-400"
-              : "translate-y-4 opacity-0 text-gray-500"
-          }`}
-        >
-          Trusted by operators across Nigeria
-        </Paragraph>
+  <p
+  className={`text-xs font-semibold uppercase tracking-widest transition-opacity duration-700 ease-out ${
+    inView ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+  }`}
+  style={{ color: "#E5E5E5" }}
+>
+  Trusted by operators across Nigeria
+</p>
 
         {/* Full-width line reveal */}
         <div className="mt-4 w-full overflow-hidden">

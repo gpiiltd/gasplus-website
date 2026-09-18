@@ -6,6 +6,7 @@ import TrustSection from "./TrustSection";
 import { containerClass } from "../../utils/constants";
 import routeNames from "../../routes/routes";
 import { useNavigate } from "react-router-dom";
+import { FadeIn } from "../../components/animations/Animations";
 
 const FEATURES = [
   "Independent Power Producer (IPP)",
@@ -32,40 +33,50 @@ export default function Hero() {
 
         {/* Content */}
         <div className={`relative mx-auto ${containerClass} px-6 py-20 sm:px-10 lg:px-16 lg:py-28`}>
-          <div className="max-w-xl">
-            <Heading level={1} className="animate-hero-title !text-4xl font-extrabold leading-[1.1] !text-white sm:!text-5xl">
-              Dependable power and gas solutions for your operations
-            </Heading>
+          <div className="max-w-2xl">
+            <FadeIn direction="up" delay={100} threshold={0}>
+              <Heading
+                level={1}
+                className="!text-5xl font-extrabold leading-[1.1] !text-white sm:!text-6xl"
+              >
+                Dependable power and gas solutions for your operations
+              </Heading>
+            </FadeIn>
 
-            <Paragraph className="mt-5 max-w-md !text-base !text-gray-200 sm:!text-lg">
-              GasPlus is committed to delivering high-quality, sustainable and
-              advanced energy solutions, with extensive experience in gas power
-              generation and maintenance.
-            </Paragraph>
+            <FadeIn direction="up" delay={250} threshold={0}>
+              <Paragraph className="mt-5 max-w-md !text-base !text-gray-200 sm:!text-lg">
+                GasPlus is committed to delivering high-quality, sustainable and
+                advanced energy solutions, with extensive experience in gas power
+                generation and maintenance.
+              </Paragraph>
+            </FadeIn>
 
             {/* Feature checklist card */}
-            <div className="mt-8 grid grid-cols-1 divide-y divide-purple-900/10 overflow-hidden rounded-xl bg-[#DCCDDC] backdrop-blur-sm sm:grid-cols-2 sm:divide-x">
-              {FEATURES.map((feature) => (
-                <div key={feature} className="flex items-start gap-3 p-5">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary">
-                    <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                  </span>
-                  <span className="text-sm font-semibold text-gray-900">
-                    {feature}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <FadeIn direction="up" delay={400} threshold={0}>
+              <div className="mt-8 grid grid-cols-1 divide-y divide-purple-900/10 overflow-hidden rounded-xl bg-[#DCCDDC] backdrop-blur-sm sm:grid-cols-2 sm:divide-x">
+                {FEATURES.map((feature) => (
+                  <div key={feature} className="flex items-start gap-3 p-5">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary">
+                      <Check className="h-3 w-3 text-white" strokeWidth={3} />
+                    </span>
+                    <span className="text-sm font-semibold text-gray-900">
+                      {feature}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
 
-            <div className="mt-8 ">
-              
-              <Button
-                onClick={() => navigate(`/${routeNames.contact}`)}
-                icon={<ArrowRight size={18} />}
-              >
-                Contact Us
-              </Button>
-            </div>
+            <FadeIn direction="up" delay={550} threshold={0}>
+              <div className="mt-8">
+                <Button
+                  onClick={() => navigate(`/${routeNames.contact}`)}
+                  icon={<ArrowRight size={18} />}
+                >
+                  Contact Us
+                </Button>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>

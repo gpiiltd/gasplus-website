@@ -5,8 +5,6 @@ import WCU2 from "../assets/images/wcu2.png";
 import WCU3 from "../assets/images/wcu3.png";
 import WCU4 from "../assets/images/wcu4.png";
 
-
-
 import { containerClass } from "../utils/constants";
 import { Heading, Paragraph } from "../components/Typography";
 
@@ -35,7 +33,7 @@ const FEATURES: Feature[] = [
       "Safety is built into every operation. We follow strict health, safety, environmental, and regulatory compliance procedures across all service areas, protecting your people, your assets, and your business.",
     image: WCU3,
   },
-    {
+  {
     title: "Solutions tailored to your operations",
     description:
       "No two facilities have the same energy requirements. We assess your operational needs and deliver customized power and gas solutions backed by long-term technical support and partnership.",
@@ -58,6 +56,7 @@ function mapRange(v: number, inMin: number, inMax: number) {
  */
 function useStackProgress(count: number) {
   const els = useRef<Array<HTMLDivElement | null>>([]);
+  const offsets = useRef<Array<{ top: number; height: number }>>([]);
   const [progress, setProgress] = useState<number[]>(() =>
     new Array(count).fill(0),
   );
@@ -69,17 +68,25 @@ function useStackProgress(count: number) {
     [],
   );
 
+  const measureOffsets = useCallback(() => {
+    offsets.current = els.current.map((el) => {
+      if (!el) return { top: 0, height: 0 };
+      const rect = el.getBoundingClientRect();
+      return { top: rect.top + window.scrollY, height: rect.height };
+    });
+  }, []);
+
   useEffect(() => {
+    measureOffsets();
+    const vh = window.innerHeight;
     let ticking = false;
 
     const measure = () => {
-      const vh = window.innerHeight;
-      const next = els.current.map((el) => {
-        if (!el) return 0;
-        const rect = el.getBoundingClientRect();
-        // Progress across the wrapper's full scroll range (wrapper height - vh)
-        const scrollable = Math.max(rect.height - vh, 1);
-        return clamp(-rect.top / scrollable);
+      const scrollY = window.scrollY;
+      const next = offsets.current.map(({ top, height }) => {
+        const scrollable = Math.max(height - vh, 1);
+        const relativeTop = top - scrollY;
+        return clamp(-relativeTop / scrollable);
       });
       setProgress(next);
       ticking = false;
@@ -92,14 +99,18 @@ function useStackProgress(count: number) {
       }
     };
 
-    measure();
+    const onResize = () => {
+      measureOffsets();
+      onScroll();
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
     };
-  }, [count]);
+  }, [count, measureOffsets]);
 
   return { setRef, progress };
 }
@@ -143,14 +154,18 @@ function FeatureCard({
             style={{
               opacity: reveal,
               transform: `translateY(${(1 - reveal) * 30}px)`,
-              transition: "opacity 0.1s linear, transform 0.1s linear",
             }}
           >
-            <Heading level={3} className="!text-2xl font-extrabold leading-snug !text-green-700 sm:!text-3xl">
+            <Heading
+              level={3}
+              className="!text-2xl font-extrabold leading-snug !text-green-700 sm:!text-3xl"
+            >
               {feature.title}
             </Heading>
 
-            <Paragraph className="mt-4 max-w-md !text-gray-700">{feature.description}</Paragraph>
+            <Paragraph className="mt-4 max-w-md !text-gray-700">
+              {feature.description}
+            </Paragraph>
           </div>
 
           {/* IMAGE — Always Cent */}
@@ -176,7 +191,7 @@ function FeatureCard({
 }
 
 export default function WhyChooseUs() {
-  const { ref: headerRef, inView: headerInView } = useInView<HTMLDivElement>({
+  const [headerRef, headerInView] = useInView<HTMLDivElement>({
     threshold: 0.4,
   });
 
@@ -185,16 +200,18 @@ export default function WhyChooseUs() {
   return (
     <section className="bg-[#e9f3e2] px-6 sm:px-10 lg:px-16">
       <div className={`${containerClass} mx-auto max-w-6xl`}>
-        {/* Section header */}
         <div
           ref={headerRef}
-          className={`border-t border-green-900/10  pb-8 transition-all duration-700 ease-out sm:pt-14 sm:pb-10 ${
+          className={`border-t border-green-900/10 pb-8 transition-all duration-700 ease-out sm:pt-14 sm:pb-10 ${
             headerInView
               ? "translate-y-0 opacity-100"
               : "translate-y-6 opacity-0"
           }`}
         >
-          <Heading level={2} className="!text-3xl font-extrabold !text-gray-900 sm:!text-4xl">
+          <Heading
+            level={2}
+            className="!text-3xl font-extrabold !text-gray-900 sm:!text-4xl"
+          >
             Why industries choose Gasplus
           </Heading>
           <Paragraph className="mt-4 max-w-xl !text-gray-700">
@@ -204,7 +221,6 @@ export default function WhyChooseUs() {
         </div>
       </div>
 
-      {/* Pinned, one-at-a-time stacking feature cards */}
       <div className="relative">
         {FEATURES.map((feature, i) => (
           <FeatureCard

@@ -5,38 +5,46 @@ import Badge from "./about/Badge";
 import MissionSection from "./about/Vission";
 import Principles from "./about/Principles";
 import WhatWeDo from "./about/WhatWeDo";
+import { FadeIn } from "../components/animations/Animations";
 
 export default function About() {
-   return (
-     <div>
-       <section className="grid grid-cols-1 bg-[#e9f3e2] sm:grid-cols-2">
-         <div className="flex flex-col justify-center gap-6 px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
-           <Badge>Our Mission</Badge>
+  return (
+    <div>
+      <section className="pt-12 md:pt-0 grid grid-cols-1 bg-[#e9f3e2] sm:grid-cols-2">
+        <div className="flex flex-col justify-center gap-6 px-6 py-16 sm:px-10 sm:py-24 lg:px-16 pt-12 md:pt-24">
+          <FadeIn direction="up" delay={100}>
+            <Badge>Our Mission</Badge>
+          </FadeIn>
 
-           <Heading level={2} className="!text-gray-900">
-             To deliver innovative, efficient, and sustainable energy solutions
-             that empower industries, drive productivity, and create long-term
-             value for our clients and stakeholders.
-           </Heading>
+          <FadeIn direction="up" delay={250}>
+            <Heading level={3} className="!text-[#1A1A1A] leading-wide">
+              To deliver innovative, efficient, and sustainable energy solutions
+              that empower industries, drive productivity, and create long-term
+              value for our clients and stakeholders.
+            </Heading>
+          </FadeIn>
 
-           <Paragraph className="max-w-lg">
-             We exist to provide gas and power solutions to the businesses that
-             power the African continent
-           </Paragraph>
-         </div>
+          <FadeIn direction="up" delay={400}>
+            <Paragraph className="max-w-lg">
+              We exist to provide gas and power solutions to the businesses that
+              power the African continent
+            </Paragraph>
+          </FadeIn>
+        </div>
 
-         <div className="h-72 sm:h-auto">
-           <img
-             src={visionImg}
-             alt="Power plant cooling towers at sunset"
-             className="h-full w-full object-cover"
-           />
-         </div>
-       </section>
-       <WhatWeDo />
-
-       <MissionSection />
-       <Principles />
-     </div>
-   );
+        <FadeIn direction="left" delay={200} className="h-72 sm:h-auto">
+          <div className="h-full w-full">
+            <img
+              src={visionImg}
+              alt="Power plant cooling towers at sunset"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </FadeIn>
+      </section>
+      <WhatWeDo />
+      <MissionSection />
+      <Principles />
+    </div>
+  );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Heading, Paragraph, Text} from "../../components/Typography";
+import { FadeIn, StaggerChildren } from "../../components/animations/Animations";
 
 interface ServiceItem {
   number: string;
@@ -111,11 +112,7 @@ function ServiceAccordionItem({
         }`}
       >
         <div className="overflow-hidden">
-          <Text
-            variant="muted"
-            size="base"
-            className="block leading-relaxed"
-          >
+          <Text variant="muted" size="base" className="block leading-relaxed">
             {item.description}
           </Text>
         </div>
@@ -130,17 +127,26 @@ export default function WhatWeDoSection() {
   return (
     <section className="bg-white px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
       <div className="mx-auto max-w-6xl">
-        <Heading level={2} className="!text-gray-900">
-          What we do at Gasplus
-        </Heading>
+        <FadeIn direction="up" delay={100}>
+          <Heading level={2} className="!text-gray-900">
+            What we do at Gasplus
+          </Heading>
+        </FadeIn>
 
-        <Paragraph className="mt-4 max-w-2xl">
-          With a commitment to sustainability, innovation, and excellence, we
-          empower our clients to meet their energy needs efficiently and
-          responsibly.
-        </Paragraph>
+        <FadeIn direction="up" delay={250}>
+          <Paragraph className="mt-4 max-w-2xl">
+            With a commitment to sustainability, innovation, and excellence, we
+            empower our clients to meet their energy needs efficiently and
+            responsibly.
+          </Paragraph>
+        </FadeIn>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerChildren
+          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          staggerDelay={100}
+          baseDelay={200}
+          direction="up"
+        >
           {SERVICE_ITEMS.map((item) => (
             <ServiceAccordionItem
               key={item.number}
@@ -153,7 +159,7 @@ export default function WhatWeDoSection() {
               }
             />
           ))}
-        </div>
+        </StaggerChildren>
       </div>
     </section>
   );
