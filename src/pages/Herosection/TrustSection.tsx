@@ -1,5 +1,5 @@
 import { useInView } from "../../components/animations/useInView";
-import { Heading, Paragraph } from "../../components/Typography";
+import { Heading} from "../../components/Typography";
 
 
 export default function TrustSection() {
