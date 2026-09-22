@@ -13,9 +13,9 @@ export default function Footer() {
   return (
     <footer className="relative w-full overflow-hidden bg-white">
       {/* Faint decorative squares */}
-      <FadeIn direction="up" delay={0} duration={800} className="pointer-events-none absolute left-6 top-8 h-10 w-10 bg-primary sm:left-10">
+      {/* <FadeIn direction="up" delay={0} duration={800} className="pointer-events-none absolute left-6 top-8 h-10 w-10 bg-primary sm:left-10">
         <div className="h-full w-full" />
-      </FadeIn>
+      </FadeIn> */}
       <FadeIn direction="up" delay={100} duration={800} className="pointer-events-none absolute left-24 top-24 h-6 w-24 bg-primary-light sm:left-40">
         <div className="h-full w-full" />
       </FadeIn>
@@ -80,7 +80,9 @@ export default function Footer() {
           <div className="text-sm text-gray-700 sm:pt-24">
             <p className="font-semibold text-gray-900">Contact:</p>
             <p className="mt-1">+234 813 428 8922</p>
-            <a href="mailto:hello@gasplus.ng">hello@gasplus.ng</a>
+            <a href="mailto:info@gasplus.ng" className="underline underline-offset-2">
+              info@gasplus.ng
+            </a>
           </div>
         </div>
 

@@ -8,13 +8,19 @@ import routeNames from "../routes/routes";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "About GasPlus", href: routeNames.about },
-  // { label: "Our Team", href: routeNames.ourTeam },
+  { label: "About Us", href: routeNames.about },
+  { label: "Our Teams", href: "https://ceslintlgroup.com/about-us/board/" },
   { label: "Contact Us", href: routeNames.contact },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [menuHasPlayed, setMenuHasPlayed] = useState(false);
+
+  const closeMenu = () => {
+    setIsOpen(false);
+    setMenuHasPlayed(true);
+  };
   const { pathname } = useLocation();
 
   const isActive = (href: string) => {
@@ -25,8 +31,8 @@ export default function Navbar() {
   };
 
   return (
-   <header className="fixed inset-x-0 top-0 z-50 w-full bg-white">
-  <nav className={`${containerClass} flex h-[72px] items-center justify-between sm:px-10`}>
+   <header className="fixed inset-x-0 top-0 z-50 w-full bg-white z-40">
+  <nav className={`${containerClass} flex h-[60px] items-center justify-between sm:px-10`}>
     {/* Logo */}
     <Link to="/" className="flex items-center">
       <img src={LOGO} alt="Gasplus Logo" width="90" height="18" />
@@ -57,7 +63,7 @@ export default function Navbar() {
     {/* Mobile hamburger toggle */}
     <button
       type="button"
-      onClick={() => setIsOpen((prev) => !prev)}
+      onClick={() => isOpen ? closeMenu() : setIsOpen(true)}
       className="inline-flex items-center justify-center rounded-md p-1.5 text-gray-800 hover:text-green-600 md:hidden"
       aria-label={isOpen ? "Close menu" : "Open menu"}
       aria-expanded={isOpen}
@@ -76,12 +82,12 @@ export default function Navbar() {
       {NAV_LINKS.map((link, i) => (
         <li
           key={link.href}
-          className="animate-slide-in-left opacity-0"
+          className={menuHasPlayed ? "opacity-100" : "animate-slide-in-left opacity-0"}
           style={{ animationDelay: `${i * 90}ms` }}
         >
           <Link
             to={link.href}
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
             className={`block py-2.5 transition-colors duration-200 ${
               isActive(link.href)
                 ? "text-green-600"

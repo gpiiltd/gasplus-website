@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Heading, Paragraph, Text, Label } from "../components/Typography";
+import { FadeIn } from "../components/animations/Animations";
 import bgimage from "../assets/images/about2.png";
 
 interface FormData {
@@ -94,14 +95,14 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pt-[60px]">
       {/* HERO */}
       <section
         className="relative flex min-h-[160px] items-center justify-center bg-cover bg-center px-4 py-10"
         style={{ backgroundImage: `url(${bgimage})` }}
       >
         <div className="absolute inset-0 bg-black/55" />
-        <div className="relative z-10 text-center">
+        <FadeIn duration={550} distance={20} className="relative z-10 text-center motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none">
           <Heading
             level={1}
             className="text-xl leading-tight text-white md:text-2xl lg:text-3xl"
@@ -110,7 +111,7 @@ const ContactPage: React.FC = () => {
             <br />
             the ever-evolving energy landscape
           </Heading>
-        </div>
+        </FadeIn>
       </section>
 
       {/* CONTACT SECTION */}
@@ -121,7 +122,7 @@ const ContactPage: React.FC = () => {
         <div className="pointer-events-none absolute bottom-10 left-0 h-24 w-24 bg-[#143b0a]/50" />
 
         <div className="relative z-10 mx-auto max-w-3xl">
-          <div className="mb-8 text-center">
+          <FadeIn duration={500} distance={16} className="mb-8 text-center motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none">
             <Heading level={2} className="mb-2 text-2xl text-white md:text-3xl">
               Get in touch with us
             </Heading>
@@ -133,10 +134,11 @@ const ContactPage: React.FC = () => {
               <br />
               We'll get back to you with clear next steps.
             </Paragraph>
-          </div>
+          </FadeIn>
 
           {/* STEP 1 */}
-          {step === 1 && (
+          <div hidden={step !== 1}>
+            <FadeIn key="contact-step-1" duration={450} distance={20} threshold={0.05} className="motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none">
             <form
               onSubmit={handleNext}
               className="mx-auto rounded-md bg-white p-5 shadow-xl md:p-7"
@@ -307,10 +309,12 @@ const ContactPage: React.FC = () => {
                 </div>
               </div>
             </form>
-          )}
+            </FadeIn>
+          </div>
 
           {/* STEP 2 */}
-          {step === 2 && (
+          <div hidden={step !== 2}>
+            <FadeIn key="contact-step-2" duration={450} distance={20} threshold={0.05} className="motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none">
             <form
               onSubmit={handleSubmit}
               className="mx-auto rounded-md bg-white p-5 shadow-xl md:p-7"
@@ -439,7 +443,8 @@ const ContactPage: React.FC = () => {
                 </div>
               </div>
             </form>
-          )}
+            </FadeIn>
+          </div>
         </div>
       </section>
 

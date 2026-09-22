@@ -4,27 +4,11 @@ import WhyChooseUs from "./WhyChooseUs";
 
 const Landing = () => {
   return (
-    <div className="pt-12 md:pt-24">
+    <div className="pt-[60px]">
       <Hero />
       <WhyChooseUs />
         <Services />
 
-      {/* <AnimatedScreen>
-        <Stats />
-      </AnimatedScreen>
-      <AnimatedScreen>
-        <TestimonialsSection />
-      </AnimatedScreen>
-      <div className="bg-secondary-light mb-12">
-        <div className={`${containerClass} mx-auto px-4`}>
-          <AnimatedScreen className="mb-24">
-            <FAQSection />
-          </AnimatedScreen>
-          <AnimatedScreen>
-            <FooterCTA />
-          </AnimatedScreen>
-        </div>
-      </div> */}
     </div>
   );
 };

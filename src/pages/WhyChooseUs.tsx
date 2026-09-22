@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInView } from "../components/animations/useInView";
 import WCU1 from "../assets/images/wcu1.svg";
 import WCU2 from "../assets/images/wcu2.png";
 import WCU3 from "../assets/images/wcu3.png";
 import WCU4 from "../assets/images/wcu4.png";
 
-import { containerClass } from "../utils/constants";
 import { Heading, Paragraph } from "../components/Typography";
 
 interface Feature {
@@ -41,146 +40,136 @@ const FEATURES: Feature[] = [
   },
 ];
 
-function clamp(v: number, min = 0, max = 1) {
-  return Math.min(max, Math.max(min, v));
-}
-
-function mapRange(v: number, inMin: number, inMax: number) {
-  if (inMax === inMin) return v >= inMax ? 1 : 0;
-  return clamp((v - inMin) / (inMax - inMin));
-}
-
-/**
- * Continuous 0 -> 1 progress per card wrapper, based on how far its
- * sticky inner element is through its pinned scroll window.
- */
-function useStackProgress(count: number) {
-  const els = useRef<Array<HTMLDivElement | null>>([]);
-  const offsets = useRef<Array<{ top: number; height: number }>>([]);
-  const [progress, setProgress] = useState<number[]>(() =>
-    new Array(count).fill(0),
-  );
-
-  const setRef = useCallback(
-    (i: number) => (el: HTMLDivElement | null) => {
-      els.current[i] = el;
-    },
-    [],
-  );
-
-  const measureOffsets = useCallback(() => {
-    offsets.current = els.current.map((el) => {
-      if (!el) return { top: 0, height: 0 };
-      const rect = el.getBoundingClientRect();
-      return { top: rect.top + window.scrollY, height: rect.height };
-    });
-  }, []);
+/** Keep one feature visible in a shared, compact sticky stage. */
+function useActiveFeature(count: number) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    measureOffsets();
-    const vh = window.innerHeight;
-    let ticking = false;
+    let frame: number | null = null;
+    let trackTop = 0;
+    let stickyTop = 60;
+    let step = 1;
+    let currentIndex = -1;
 
-    const measure = () => {
-      const scrollY = window.scrollY;
-      const next = offsets.current.map(({ top, height }) => {
-        const scrollable = Math.max(height - vh, 1);
-        const relativeTop = top - scrollY;
-        return clamp(-relativeTop / scrollable);
-      });
-      setProgress(next);
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(measure);
+    const updateActive = () => {
+      frame = null;
+      const distance = Math.max(0, window.scrollY + stickyTop - trackTop);
+      const nextIndex = Math.min(count - 1, Math.floor(distance / step));
+      if (nextIndex !== currentIndex) {
+        currentIndex = nextIndex;
+        setActiveIndex(nextIndex);
       }
+      frame = null;
+    };
+    const schedule = () => {
+      if (frame === null) frame = requestAnimationFrame(updateActive);
+    };
+    const measure = () => {
+      const track = trackRef.current;
+      const stage = stageRef.current;
+      if (!track || !stage) return;
+      const rect = track.getBoundingClientRect();
+      trackTop = rect.top + window.scrollY;
+      const availableHeight = window.innerHeight - 60;
+      // Let tall cards scroll far enough to expose their text on short screens.
+      stickyTop = stage.offsetHeight > availableHeight
+        ? window.innerHeight - stage.offsetHeight - 12
+        : Math.max(60, (window.innerHeight - stage.offsetHeight) / 2);
+      stage.style.top = `${stickyTop}px`;
+      step = Math.max((rect.height - stage.offsetHeight) / count, 1);
+      schedule();
     };
 
-    const onResize = () => {
-      measureOffsets();
-      onScroll();
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
+    // Cache layout measurements; scrolling only updates when the feature changes.
+    const observer = new ResizeObserver(measure);
+    if (trackRef.current) observer.observe(trackRef.current);
+    if (stageRef.current) observer.observe(stageRef.current);
+    observer.observe(document.body);
+    measure();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", measure);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      observer.disconnect();
+      if (frame !== null) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", measure);
     };
-  }, [count, measureOffsets]);
+  }, [count]);
 
-  return { setRef, progress };
+  return { trackRef, stageRef, activeIndex };
 }
 
 function FeatureCard({
   feature,
   index,
-  setRef,
-  progress,
+  active,
 }: {
   feature: Feature;
   index: number;
-  setRef: (el: HTMLDivElement | null) => void;
-  progress: number;
+  active: boolean;
 }) {
   const textOnRight = index % 2 === 1;
+  const [imageRef, imageInView] = useInView<HTMLDivElement>({
+    threshold: 0.15,
+    once: false,
+  });
+  const imageRevealed = active && imageInView;
 
-  // Keep your existing reveal animation
-  const reveal = mapRange(progress, 0.02, 0.45);
+  const reveal = active ? 1 : 0;
 
   return (
     <div
-      ref={setRef}
-      className="relative"
-      style={{
-        height: "115vh",
-        zIndex: 10 + index,
-      }}
+      aria-hidden={!active}
+      className={`col-start-1 row-start-1 flex min-w-0 bg-[#e9f3e2] ${active ? "visible" : "invisible pointer-events-none"}`}
     >
-      <div className="sticky top-0 flex h-fit flex-col overflow-hidden border-t border-b border-green-900/10 bg-[#e9f3e2]">
+      <div className="flex w-full flex-col justify-center overflow-hidden py-3 border-b border-green-900/10 bg-[#e9f3e2]">
         <div
-          className={`${containerClass} mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 sm:grid-cols-3 sm:gap-10 sm:px-10 lg:px-16`}
+          className={`mx-auto grid w-full max-w-6xl lg:max-w-[88rem] grid-cols-1 items-center gap-4 lg:px-8 lg:gap-10 ${
+            textOnRight
+              ? "lg:grid-cols-[0.45fr_1.9fr_0.8fr]"
+              : "lg:grid-cols-[0.8fr_1.9fr_0.45fr]"
+          }`}
         >
           {/* TEXT — LEFT / RIGHT */}
           <div
             className={
               textOnRight
-                ? "sm:col-start-3 sm:row-start-1"
-                : "sm:col-start-1 sm:row-start-1"
+                ? "min-w-0 row-start-2 lg:col-start-3 lg:row-start-1"
+                : "min-w-0 row-start-2 lg:col-start-1 lg:row-start-1"
             }
             style={{
+              transition: active ? "opacity 150ms ease-out, transform 150ms ease-out" : "none",
               opacity: reveal,
               transform: `translateY(${(1 - reveal) * 30}px)`,
             }}
           >
             <Heading
               level={3}
-              className="!text-2xl font-extrabold leading-snug !text-green-700 sm:!text-3xl"
+              className="!text-xl font-extrabold leading-snug !text-green-700 sm:!text-2xl lg:!text-3xl"
             >
               {feature.title}
             </Heading>
 
-            <Paragraph className="mt-4 max-w-md !text-gray-700">
+            <Paragraph className="mt-3 max-w-none !text-gray-700 lg:mt-4 lg:max-w-md">
               {feature.description}
             </Paragraph>
           </div>
 
           {/* IMAGE — Always Cent */}
-          <div className="sm:col-start-2 sm:row-start-1">
+          <div ref={imageRef} className="min-w-0 row-start-1 lg:col-start-2">
             <div
-              className="overflow-hidden shadow-sm"
+              className="overflow-hidden shadow-sm motion-reduce:!transition-none"
               style={{
-                clipPath: `inset(${(1 - reveal) * 100}% 0 0 0)`,
-                transition: "clip-path 0.1s linear",
+                transition: imageRevealed ? "clip-path 600ms cubic-bezier(0.22, 1, 0.36, 1)" : "none",
+                clipPath: imageRevealed ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)",
               }}
             >
               <img
                 src={feature.image}
                 alt={feature.title}
-                className="h-[240px] w-full object-cover sm:h-[360px]"
+                className="h-[clamp(140px,25svh,240px)] w-full object-cover sm:h-[280px] lg:h-[360px]"
               />
             </div>
           </div>
@@ -192,17 +181,19 @@ function FeatureCard({
 
 export default function WhyChooseUs() {
   const [headerRef, headerInView] = useInView<HTMLDivElement>({
-    threshold: 0.4,
+    threshold: 0.1,
   });
 
-  const { setRef, progress } = useStackProgress(FEATURES.length);
+  const { trackRef, stageRef, activeIndex } = useActiveFeature(FEATURES.length);
 
   return (
-    <section className="bg-[#e9f3e2] px-6 sm:px-10 lg:px-16">
-      <div className={`${containerClass} mx-auto max-w-6xl`}>
+    <section className="bg-[#e9f3e2] px-4 sm:px-6 lg:px-16">
+      <div ref={trackRef} className="relative">
+        <div ref={stageRef} className="sticky top-[60px] bg-[#e9f3e2]">
+      <div className="mx-auto max-w-6xl lg:max-w-[88rem] lg:px-8">
         <div
           ref={headerRef}
-          className={`border-t border-green-900/10 pb-8 transition-all duration-700 ease-out sm:pt-14 sm:pb-10 ${
+          className={`pt-3 lg:pt-18 pb-4 transition-all duration-300 ease-out sm:pb-6 ${
             headerInView
               ? "translate-y-0 opacity-100"
               : "translate-y-6 opacity-0"
@@ -210,7 +201,7 @@ export default function WhyChooseUs() {
         >
           <Heading
             level={2}
-            className="!text-3xl font-extrabold !text-gray-900 sm:!text-4xl"
+            className="!text-2xl font-extrabold !text-gray-900 sm:!text-3xl lg:!text-4xl"
           >
             Why industries choose Gasplus
           </Heading>
@@ -221,16 +212,18 @@ export default function WhyChooseUs() {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="grid">
         {FEATURES.map((feature, i) => (
           <FeatureCard
             key={feature.title}
             feature={feature}
             index={i}
-            setRef={setRef(i)}
-            progress={progress[i]}
+            active={activeIndex === i}
           />
         ))}
+        </div>
+        </div>
+        <div aria-hidden="true" style={{ height: `${FEATURES.length * 100}svh` }} />
       </div>
     </section>
   );
