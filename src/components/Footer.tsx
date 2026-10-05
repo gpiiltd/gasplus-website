@@ -3,7 +3,7 @@ import LOGO from "../assets/images/logo.svg";
 import { Button } from "./Button";
 import { containerClass } from "../utils/constants";
 import routeNames from "../routes/routes";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FadeIn } from "./animations/Animations";
 
 
@@ -93,12 +93,12 @@ export default function Footer() {
               2022 Gasplus. All right reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-700">
-              <a href={routeNames.privacy_policy} className="underline underline-offset-2">
+              <Link to={`/${routeNames.privacy_policy}`} className="underline underline-offset-2">
                 Privacy Policy
-              </a>
-              <a href={routeNames.terms_of_use} className="underline underline-offset-2">
+              </Link>
+              <Link to={`/${routeNames.terms_of_use}`} className="underline underline-offset-2">
                 Terms of Service
-              </a>
+              </Link>
             </div>
           </div>
         </div>
