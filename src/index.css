@@ -108,6 +108,32 @@
   --color-text-secondary: #1d2939;
 }
 
+/* Shared content boundaries for navigation, sections, and footer. */
+.site-container {
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+:root {
+  --site-gutter: 1rem;
+}
+
+@media (min-width: 640px) {
+  :root { --site-gutter: 2.5rem; }
+}
+
+@media (min-width: 1024px) {
+  :root { --site-gutter: 2rem; }
+}
+
+/* Align split-section copy while letting its adjacent image reach the edge. */
+.site-split-copy {
+  padding-left: max(var(--site-gutter), calc((100vw - 88rem) / 2 + var(--site-gutter)));
+  padding-right: var(--site-gutter);
+}
+
 html {
   scroll-behavior: smooth;
 }

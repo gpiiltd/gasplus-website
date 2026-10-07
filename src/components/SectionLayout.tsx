@@ -1,3 +1,4 @@
+import { containerClass } from "../utils/constants";
 interface SectionLayoutProps {
   children: React.ReactNode;
   className?: string;
@@ -8,7 +9,7 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`max-w-7xl mx-auto px-6 py-16 md:py-20 ${className}`}>
+    <div className={`${containerClass} py-16 md:py-20 ${className}`}>
       {children}
     </div>
   );

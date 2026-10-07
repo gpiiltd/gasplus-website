@@ -33,9 +33,9 @@ export default function Footer() {
       </FadeIn>
 
       {/* CTA */}
-      <div className="relative z-10 mx-auto max-w-3xl px-6 pb-16 pt-32 text-center sm:pt-40">
+      <div className="relative z-10 site-container pb-16 pt-32 text-center sm:pt-40">
         <FadeIn direction="up" delay={100}>
-          <h2 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl">
+          <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-gray-900 sm:text-4xl">
             Ready to secure a reliable power supply for your operations?
           </h2>
         </FadeIn>
@@ -61,7 +61,7 @@ export default function Footer() {
 
       {/* Info row */}
       <div className={`${containerClass} relative z-10 mb-20`}>
-        <div className="relative mx-auto flex flex-col gap-8 px-6 sm:flex-row sm:gap-24">
+        <div className="relative mx-auto flex flex-col gap-8 sm:flex-row sm:gap-24">
           <div>
             <a href="/" className="flex items-center gap-1">
               <img src={LOGO} alt="Gasplus Logo" />
@@ -87,10 +87,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="relative mx-auto mt-10 border-t border-gray-200 px-6 py-6">
+        <div className="relative mx-auto mt-10 border-t border-gray-200 py-6">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-sm text-gray-500">
-              2022 Gasplus. All right reserved.
+              2026 Gasplus. All right reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-700">
               <Link to={`/${routeNames.privacy_policy}`} className="underline underline-offset-2">

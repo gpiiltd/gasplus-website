@@ -32,7 +32,7 @@ export default function Hero() {
         </div>
 
         {/* Content */}
-        <div className={`relative mx-auto ${containerClass} px-6 py-20 sm:px-10 lg:px-16 lg:py-28`}>
+        <div className={`relative ${containerClass} py-20 lg:py-28`}>
           <div className="max-w-2xl">
             <FadeIn direction="up" delay={100} threshold={0}>
               <Heading

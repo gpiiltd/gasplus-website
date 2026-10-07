@@ -1,3 +1,4 @@
+import { containerClass } from "../../utils/constants";
 import { Flame } from "lucide-react";
 import { Heading, Paragraph, Text } from "../../components/Typography";
 import { FadeIn, StaggerChildren } from "../../components/animations/Animations";
@@ -61,14 +62,14 @@ function PrincipleCard({ principle }: { principle: Principle }) {
 
 export default function PrinciplesSection() {
   return (
-    <section className="relative overflow-hidden bg-[#16220f] px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
+    <section className="relative overflow-hidden bg-[#16220f] py-16 sm:py-24">
       {/* Diagonal transition shape, bottom, into the section below */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 h-16 w-full bg-white sm:h-20"
         style={{ clipPath: "polygon(0 0, 40% 0, 60% 100%, 0 100%)" }}
       />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className={`${containerClass} relative`}>
         <FadeIn direction="up" delay={100}>
           <Heading level={2} className="!text-white max-w-2xl">
             The principles that govern how we operate at Gasplus

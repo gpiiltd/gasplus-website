@@ -115,7 +115,7 @@ export default function Services() {
         style={{ clipPath: "polygon(0 0, 40% 0, 60% 100%, 0 100%)" }}
       />
 
-      <div className={`${containerClass} relative mx-auto  px-4 py-16 sm:py-20 lg:py-28`}>
+      <div className={`${containerClass} relative py-16 sm:py-20 lg:py-28`}>
         {/* Header */}
         <div
           ref={headerRef}

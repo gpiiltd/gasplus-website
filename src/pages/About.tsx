@@ -11,7 +11,7 @@ export default function About() {
   return (
     <div>
       <section className="pt-12 md:pt-0 grid grid-cols-1 bg-[#e9f3e2] sm:grid-cols-2">
-        <div className="flex flex-col justify-center gap-6 px-6 py-16 sm:px-10 sm:py-24 lg:px-16 pt-12 md:pt-24">
+        <div className="flex flex-col justify-center gap-6 site-split-copy py-16 sm:py-24 pt-12 md:pt-24">
           <FadeIn direction="up" delay={100}>
             <Badge>Our Mission</Badge>
           </FadeIn>

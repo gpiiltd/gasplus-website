@@ -1,3 +1,4 @@
+import { containerClass } from "../../utils/constants";
 import { useState, useEffect, useRef } from "react";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermOfUse from "./TermOfUse";
@@ -93,17 +94,19 @@ const PoliciesMain = () => {
   return (
     <div className="min-h-screen bg-white">
      
-      <div className="bg-[#f5f4ef] px-6 py-10 md:px-16 lg:px-24 mb-10">
+      <div className="bg-[#f5f4ef] py-10 mb-10">
+        <div className={containerClass}>
         <Heading level={2} className="mb-2 pt-24">
           Legal Terms & Policies
         </Heading>
         <Text variant="muted" size="sm" className="uppercase tracking-widest">
           Updated March 04, 2026
         </Text>
+        </div>
       </div>
       {/* Main Content */}
       <div
-        className={`flex flex-col lg:flex-row gap-16 pb-24`}
+        className={`${containerClass} flex flex-col lg:flex-row gap-16 pb-24`}
       >
         <div className="flex flex-col lg:flex-row gap-16">
           {/* Policy Content */}

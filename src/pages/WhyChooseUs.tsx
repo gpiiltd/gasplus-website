@@ -1,3 +1,4 @@
+import { containerClass } from "../utils/constants";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "../components/animations/useInView";
 import WCU1 from "../assets/images/wcu1.svg";
@@ -61,7 +62,6 @@ function useActiveFeature(count: number) {
         currentIndex = nextIndex;
         setActiveIndex(nextIndex);
       }
-      frame = null;
     };
     const schedule = () => {
       if (frame === null) frame = requestAnimationFrame(updateActive);
@@ -72,13 +72,15 @@ function useActiveFeature(count: number) {
       if (!track || !stage) return;
       const rect = track.getBoundingClientRect();
       trackTop = rect.top + window.scrollY;
-      const availableHeight = window.innerHeight - 60;
+      // The spacer uses svh, which stays stable as mobile browser bars move.
+      step = Math.max((rect.height - stage.offsetHeight) / count, 1);
+      const viewportHeight = step;
+      const availableHeight = viewportHeight - 60;
       // Let tall cards scroll far enough to expose their text on short screens.
       stickyTop = stage.offsetHeight > availableHeight
-        ? window.innerHeight - stage.offsetHeight - 12
-        : Math.max(60, (window.innerHeight - stage.offsetHeight) / 2);
+        ? viewportHeight - stage.offsetHeight - 12
+        : Math.max(60, (viewportHeight - stage.offsetHeight) / 2);
       stage.style.top = `${stickyTop}px`;
-      step = Math.max((rect.height - stage.offsetHeight) / count, 1);
       schedule();
     };
 
@@ -111,22 +113,16 @@ function FeatureCard({
   active: boolean;
 }) {
   const textOnRight = index % 2 === 1;
-  const [imageRef, imageInView] = useInView<HTMLDivElement>({
-    threshold: 0.15,
-    once: false,
-  });
-  const imageRevealed = active && imageInView;
-
-  const reveal = active ? 1 : 0;
-
   return (
     <div
       aria-hidden={!active}
-      className={`col-start-1 row-start-1 flex min-w-0 bg-[#e9f3e2] ${active ? "visible" : "invisible pointer-events-none"}`}
+      className={`col-start-1 row-start-1 flex min-w-0 bg-[#e9f3e2] transition-opacity duration-500 ease-out motion-reduce:transition-none ${
+        active ? "z-10 opacity-100" : "pointer-events-none opacity-0"
+      }`}
     >
       <div className="flex w-full flex-col justify-center overflow-hidden py-3 border-b border-green-900/10 bg-[#e9f3e2]">
         <div
-          className={`mx-auto grid w-full max-w-6xl lg:max-w-[88rem] grid-cols-1 items-center gap-4 lg:px-8 lg:gap-10 ${
+          className={`${containerClass} grid grid-cols-1 items-center gap-4 lg:gap-10 ${
             textOnRight
               ? "lg:grid-cols-[0.45fr_1.9fr_0.8fr]"
               : "lg:grid-cols-[0.8fr_1.9fr_0.45fr]"
@@ -136,13 +132,12 @@ function FeatureCard({
           <div
             className={
               textOnRight
-                ? "min-w-0 row-start-2 lg:col-start-3 lg:row-start-1"
-                : "min-w-0 row-start-2 lg:col-start-1 lg:row-start-1"
+                ? "min-w-0 row-start-2 lg:col-start-3 lg:row-start-1 motion-reduce:!transform-none motion-reduce:!transition-none"
+                : "min-w-0 row-start-2 lg:col-start-1 lg:row-start-1 motion-reduce:!transform-none motion-reduce:!transition-none"
             }
             style={{
-              transition: active ? "opacity 150ms ease-out, transform 150ms ease-out" : "none",
-              opacity: reveal,
-              transform: `translateY(${(1 - reveal) * 30}px)`,
+              transition: "transform 500ms cubic-bezier(0.22, 1, 0.36, 1)",
+              transform: active ? "translateY(0)" : "translateY(16px)",
             }}
           >
             <Heading
@@ -158,12 +153,12 @@ function FeatureCard({
           </div>
 
           {/* IMAGE — Always Cent */}
-          <div ref={imageRef} className="min-w-0 row-start-1 lg:col-start-2">
+          <div className="min-w-0 row-start-1 lg:col-start-2">
             <div
-              className="overflow-hidden shadow-sm motion-reduce:!transition-none"
+              className="overflow-hidden shadow-sm motion-reduce:!transform-none motion-reduce:!transition-none"
               style={{
-                transition: imageRevealed ? "clip-path 600ms cubic-bezier(0.22, 1, 0.36, 1)" : "none",
-                clipPath: imageRevealed ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)",
+                transition: "transform 500ms cubic-bezier(0.22, 1, 0.36, 1)",
+                transform: active ? "translateY(0)" : "translateY(16px)",
               }}
             >
               <img
@@ -187,10 +182,10 @@ export default function WhyChooseUs() {
   const { trackRef, stageRef, activeIndex } = useActiveFeature(FEATURES.length);
 
   return (
-    <section className="bg-[#e9f3e2] px-4 sm:px-6 lg:px-16">
+    <section className="bg-[#e9f3e2]">
       <div ref={trackRef} className="relative">
         <div ref={stageRef} className="sticky top-[60px] bg-[#e9f3e2]">
-      <div className="mx-auto max-w-6xl lg:max-w-[88rem] lg:px-8">
+      <div className={containerClass}>
         <div
           ref={headerRef}
           className={`pt-3 lg:pt-18 pb-4 transition-all duration-300 ease-out sm:pb-6 ${

@@ -6,7 +6,7 @@ import { FadeIn } from "../../components/animations/Animations";
 export default function VisionSection() {
   return (
     <section className="grid grid-cols-1 bg-[#150e1a] sm:grid-cols-2">
-      <div className="flex flex-col justify-center gap-6 px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
+      <div className="flex flex-col justify-center gap-6 site-split-copy py-16 sm:py-24">
         <FadeIn direction="up" delay={100}>
           <Badge>Our Vision</Badge>
         </FadeIn>

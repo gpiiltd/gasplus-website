@@ -32,7 +32,7 @@ export default function Navbar() {
 
   return (
    <header className="fixed inset-x-0 top-0 z-50 w-full bg-white z-40">
-  <nav className={`${containerClass} flex h-[60px] items-center justify-between sm:px-10`}>
+  <nav className={`${containerClass} flex h-[60px] items-center justify-between`}>
     {/* Logo */}
     <Link to="/" className="flex items-center">
       <img src={LOGO} alt="Gasplus Logo" width="90" height="18" />
@@ -77,7 +77,7 @@ export default function Navbar() {
   {isOpen && (
     <ul
       id="mobile-menu"
-      className="flex flex-col border-t border-gray-200 bg-white px-6 py-2 text-sm font-medium md:hidden"
+      className="flex flex-col border-t border-gray-200 bg-white site-container py-2 text-sm font-medium md:hidden"
     >
       {NAV_LINKS.map((link, i) => (
         <li

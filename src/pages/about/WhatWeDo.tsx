@@ -1,3 +1,4 @@
+import { containerClass } from "../../utils/constants";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Heading, Paragraph, Text} from "../../components/Typography";
@@ -125,8 +126,8 @@ export default function WhatWeDoSection() {
   const [openNumber, setOpenNumber] = useState<string | null>(null);
 
   return (
-    <section className="bg-white px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
-      <div className="mx-auto max-w-6xl">
+    <section className="bg-white py-16 sm:py-24">
+      <div className={containerClass}>
         <FadeIn direction="up" delay={100}>
           <Heading level={2} className="!text-gray-900">
             What we do at Gasplus
