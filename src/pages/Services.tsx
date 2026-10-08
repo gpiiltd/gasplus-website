@@ -46,31 +46,36 @@ const SERVICES: Service[] = [
 ];
 
 function ServiceRow({ service, index }: { service: Service; index: number }) {
-   const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.3 });
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.3 });
 
   const imageOnLeft = index % 2 === 1;
 
   return (
     <div
       ref={ref}
-      className="grid grid-cols-1 items-center gap-8 py-10 sm:grid-cols-2 sm:gap-12 sm:py-14"
+      className="grid grid-cols-1 items-center justify-between gap-8 py-10 sm:grid-cols-[repeat(2,minmax(0,560px))] sm:gap-12 sm:py-14"
     >
       <div
-        className={`transition-all duration-700 ease-out ${
+        className={`flex w-full max-w-[560px] flex-col justify-center xl:h-[380px] transition-all duration-700 ease-out ${
           imageOnLeft ? "sm:order-2" : "sm:order-1"
         } ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
       >
-        <span className="text-sm font-bold tracking-wide text-gray-400">
+        <span className="text-2xl font-bold tracking-wide text-[#FFFFFF] sm:text-3xl md:text-4xl">
           {service.number}
         </span>
-        <Heading level={3} className="mt-2 !text-2xl font-extrabold leading-snug !text-white sm:!text-3xl">
+        <Heading
+          level={3}
+          className="mt-5 !text-2xl font-bold leading-snug !text-white sm:!text-3xl"
+        >
           {service.title}
         </Heading>
-        <Paragraph className="mt-4 max-w-md !text-gray-300">{service.description}</Paragraph>
+        <Paragraph className="mt-4 !text-gray-300">
+          {service.description}
+        </Paragraph>
       </div>
 
       <div
-        className={`overflow-hidden  transition-all duration-700 ease-out ${
+        className={`aspect-[560/380] w-full max-w-[560px] overflow-hidden xl:h-[380px] xl:aspect-auto transition-all duration-700 ease-out ${
           imageOnLeft ? "sm:order-1" : "sm:order-2"
         } ${
           inView
@@ -81,7 +86,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
         <img
           src={service.image}
           alt={service.title}
-          className="h-[220px] w-full object-cover sm:h-[260px]"
+          className="h-full w-full object-cover"
         />
       </div>
     </div>
@@ -89,7 +94,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
 }
 
 export default function Services() {
-   const [headerRef, headerInView] = useInView<HTMLDivElement>({
+  const [headerRef, headerInView] = useInView<HTMLDivElement>({
     threshold: 0.4,
   });
 
@@ -125,13 +130,16 @@ export default function Services() {
               : "translate-y-6 opacity-0"
           }`}
         >
-         <div className="w-full pt-2 sm:w-3/4 lg:w-2/4">
-  <Heading level={2} className="!text-2xl font-extrabold leading-tight !text-white sm:!text-3xl md:!text-4xl">
-    Energy solutions built for efficient{" "}
-    <span className="text-green-500">business operation</span>
-  </Heading>
-</div>
-       
+          <div className="w-full pt-2 sm:w-3/4 lg:w-2/4">
+            <Heading
+              level={3}
+              className=" font-bold leading-tight !text-white sm:!text-4xl md:!text-5xl"
+            >
+              Energy solutions built for efficient{" "}
+              <span className="text-[#7BC24F]">business operation</span>
+            </Heading>
+          </div>
+
           <Paragraph className="mt-4 max-w-2xl !text-gray-300">
             At GasPlus, our advanced systems for gas power generation, CNG
             mother station management, and industrial generator maintenance

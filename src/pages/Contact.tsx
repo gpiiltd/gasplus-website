@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Heading, Paragraph, Text, Label } from "../components/Typography";
 import { FadeIn } from "../components/animations/Animations";
-import bgimage from "../assets/images/about2.png";
+import { UploadCloud } from "lucide-react";
+import { containerClass } from "../utils/constants";
+import gridPattern from "../assets/images/Grid layers - v1.png";
 
 interface FormData {
   firstName: string;
@@ -96,57 +98,40 @@ const ContactPage: React.FC = () => {
 
   return (
     <main className="min-h-screen pt-[60px]">
-      {/* HERO */}
-      <section
-        className="relative flex min-h-[160px] items-center justify-center bg-cover bg-center px-4 py-10"
-        style={{ backgroundImage: `url(${bgimage})` }}
-      >
-        <div className="absolute inset-0 bg-black/55" />
-        <FadeIn duration={550} distance={20} className="relative z-10 text-center motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none">
-          <Heading
-            level={1}
-            className="text-xl leading-tight text-white md:text-2xl lg:text-3xl"
-          >
-            GasPlus is your trusted partner in
-            <br />
-            the ever-evolving energy landscape
-          </Heading>
-        </FadeIn>
-      </section>
-
       {/* CONTACT SECTION */}
-      <section className="relative overflow-hidden bg-[#16280A] px-4 py-12 md:px-6 md:py-16 lg:py-20">
-        <div className="pointer-events-none absolute left-0 top-8 h-24 w-24 bg-[#143b0a]/70" />
-        <div className="pointer-events-none absolute left-5 top-36 h-20 w-20 bg-[#143b0a]/60" />
-        <div className="pointer-events-none absolute right-0 top-24 h-28 w-28 bg-[#143b0a]/50" />
-        <div className="pointer-events-none absolute bottom-10 left-0 h-24 w-24 bg-[#143b0a]/50" />
+      <section className="relative flex min-h-[calc(100svh-60px)] items-center overflow-hidden bg-[#16280A] py-12 md:py-16">
+        <img
+          src={gridPattern}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        />
 
-        <div className="relative z-10 mx-auto max-w-3xl">
-          <FadeIn duration={500} distance={16} className="mb-8 text-center motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none">
-            <Heading level={2} className="mb-2 text-2xl text-white md:text-3xl">
-              Get in touch with us
+        <div className={`${containerClass} relative z-10 grid items-start gap-8 lg:justify-center lg:grid-cols-[330px_minmax(0,760px)] lg:gap-8`} >
+          <FadeIn duration={500} distance={16} className="max-w-[330px] text-left motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none">
+            <Heading level={1} className="mb-4 !text-3xl !leading-[1.15] !text-white md:!text-[40px]">
+              Start your journey with us
             </Heading>
             <Paragraph
               size="sm"
-              className="mx-auto max-w-md text-xs leading-relaxed text-white/80 md:text-sm"
+              className="!text-base !leading-6 !text-white/90"
             >
-              Tell us what you're working on and where you need support.
-              <br />
-              We'll get back to you with clear next steps.
+              Tell us what you’re working on and where you need support. We’ll get back to you with clear next steps.
             </Paragraph>
           </FadeIn>
 
+          <div className="w-full min-w-0 lg:max-w-[760px]">
           {/* STEP 1 */}
           <div hidden={step !== 1}>
             <FadeIn key="contact-step-1" duration={450} distance={20} threshold={0.05} className="motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none">
             <form
               onSubmit={handleNext}
-              className="mx-auto rounded-md bg-white p-5 shadow-xl md:p-7"
+              className="min-h-[644px] rounded-[10px] border border-gray-200 bg-white p-6 sm:p-8"
             >
-              <div className="space-y-4">
+              <div className="space-y-7">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
-                    <Label htmlFor="firstName" required>
+                    <Label className="!text-sm !text-[#374151]" htmlFor="firstName" required>
                       First Name
                     </Label>
                     <input
@@ -161,7 +146,7 @@ const ContactPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="lastName" required>
+                    <Label className="!text-sm !text-[#374151]" htmlFor="lastName" required>
                       Last Name
                     </Label>
                     <input
@@ -178,7 +163,7 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="position" required>
+                  <Label className="!text-sm !text-[#374151]" htmlFor="position" required>
                     Position / Title
                   </Label>
                   <input
@@ -195,7 +180,7 @@ const ContactPage: React.FC = () => {
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
-                    <Label htmlFor="email" required>
+                    <Label className="!text-sm !text-[#374151]" htmlFor="email" required>
                       Work Email Address
                     </Label>
                     <input
@@ -210,7 +195,7 @@ const ContactPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone" required>
+                    <Label className="!text-sm !text-[#374151]" htmlFor="phone" required>
                       Phone Number
                     </Label>
                     <div className="flex h-9 overflow-hidden rounded-sm border border-gray-200 focus-within:border-[#4b9f3b] focus-within:ring-1 focus-within:ring-[#4b9f3b]">
@@ -237,7 +222,7 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="company" required>
+                  <Label className="!text-sm !text-[#374151]" htmlFor="company" required>
                     Company / Name
                   </Label>
                   <input
@@ -253,7 +238,7 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="location" required>
+                  <Label className="!text-sm !text-[#374151]" htmlFor="location" required>
                     Location
                   </Label>
                   <input
@@ -269,15 +254,15 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 <fieldset className="pt-1">
-                  <legend className="mb-3 font-display text-xs font-medium text-gray-700">
+                  <legend className="mb-3 font-display text-base font-medium text-[#374151]">
                     Service/Request/What are you interested in?{" "}
                     <span className="text-red-500">*</span>
                   </legend>
-                  <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
                     {enquiryOptions.map((option) => (
                       <label
                         key={option}
-                        className="flex min-h-[30px] cursor-pointer items-center gap-2 border border-gray-100 px-2 py-1.5 transition hover:bg-gray-50"
+                        className="flex min-h-10 cursor-pointer items-center gap-2 rounded-sm border border-gray-100 px-2 py-2 transition hover:bg-gray-50"
                       >
                         <input
                           type="radio"
@@ -290,7 +275,7 @@ const ContactPage: React.FC = () => {
                         />
                         <Text
                           size="xs"
-                          className="text-[10px] leading-tight text-gray-600"
+                          className="!text-sm leading-tight !text-[#374151]"
                         >
                           {option}
                         </Text>
@@ -302,7 +287,7 @@ const ContactPage: React.FC = () => {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="rounded-sm bg-[#65b447] px-4 py-2 font-display text-[10px] font-semibold uppercase tracking-wide text-white transition hover:bg-[#559b3b] focus:outline-none focus:ring-2 focus:ring-[#65b447] focus:ring-offset-2"
+                    className="rounded-sm bg-[#7BC24F] px-4 py-2 font-display text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-[#559b3b] focus:outline-none focus:ring-2 focus:ring-[#65b447] focus:ring-offset-2"
                   >
                     Next
                   </button>
@@ -317,19 +302,19 @@ const ContactPage: React.FC = () => {
             <FadeIn key="contact-step-2" duration={450} distance={20} threshold={0.05} className="motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none">
             <form
               onSubmit={handleSubmit}
-              className="mx-auto rounded-md bg-white p-5 shadow-xl md:p-7"
+              className="min-h-[644px] rounded-[10px] border border-gray-200 bg-white p-6 sm:p-8"
             >
-              <div className="space-y-4">
+              <div className="space-y-7">
                 <fieldset>
-                  <legend className="mb-3 font-display text-xs font-medium text-gray-700">
+                  <legend className="mb-3 font-display text-base font-medium text-[#374151]">
                     Estimated Power Requirement{" "}
                     <span className="text-red-500">*</span>
                   </legend>
-                  <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
                     {powerOptions.map((option) => (
                       <label
                         key={option}
-                        className="flex min-h-[30px] cursor-pointer items-center gap-2 border border-gray-100 px-2 py-1.5 transition hover:bg-gray-50"
+                        className="flex min-h-10 cursor-pointer items-center gap-2 rounded-sm border border-gray-100 px-2 py-2 transition hover:bg-gray-50"
                       >
                         <input
                           type="radio"
@@ -342,7 +327,7 @@ const ContactPage: React.FC = () => {
                         />
                         <Text
                           size="xs"
-                          className="text-[10px] leading-tight text-gray-600"
+                          className="!text-sm leading-tight !text-[#374151]"
                         >
                           {option}
                         </Text>
@@ -352,15 +337,15 @@ const ContactPage: React.FC = () => {
                 </fieldset>
 
                 <fieldset>
-                  <legend className="mb-3 font-display text-xs font-medium text-gray-700">
+                  <legend className="mb-3 font-display text-base font-medium text-[#374151]">
                     Preferred Contact Method (select all options that apply){" "}
                     <span className="text-red-500">*</span>
                   </legend>
-                  <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
                     {contactMethodOptions.map((method) => (
                       <label
                         key={method}
-                        className="flex min-h-[30px] cursor-pointer items-center gap-2 border border-gray-100 px-2 py-1.5 transition hover:bg-gray-50"
+                        className="flex min-h-10 cursor-pointer items-center gap-2 rounded-sm border border-gray-100 px-2 py-2 transition hover:bg-gray-50"
                       >
                         <input
                           type="checkbox"
@@ -370,7 +355,7 @@ const ContactPage: React.FC = () => {
                         />
                         <Text
                           size="xs"
-                          className="text-[10px] leading-tight text-gray-600"
+                          className="!text-sm leading-tight !text-[#374151]"
                         >
                           {method}
                         </Text>
@@ -380,9 +365,12 @@ const ContactPage: React.FC = () => {
                 </fieldset>
 
                 <div>
-                  <Label>Upload Supporting Documents (optional)</Label>
-                  <label className="flex cursor-pointer flex-col items-center gap-1 rounded-sm border border-dashed border-gray-200 px-3 py-6 text-center transition hover:bg-gray-50">
-                    <Text size="xs" className="text-[11px] text-gray-600">
+                  <Label className="!text-base !text-[#374151]">Upload Supporting Documents (optional)</Label>
+                  <label className="flex min-h-[106px] w-full cursor-pointer flex-col items-center gap-1 rounded-md border border-gray-100 px-3 py-3 text-center transition hover:bg-gray-50 sm:w-[calc(50%-1rem)]">
+                    <span className="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                      <UploadCloud size={18} aria-hidden="true" />
+                    </span>
+                    <Text size="xs" className="!text-sm !text-[#374151]">
                       <span className="font-semibold">Click to upload</span> or
                       drag and drop
                     </Text>
@@ -421,22 +409,22 @@ const ContactPage: React.FC = () => {
                     required
                     className="h-3 w-3 accent-[#4b9f3b]"
                   />
-                  <Text size="xs" className="text-[11px] text-gray-600">
+                  <Text size="xs" className="!text-sm !text-[#374151]">
                     I agree to be contacted regarding my inquiry.
                   </Text>
                 </label>
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-3 pt-8">
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="rounded-sm bg-gray-100 px-4 py-2 font-display text-[10px] font-semibold uppercase tracking-wide text-gray-700 transition hover:bg-gray-200"
+                    className="rounded-sm bg-gray-100 px-4 py-2 font-display text-xs font-semibold uppercase tracking-wide text-gray-700 transition hover:bg-gray-200"
                   >
                     Back
                   </button>
                   <button
                     type="submit"
-                    className="rounded-sm bg-[#65b447] px-4 py-2 font-display text-[10px] font-semibold uppercase tracking-wide text-white transition hover:bg-[#559b3b] focus:outline-none focus:ring-2 focus:ring-[#65b447] focus:ring-offset-2"
+                    className="rounded-sm bg-[#7BC24F] px-4 py-2 font-display text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-[#559b3b] focus:outline-none focus:ring-2 focus:ring-[#65b447] focus:ring-offset-2"
                   >
                     Send Inquiry
                   </button>
@@ -444,6 +432,7 @@ const ContactPage: React.FC = () => {
               </div>
             </form>
             </FadeIn>
+          </div>
           </div>
         </div>
       </section>
@@ -464,7 +453,7 @@ const ContactPage: React.FC = () => {
             >
               ✕
             </button>
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#65b447] text-white">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#7BC24F] text-white">
               ✓
             </div>
             <Heading level={4} className="mb-1 text-base text-gray-900">

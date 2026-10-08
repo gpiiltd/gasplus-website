@@ -1,5 +1,5 @@
 import { containerClass } from "../../utils/constants";
-import { Flame } from "lucide-react";
+import opacedFire from "../../assets/images/opacedfire.png";
 import { Heading, Paragraph, Text } from "../../components/Typography";
 import { FadeIn, StaggerChildren } from "../../components/animations/Animations";
 
@@ -43,16 +43,18 @@ const PRINCIPLES: Principle[] = [
 
 function PrincipleCard({ principle }: { principle: Principle }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-white p-8">
-      <Flame
-        className="pointer-events-none absolute -bottom-4 -right-4 h-32 w-32 text-gray-100"
-        strokeWidth={1.5}
+    <div className="relative min-h-[240px] w-full max-w-[384px] overflow-hidden rounded-lg border border-gray-200 bg-white pt-8 px-4 opacity-100 xl:h-[240px]">
+      <img
+        src={opacedFire}
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-4 -right-4  object-contain"
       />
       <div className="relative">
-        <Heading level={4} className="!text-gray-900">
+        <Heading level={5} className="!leading-tight !text-gray-900">
           {principle.title}
         </Heading>
-        <Text variant="muted" size="base" className="mt-3 block leading-relaxed">
+        <Text variant="muted" size="base" className="mt-3 block !text-lg leading-7">
           {principle.description}
         </Text>
       </div>
@@ -84,7 +86,7 @@ export default function PrinciplesSection() {
         </FadeIn>
 
         <StaggerChildren
-          className="mt-10 grid grid-cols-1 gap-6 pb-10 sm:grid-cols-2 sm:pb-14 lg:grid-cols-3"
+          className="mt-10 grid grid-cols-[minmax(0,384px)] gap-6 pb-10 sm:grid-cols-[repeat(2,minmax(0,384px))] sm:pb-14 xl:grid-cols-[repeat(3,minmax(0,384px))]"
           staggerDelay={100}
           baseDelay={200}
           direction="up"

@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { containerClass } from "../../utils/constants";
-import { useInView } from "../../components/animations/useInView";
+import { useEffect, useRef } from "react";
 import { Heading } from "../../components/Typography";
 
 const trustText =
@@ -8,60 +7,45 @@ const trustText =
 const words = trustText.split(" ");
 
 export default function TrustSection() {
-  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.15 });
-  const measureRef = useRef<HTMLSpanElement>(null);
-  const [lines, setLines] = useState<string[]>([]);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const element = measureRef.current;
-    if (!element) return;
-
-    let frame = 0;
-    let disposed = false;
-    const measure = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        if (disposed) return;
-        const nextLines: string[] = [];
-        let previousTop = -1;
-        for (const word of element.querySelectorAll<HTMLSpanElement>("[data-word]")) {
-          if (word.offsetTop !== previousTop) {
-            nextLines.push(word.textContent ?? "");
-            previousTop = word.offsetTop;
-          } else {
-            nextLines[nextLines.length - 1] += ` ${word.textContent}`;
-          }
-        }
-        setLines((current) =>
-          current.join("\n") === nextLines.join("\n") ? current : nextLines,
-        );
+    const section = ref.current;
+    if (!section) return;
+    const wordElements = Array.from(section.querySelectorAll<HTMLElement>("[data-trust-word]"));
+    let frame: number | null = null;
+    const update = () => {
+      frame = null;
+      const viewportHeight = document.documentElement.clientHeight;
+      const top = section.getBoundingClientRect().top;
+      const progress = Math.max(0, Math.min(1,
+        (viewportHeight * 0.85 - top) / Math.max(viewportHeight * 0.5, 1),
+      ));
+      wordElements.forEach((word, index) => {
+        word.style.color = progress * words.length > index ? "#9DF666" : "#454545";
       });
     };
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(element);
-    document.fonts.addEventListener("loadingdone", measure);
-    void document.fonts.ready.then(() => {
-      if (!disposed) measure();
-    });
-    measure();
-
+    const schedule = () => {
+      if (frame === null) frame = requestAnimationFrame(update);
+    };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(section);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    schedule();
     return () => {
-      disposed = true;
-      cancelAnimationFrame(frame);
       observer.disconnect();
-      document.fonts.removeEventListener("loadingdone", measure);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      if (frame !== null) cancelAnimationFrame(frame);
     };
   }, []);
 
   return (
-    <section ref={ref} className="w-full bg-gray-950 py-10">
+    <section ref={ref} className="w-full bg-gray-950 py-16">
       <div className={`${containerClass} max-sm:!pr-2`}>
         <p
-          className={`text-xs font-semibold uppercase tracking-widest transition-opacity duration-700 ease-out ${
-            inView ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-          }`}
-          style={{ color: "#E5E5E5" }}
+          className="text-xs font-semibold uppercase tracking-widest text-[#E5E5E5]"
         >
           Trusted by operators across Nigeria
         </p>
@@ -69,38 +53,20 @@ export default function TrustSection() {
         <div className="mt-4 w-full">
           <Heading
             level={2}
-            className="relative w-full break-normal !text-2xl font-extrabold leading-snug sm:!text-3xl lg:!text-4xl"
+            className="w-full break-normal !text-2xl font-extrabold leading-snug sm:!text-3xl lg:!text-4xl"
           >
             <span className="sr-only">{trustText}</span>
-            {/* Measure actual wrapping with the same width and typography. */}
-            <span
-              ref={measureRef}
-              aria-hidden="true"
-              className="invisible pointer-events-none absolute inset-x-0 top-0 block"
-            >
+            <span aria-hidden="true">
               {words.map((word, index) => (
                 <span key={index}>
-                  <span data-word className="inline-block whitespace-nowrap">{word}</span>
-                  {index < words.length - 1 ? " " : null}
-                </span>
-              ))}
-            </span>
-
-            <span aria-hidden="true" className="block text-[#9DF666]">
-              {(lines.length ? lines : [trustText]).map((line, index) => (
-                <span key={index} className="block overflow-hidden">
                   <span
-                    className="block motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:!transition-none"
-                    style={{
-                      transform: inView && lines.length ? "translateY(0)" : "translateY(110%)",
-                      opacity: inView && lines.length ? 1 : 0,
-                      transition:
-                        "transform 850ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms ease-out",
-                      transitionDelay: `${500 + index * 250}ms`,
-                    }}
+                    data-trust-word
+                    className="transition-colors duration-200 ease-out motion-reduce:!text-[#9DF666] motion-reduce:!transition-none"
+                    style={{ color: "#454545" }}
                   >
-                    {line}
+                    {word}
                   </span>
+                  {index < words.length - 1 ? " " : null}
                 </span>
               ))}
             </span>

@@ -1,10 +1,10 @@
+import { useEffect, useRef } from "react";
 import { containerClass } from "../utils/constants";
-import { useEffect, useRef, useState } from "react";
 import { useInView } from "../components/animations/useInView";
-import WCU1 from "../assets/images/wcu1.svg";
-import WCU2 from "../assets/images/wcu2.png";
-import WCU3 from "../assets/images/wcu3.png";
-import WCU4 from "../assets/images/wcu4.png";
+import WCU1 from "../assets/images/woman.png";
+import WCU2 from "../assets/images/city.png";
+import WCU3 from "../assets/images/men.png";
+import WCU4 from "../assets/images/frame.png";
 
 import { Heading, Paragraph } from "../components/Typography";
 
@@ -41,135 +41,148 @@ const FEATURES: Feature[] = [
   },
 ];
 
-/** Keep one feature visible in a shared, compact sticky stage. */
-function useActiveFeature(count: number) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+const featureGrid =
+  "grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-[480px_minmax(0,1fr)_480px]";
+
+// Tune this: 0.6 = image travels 60% of the frame height during the pass
+const IMAGE_PARALLAX = 0.25;
+function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
+  const textOnRight = index % 2 === 1;
+  const cardRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    const card = cardRef.current;
+    const image = imageRef.current;
+    if (!card || !image) return;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     let frame: number | null = null;
-    let trackTop = 0;
-    let stickyTop = 60;
-    let step = 1;
-    let currentIndex = -1;
-
-    const updateActive = () => {
+    const update = () => {
       frame = null;
-      const distance = Math.max(0, window.scrollY + stickyTop - trackTop);
-      const nextIndex = Math.min(count - 1, Math.floor(distance / step));
-      if (nextIndex !== currentIndex) {
-        currentIndex = nextIndex;
-        setActiveIndex(nextIndex);
-      }
+      const viewportHeight = document.documentElement.clientHeight;
+      const cardRect = card.getBoundingClientRect();
+      const imageRect = image.parentElement!.getBoundingClientRect();
+      const headerHeight =
+        Number.parseFloat(
+          getComputedStyle(card).getPropertyValue("--why-header-height"),
+        ) || 0;
+      const visibleTop = 60 + headerHeight;
+
+      // 0 when the frame's top touches the bottom of the viewport,
+      // 1 when its bottom reaches the top of the visible area.
+      const cropProgress = Math.max(
+        0,
+        Math.min(
+          1,
+          (viewportHeight - imageRect.top) /
+            Math.max(viewportHeight + imageRect.height - visibleTop, 1),
+        ),
+      );
+
+      // Image is taller than its frame by IMAGE_PARALLAX × frame height.
+      // It starts shifted up (showing its lower part) and slides down to 0
+      // (showing its top), so it moves slower than the page.
+      const crop = reduceMotion ? 0 : imageRect.height * IMAGE_PARALLAX;
+      image.style.transform = `translate3d(0, ${-crop * (1 - cropProgress)}px, 0)`;
+
+      // --- text logic unchanged ---
+      const textDistance = Math.max(
+        1,
+        Math.min(cardRect.height * 0.6, viewportHeight * 0.4),
+      );
+      const textEnter = Math.max(
+        0,
+        Math.min(1, (viewportHeight * 0.95 - cardRect.top) / textDistance),
+      );
+      const textExit = Math.max(
+        0,
+        Math.min(
+          1,
+          (visibleTop + textDistance - cardRect.bottom) / textDistance,
+        ),
+      );
+      card.style.setProperty(
+        "--text-opacity",
+        String(textEnter * (1 - textExit)),
+      );
+      const entryDirection = index === 0 ? -1 : 1;
+      card.style.setProperty(
+        "--text-offset",
+        `${(entryDirection * (1 - textEnter) - textExit) * 100}%`,
+      );
     };
     const schedule = () => {
-      if (frame === null) frame = requestAnimationFrame(updateActive);
+      if (frame === null) frame = requestAnimationFrame(update);
     };
-    const measure = () => {
-      const track = trackRef.current;
-      const stage = stageRef.current;
-      if (!track || !stage) return;
-      const rect = track.getBoundingClientRect();
-      trackTop = rect.top + window.scrollY;
-      // The spacer uses svh, which stays stable as mobile browser bars move.
-      step = Math.max((rect.height - stage.offsetHeight) / count, 1);
-      const viewportHeight = step;
-      const availableHeight = viewportHeight - 60;
-      // Let tall cards scroll far enough to expose their text on short screens.
-      stickyTop = stage.offsetHeight > availableHeight
-        ? viewportHeight - stage.offsetHeight - 12
-        : Math.max(60, (viewportHeight - stage.offsetHeight) / 2);
-      stage.style.top = `${stickyTop}px`;
-      schedule();
-    };
-
-    // Cache layout measurements; scrolling only updates when the feature changes.
-    const observer = new ResizeObserver(measure);
-    if (trackRef.current) observer.observe(trackRef.current);
-    if (stageRef.current) observer.observe(stageRef.current);
-    observer.observe(document.body);
-    measure();
+    const observer = new ResizeObserver(schedule);
+    observer.observe(card);
+    observer.observe(image);
+    image.addEventListener("load", schedule);
     window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", measure);
+    window.addEventListener("resize", schedule);
+    schedule();
     return () => {
       observer.disconnect();
-      if (frame !== null) cancelAnimationFrame(frame);
+      image.removeEventListener("load", schedule);
       window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("resize", schedule);
+      if (frame !== null) cancelAnimationFrame(frame);
     };
-  }, [count]);
+  }, [index]);
 
-  return { trackRef, stageRef, activeIndex };
-}
-
-function FeatureCard({
-  feature,
-  index,
-  active,
-}: {
-  feature: Feature;
-  index: number;
-  active: boolean;
-}) {
-  const textOnRight = index % 2 === 1;
   return (
     <div
-      aria-hidden={!active}
-      className={`col-start-1 row-start-1 flex min-w-0 bg-[#e9f3e2] transition-opacity duration-500 ease-out motion-reduce:transition-none ${
-        active ? "z-10 opacity-100" : "pointer-events-none opacity-0"
-      }`}
+      ref={cardRef}
+      className="relative isolate overflow-hidden border-b border-[#B2B2B2]"
     >
-      <div className="flex w-full flex-col justify-center overflow-hidden py-3 border-b border-green-900/10 bg-[#e9f3e2]">
+      <div className={`${containerClass} ${featureGrid} lg:min-h-[480px]`}>
         <div
-          className={`${containerClass} grid grid-cols-1 items-center gap-4 lg:gap-10 ${
-            textOnRight
-              ? "lg:grid-cols-[0.45fr_1.9fr_0.8fr]"
-              : "lg:grid-cols-[0.8fr_1.9fr_0.45fr]"
+          className={`min-w-0 flex items-center overflow-hidden py-6 lg:py-0 lg:row-start-1 ${
+            textOnRight ? "lg:col-start-3 lg:pl-8" : "lg:col-start-1 lg:pr-8"
           }`}
         >
-          {/* TEXT — LEFT / RIGHT */}
           <div
-            className={
-              textOnRight
-                ? "min-w-0 row-start-2 lg:col-start-3 lg:row-start-1 motion-reduce:!transform-none motion-reduce:!transition-none"
-                : "min-w-0 row-start-2 lg:col-start-1 lg:row-start-1 motion-reduce:!transform-none motion-reduce:!transition-none"
-            }
+            className="motion-reduce:!transform-none motion-reduce:!opacity-100"
             style={{
-              transition: "transform 500ms cubic-bezier(0.22, 1, 0.36, 1)",
-              transform: active ? "translateY(0)" : "translateY(16px)",
+              transform: "translateY(var(--text-offset, 100%))",
+              opacity: "var(--text-opacity, 0)",
             }}
           >
             <Heading
               level={3}
-              className="!text-xl font-extrabold leading-snug !text-green-700 sm:!text-2xl lg:!text-3xl"
+              className="!text-xl font-extrabold leading-snug !text-[#45712B] sm:!text-2xl lg:!text-3xl"
             >
               {feature.title}
             </Heading>
-
-            <Paragraph className="mt-3 max-w-none !text-gray-700 lg:mt-4 lg:max-w-md">
+            <Paragraph className="mt-4 !text-gray-700">
               {feature.description}
             </Paragraph>
           </div>
-
-          {/* IMAGE — Always Cent */}
-          <div className="min-w-0 row-start-1 lg:col-start-2">
-            <div
-              className="overflow-hidden shadow-sm motion-reduce:!transform-none motion-reduce:!transition-none"
-              style={{
-                transition: "transform 500ms cubic-bezier(0.22, 1, 0.36, 1)",
-                transform: active ? "translateY(0)" : "translateY(16px)",
-              }}
-            >
-              <img
-                src={feature.image}
-                alt={feature.title}
-                className="h-[clamp(140px,25svh,240px)] w-full object-cover sm:h-[280px] lg:h-[360px]"
-              />
-            </div>
-          </div>
+        </div>
+        <div className="relative h-72 overflow-hidden sm:h-80 lg:col-start-2 lg:row-start-1 lg:h-auto lg:min-h-[480px]">
+          <img
+            ref={imageRef}
+            src={feature.image}
+            alt={feature.title}
+            loading="lazy"
+            decoding="async"
+            // 160% = 100% + IMAGE_PARALLAX (keep these two in sync)
+            className="absolute inset-x-0 top-0 block h-[125%] w-full object-cover object-center will-change-transform motion-reduce:h-full motion-reduce:!transform-none"
+          />
         </div>
       </div>
+    </div>
+  );
+}
+
+function FeatureRows() {
+  return (
+    <div>
+      {FEATURES.map((feature, index) => (
+        <FeatureCard key={feature.title} feature={feature} index={index} />
+      ))}
     </div>
   );
 }
@@ -178,48 +191,53 @@ export default function WhyChooseUs() {
   const [headerRef, headerInView] = useInView<HTMLDivElement>({
     threshold: 0.1,
   });
+  const stickyHeaderRef = useRef<HTMLDivElement>(null);
 
-  const { trackRef, stageRef, activeIndex } = useActiveFeature(FEATURES.length);
+  useEffect(() => {
+    const header = stickyHeaderRef.current;
+    const section = header?.parentElement;
+    if (!header || !section) return;
+    const measure = () => {
+      section.style.setProperty(
+        "--why-header-height",
+        `${header.offsetHeight}px`,
+      );
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(header);
+    measure();
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="bg-[#e9f3e2]">
-      <div ref={trackRef} className="relative">
-        <div ref={stageRef} className="sticky top-[60px] bg-[#e9f3e2]">
-      <div className={containerClass}>
-        <div
-          ref={headerRef}
-          className={`pt-3 lg:pt-18 pb-4 transition-all duration-300 ease-out sm:pb-6 ${
-            headerInView
-              ? "translate-y-0 opacity-100"
-              : "translate-y-6 opacity-0"
-          }`}
-        >
-          <Heading
-            level={2}
-            className="!text-2xl font-extrabold !text-gray-900 sm:!text-3xl lg:!text-4xl"
+    <section className="relative border-t-2 border-[#45712B]/30 bg-[#e9f3e2]">
+      <div
+        ref={stickyHeaderRef}
+        className="sticky top-[60px] z-20 bg-[#e9f3e2]"
+      >
+        <div className={containerClass}>
+          <div
+            ref={headerRef}
+            className={`py-6 lg:py-8 transition-[opacity,transform] duration-700 ease-out motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:transition-none ${
+              headerInView
+                ? "translate-y-0 opacity-100"
+                : "translate-y-6 opacity-0"
+            }`}
           >
-            Why industries choose Gasplus
-          </Heading>
-          <Paragraph className="mt-4 max-w-xl !text-gray-700">
-            We combine technical depth with responsive service to deliver energy
-            infrastructure that performs when it matters most.
-          </Paragraph>
+            <Heading
+              level={2}
+              className="!text-2xl font-extrabold !text-[#45712B] sm:!text-3xl lg:!text-4xl"
+            >
+              Why industries choose Gasplus
+            </Heading>
+            <Paragraph className="mt-4 max-w-xl !text-gray-700">
+              We combine technical depth with responsive service to deliver
+              energy infrastructure that performs when it matters most.
+            </Paragraph>
+          </div>
         </div>
       </div>
-
-      <div className="grid">
-        {FEATURES.map((feature, i) => (
-          <FeatureCard
-            key={feature.title}
-            feature={feature}
-            index={i}
-            active={activeIndex === i}
-          />
-        ))}
-        </div>
-        </div>
-        <div aria-hidden="true" style={{ height: `${FEATURES.length * 100}svh` }} />
-      </div>
+      <FeatureRows />
     </section>
   );
 }

@@ -15,11 +15,9 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [menuHasPlayed, setMenuHasPlayed] = useState(false);
 
   const closeMenu = () => {
     setIsOpen(false);
-    setMenuHasPlayed(true);
   };
   const { pathname } = useLocation();
 
@@ -34,7 +32,7 @@ export default function Navbar() {
    <header className="fixed inset-x-0 top-0 z-50 w-full bg-white z-40">
   <nav className={`${containerClass} flex h-[60px] items-center justify-between`}>
     {/* Logo */}
-    <Link to="/" className="flex items-center">
+    <Link to="/" className="flex h-full shrink-0 items-center">
       <img src={LOGO} alt="Gasplus Logo" width="90" height="18" />
     </Link>
 
@@ -64,7 +62,7 @@ export default function Navbar() {
     <button
       type="button"
       onClick={() => isOpen ? closeMenu() : setIsOpen(true)}
-      className="inline-flex items-center justify-center rounded-md p-1.5 text-gray-800 hover:text-green-600 md:hidden"
+      className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-md text-gray-800 hover:text-green-600 md:hidden"
       aria-label={isOpen ? "Close menu" : "Open menu"}
       aria-expanded={isOpen}
       aria-controls="mobile-menu"
@@ -82,7 +80,7 @@ export default function Navbar() {
       {NAV_LINKS.map((link, i) => (
         <li
           key={link.href}
-          className={menuHasPlayed ? "opacity-100" : "animate-slide-in-left opacity-0"}
+          className="animate-slide-in-left opacity-0 motion-reduce:animate-none motion-reduce:opacity-100"
           style={{ animationDelay: `${i * 90}ms` }}
         >
           <Link

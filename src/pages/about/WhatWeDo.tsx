@@ -1,5 +1,5 @@
 import { containerClass } from "../../utils/constants";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { ChevronDown } from "lucide-react";
 import { Heading, Paragraph, Text} from "../../components/Typography";
 import { FadeIn, StaggerChildren } from "../../components/animations/Animations";
@@ -67,6 +67,17 @@ const SERVICE_ITEMS: ServiceItem[] = [
   },
 ];
 
+function subscribeToColumns(onChange: () => void) {
+  const queries = [window.matchMedia("(min-width: 640px)"), window.matchMedia("(min-width: 1024px)")];
+  queries.forEach((query) => query.addEventListener("change", onChange));
+  return () => queries.forEach((query) => query.removeEventListener("change", onChange));
+}
+
+function getColumnCount() {
+  return window.matchMedia("(min-width: 1024px)").matches ? 3
+    : window.matchMedia("(min-width: 640px)").matches ? 2 : 1;
+}
+
 function ServiceAccordionItem({
   item,
   isOpen,
@@ -78,7 +89,7 @@ function ServiceAccordionItem({
 }) {
   return (
     <div
-      className={`self-start rounded-2xl p-6 transition-colors duration-300 ${
+      className={`w-full cursor-pointer rounded-2xl p-6 transition-colors duration-600 ease-in-out hover:bg-[#E5F3DC] focus-within:bg-[#CAE7B9] motion-reduce:transition-none ${
         isOpen ? "bg-[#CAE7B9]" : "bg-gray-100"
       }`}
     >
@@ -93,26 +104,26 @@ function ServiceAccordionItem({
             {item.number}
           </Text>
 
-          <Heading level={5} className="!text-gray-900">
+          <Heading level={6} className="!text-gray-900 font-semibold">
             {item.title}
           </Heading>
         </div>
 
         <ChevronDown
-          className={`mt-1 h-5 w-5 shrink-0 text-gray-500 transition-transform duration-300 ${
+          className={`mt-1 h-5 w-5 shrink-0 text-gray-500 transition-transform duration-600 ease-in-out motion-reduce:transition-none ${
             isOpen ? "rotate-180" : ""
           }`}
         />
       </button>
 
       <div
-        className={`grid transition-all duration-300 ease-out ${
+        className={`grid transition-[grid-template-rows,opacity,margin-top] duration-600 ease-in-out motion-reduce:transition-none ${
           isOpen
             ? "mt-4 grid-rows-[1fr] opacity-100"
             : "grid-rows-[0fr] opacity-0"
         }`}
       >
-        <div className="overflow-hidden">
+        <div className="min-h-0 overflow-hidden">
           <Text variant="muted" size="base" className="block leading-relaxed">
             {item.description}
           </Text>
@@ -124,41 +135,42 @@ function ServiceAccordionItem({
 
 export default function WhatWeDoSection() {
   const [openNumber, setOpenNumber] = useState<string | null>(null);
+  const columnCount = useSyncExternalStore(subscribeToColumns, getColumnCount, () => 1);
 
   return (
     <section className="bg-white py-16 sm:py-24">
       <div className={containerClass}>
         <FadeIn direction="up" delay={100}>
           <Heading level={2} className="!text-gray-900">
-            What we do at Gasplus
+            How we provide value at Gasplus
           </Heading>
         </FadeIn>
 
         <FadeIn direction="up" delay={250}>
-          <Paragraph className="mt-4 max-w-2xl">
-            With a commitment to sustainability, innovation, and excellence, we
-            empower our clients to meet their energy needs efficiently and
-            responsibly.
+          <Paragraph className="mt-4 max-w-2xl font-base !text-gray-700">
+            With a commitment to sustainability, innovation, and excellence, we empower our clients to meet their energy needs efficiently and responsibly.
           </Paragraph>
         </FadeIn>
 
         <StaggerChildren
-          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-10 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3 cursor-pointer"
           staggerDelay={100}
           baseDelay={200}
           direction="up"
         >
-          {SERVICE_ITEMS.map((item) => (
-            <ServiceAccordionItem
-              key={item.number}
-              item={item}
-              isOpen={openNumber === item.number}
-              onToggle={() =>
-                setOpenNumber((current) =>
-                  current === item.number ? null : item.number
-                )
-              }
-            />
+          {Array.from({ length: columnCount }, (_, columnIndex) => (
+            <div key={columnIndex} className="flex min-w-0 flex-col gap-4 cursor-pointer">
+              {SERVICE_ITEMS.filter((_, index) => index % columnCount === columnIndex).map((item) => (
+                <ServiceAccordionItem
+                  key={item.number}
+                  item={item}
+                  isOpen={openNumber === item.number}
+                  onToggle={() =>
+                    setOpenNumber((current) => current === item.number ? null : item.number)
+                  }
+                />
+              ))}
+            </div>
           ))}
         </StaggerChildren>
       </div>

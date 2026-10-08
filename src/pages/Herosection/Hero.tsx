@@ -37,7 +37,7 @@ export default function Hero() {
             <FadeIn direction="up" delay={100} threshold={0}>
               <Heading
                 level={1}
-                className="!text-5xl font-extrabold leading-[1.1] !text-white sm:!text-6xl"
+                className="!text-4xl font-extrabold leading-[1.1] !text-white sm:!text-5xl"
               >
                 Dependable power and gas solutions for your operations
               </Heading>
