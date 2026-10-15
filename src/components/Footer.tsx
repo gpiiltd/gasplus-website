@@ -79,7 +79,12 @@ export default function Footer() {
 
           <div className="text-sm text-gray-700 sm:pt-24">
             <p className="font-semibold text-gray-900">Contact:</p>
-            <p className="mt-1">+234 813 428 8922</p>
+            <a
+              href="tel:+2348134288922"
+              className="mt-1 block w-fit underline underline-offset-2"
+            >
+              +234 813 428 8922
+            </a>
             <div className="flex flex-col items-start gap-2">
             <a href="mailto:info@gasplus.ng" className="underline underline-offset-2">
               info@gasplus.ng
