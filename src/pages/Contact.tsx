@@ -69,7 +69,7 @@ const ContactPage: React.FC = () => {
   const [submitError, setSubmitError] = useState("");
   const [step, setStep] = useState<1 | 2>(1);
   const [formData, setFormData] = useState<FormData>(initialForm);
-  const [submitted, setSubmitted] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
