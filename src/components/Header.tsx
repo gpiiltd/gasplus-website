@@ -9,9 +9,10 @@ import routeNames from "../routes/routes";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About Us", href: routeNames.about },
-  { label: "Our Teams", href: "https://ceslintlgroup.com/about-us/board/" },
+  { label: "Our Teams", href: routeNames.about, hash: "#team" },
   { label: "Contact Us", href: routeNames.contact },
 ];
+const toPath = (href: string) => (href.startsWith("/") ? href : `/${href}`);
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,88 +20,91 @@ export default function Navbar() {
   const closeMenu = () => {
     setIsOpen(false);
   };
-  const { pathname } = useLocation();
+  const { pathname, hash: currentHash } = useLocation();
 
-  const isActive = (href: string) => {
+  const isActive = (href: string, hash?: string) => {
     if (href === "/") return pathname === "/";
 
-    const routePath = href.startsWith("/") ? href : `/${href}`;
-    return pathname === routePath || pathname.startsWith(`${routePath}/`);
+    const routePath = toPath(href);
+    const onRoute =
+      pathname === routePath || pathname.startsWith(`${routePath}/`);
+    if (!onRoute) return false;
+
+    // "Our Teams" is active only on #team, "About Us" only when there's no hash
+    return hash ? currentHash === hash : !currentHash;
   };
 
   return (
-   <header className="fixed inset-x-0 top-0 z-50 w-full bg-white z-40">
-  <nav className={`${containerClass} flex h-[60px] items-center justify-between`}>
-    {/* Logo */}
-    <Link to="/" className="flex h-full shrink-0 items-center">
-      <img src={LOGO} alt="Gasplus Logo" width="90" height="18" />
-    </Link>
+    <header className="fixed inset-x-0 top-0 z-50 w-full bg-white z-40">
+      <nav
+        className={`${containerClass} flex h-[60px] items-center justify-between`}
+      >
+        {/* Logo */}
+        <Link to="/" className="flex h-full shrink-0 items-center">
+          <img src={LOGO} alt="Gasplus Logo" width="90" height="18" />
+        </Link>
 
-    {/* Desktop links */}
-    <ul className="hidden items-center text-sm font-medium md:flex">
-      {NAV_LINKS.map((link, i) => (
-        <li key={link.href} className="flex items-center">
-          <Link
-            to={link.href}
-            className={`px-5 transition-colors duration-200 ${
-              isActive(link.href)
-                ? "text-green-600"
-                : "text-gray-800 hover:text-green-600"
-            }`}
-          >
-            {link.label}
-          </Link>
+        {/* Desktop links */}
+        <ul className="hidden items-center text-sm font-medium md:flex">
+          {NAV_LINKS.map((link, i) => (
+            <li key={link.label} className="flex items-center">
+              <Link
+                to={{ pathname: toPath(link.href), hash: link.hash }}
+                className={`px-5 transition-colors duration-200 ${
+                  isActive(link.href, link.hash)
+                    ? "text-green-600"
+                    : "text-gray-800 hover:text-green-600"
+                }`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-          {i < NAV_LINKS.length - 1 && (
-            <span className="h-5 w-px bg-gray-300" />
-          )}
-        </li>
-      ))}
-    </ul>
-
-    {/* Mobile hamburger toggle */}
-    <button
-      type="button"
-      onClick={() => isOpen ? closeMenu() : setIsOpen(true)}
-      className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-md text-gray-800 hover:text-green-600 md:hidden"
-      aria-label={isOpen ? "Close menu" : "Open menu"}
-      aria-expanded={isOpen}
-      aria-controls="mobile-menu"
-    >
-      {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-    </button>
-  </nav>
-
-  {/* Mobile menu panel */}
-  {isOpen && (
-    <ul
-      id="mobile-menu"
-      className="flex flex-col border-t border-gray-200 bg-white site-container py-2 text-sm font-medium md:hidden"
-    >
-      {NAV_LINKS.map((link, i) => (
-        <li
-          key={link.href}
-          className="animate-slide-in-left opacity-0 motion-reduce:animate-none motion-reduce:opacity-100"
-          style={{ animationDelay: `${i * 90}ms` }}
+        {/* Mobile hamburger toggle */}
+        <button
+          type="button"
+          onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
+          className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-md text-gray-800 hover:text-green-600 md:hidden"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
         >
-          <Link
-            to={link.href}
-            onClick={closeMenu}
-            className={`block py-2.5 transition-colors duration-200 ${
-              isActive(link.href)
-                ? "text-green-600"
-                : "text-gray-800 hover:text-green-600"
-            }`}
-          >
-            {link.label}
-          </Link>
-          {i < NAV_LINKS.length - 1 && (
-            <span className="block h-px w-full bg-gray-200" />
-          )}
-        </li>
-      ))}
-    </ul>
-  )}
-</header>
+          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </nav>
+
+      {/* Mobile menu panel */}
+      {isOpen && (
+        <ul
+          id="mobile-menu"
+          className="flex flex-col border-t border-gray-200 bg-white site-container py-2 text-sm font-medium md:hidden"
+        >
+          {NAV_LINKS.map((link, i) => (
+            <li
+              key={link.href}
+              className="animate-slide-in-left opacity-0 motion-reduce:animate-none motion-reduce:opacity-100"
+              style={{ animationDelay: `${i * 90}ms` }}
+            >
+              <Link
+                to={{ pathname: toPath(link.href), hash: link.hash }}
+                onClick={closeMenu}
+                className={`block py-2.5 transition-colors duration-200 ${
+                  isActive(link.href, link.hash)
+                    ? "text-green-600"
+                    : "text-gray-800 hover:text-green-600"
+                }`}
+              >
+                {link.label}
+              </Link>
+              {i < NAV_LINKS.length - 1 && (
+                <span className="block h-px w-full bg-gray-200" />
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </header>
   );
 }

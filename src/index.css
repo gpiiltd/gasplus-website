@@ -100,7 +100,7 @@
   --font-parkinsans: "Parkinsans", sans-serif;
   --font-avenir: "Avenir", "Avenir Next", sans-serif;
   /* colors */
-    --color-primary: #7BC24F;
+    --color-primary: #629B3F;
   --color-secondary: #433e25;
   --color-secondary-light: #f3f1e8;
   --color-primary-light: #e6f2eb;
@@ -182,4 +182,63 @@ h6 {
 
 .animate-hero-title {
   animation: hero-title-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+
+
+
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-spin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+.animated-border {
+  --accent: #7ab342; /* swap for your brand green */
+  position: relative;
+}
+
+/* The ring: gradient clipped to a 1px border only */
+.animated-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; /* border thickness */
+  background: conic-gradient(
+    from var(--border-angle),
+    rgb(122 179 66 / 0.2) 0%,
+    rgb(122 179 66 / 0.2) 55%,
+    var(--accent) 85%,
+    rgb(122 179 66 / 0.2) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  animation: border-spin 3.5s linear infinite;
+  pointer-events: none;
+}
+
+/* Hover: stop spinning, solid green border */
+.animated-border:hover::before {
+  animation: none;
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-border::before {
+    animation: none;
+    background: rgb(122 179 66 / 0.5);
+  }
 }

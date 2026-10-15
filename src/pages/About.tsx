@@ -6,8 +6,26 @@ import MissionSection from "./about/Vission";
 import Principles from "./about/Principles";
 import WhatWeDo from "./about/WhatWeDo";
 import { FadeIn } from "../components/animations/Animations";
+import ExecutivesSection from "../components/Teams";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function About() {
+    const { hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo({ top: 0 });
+      return;
+    }
+    // Small delay so the page has rendered before scrolling
+    const timer = setTimeout(() => {
+      document
+        .getElementById(hash.slice(1))
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [hash]);
   return (
     <div>
       <section className="pt-12 md:pt-0 grid grid-cols-1 bg-[#e9f3e2] sm:grid-cols-2">
@@ -42,6 +60,7 @@ export default function About() {
       <WhatWeDo />
       <MissionSection />
       <Principles />
+      <ExecutivesSection />
     </div>
   );
 }

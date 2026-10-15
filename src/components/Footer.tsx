@@ -16,19 +16,19 @@ export default function Footer() {
       {/* <FadeIn direction="up" delay={0} duration={800} className="pointer-events-none absolute left-6 top-8 h-10 w-10 bg-primary sm:left-10">
         <div className="h-full w-full" />
       </FadeIn> */}
-      <FadeIn direction="up" delay={100} duration={800} className="pointer-events-none absolute left-24 top-24 h-6 w-24 bg-primary-light sm:left-40">
+      <FadeIn direction="up" delay={100} duration={800} className="pointer-events-none absolute left-24 top-24 h-6 w-24 bg-[#6B9B45]/3 sm:left-40">
         <div className="h-full w-full" />
       </FadeIn>
-      <FadeIn direction="up" delay={150} duration={800} className="pointer-events-none absolute left-4 top-40 h-10 w-10 bg-primary-light">
+      <FadeIn direction="up" delay={150} duration={800} className="pointer-events-none absolute left-4 top-40 h-10 w-10 bg-[#6B9B45]/3 ">
         <div className="h-full w-full" />
       </FadeIn>
-      <FadeIn direction="up" delay={200} duration={800} className="pointer-events-none absolute left-1/3 top-6 h-14 w-14 bg-primary-light">
+      <FadeIn direction="up" delay={200} duration={800} className="pointer-events-none absolute left-1/3 top-6 h-14 w-14 bg-[#6B9B45]/3">
         <div className="h-full w-full" />
       </FadeIn>
-      <FadeIn direction="up" delay={250} duration={800} className="pointer-events-none absolute left-1/2 top-40 h-4 w-24 -translate-x-1/2 bg-primary-light">
+      <FadeIn direction="up" delay={250} duration={800} className="pointer-events-none absolute left-1/2 top-40 h-4 w-24 -translate-x-1/2 bg-[#6B9B45]/10">
         <div className="h-full w-full" />
       </FadeIn>
-      <FadeIn direction="up" delay={300} duration={800} className="pointer-events-none absolute right-1/3 top-24 h-4 w-24 bg-primary-light">
+      <FadeIn direction="up" delay={300} duration={800} className="pointer-events-none absolute right-1/3 top-24 h-4 w-24 bg-[#6B9B45]/10">
         <div className="h-full w-full" />
       </FadeIn>
 

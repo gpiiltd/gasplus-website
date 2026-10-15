@@ -50,22 +50,21 @@ export default function Hero() {
                 generation and maintenance.
               </Paragraph>
             </FadeIn>
-
-            {/* Feature checklist card */}
-            <FadeIn direction="up" delay={400} threshold={0}>
-              <div className="mt-8 grid grid-cols-1 divide-y divide-purple-900/10 overflow-hidden rounded-xl bg-[#DCCDDC] backdrop-blur-sm sm:grid-cols-2 sm:divide-x">
-                {FEATURES.map((feature) => (
-                  <div key={feature} className="flex items-start gap-3 p-5">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary">
-                      <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                    </span>
-                    <span className="text-sm font-semibold text-gray-900">
-                      {feature}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </FadeIn>
+{/* Feature cards */}
+<FadeIn direction="up" delay={400} threshold={0}>
+  <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+    {FEATURES.map((feature) => (
+      <div
+        key={feature}
+        className="animated-border group flex items-center rounded-xl bg-black/40 px-6 py-5 backdrop-blur-sm transition-colors duration-300 hover:bg-neutral-900"
+      >
+        <span className="text-base font-normal text-white transition-colors duration-300 group-hover:text-[#7ab342]">
+          {feature}
+        </span>
+      </div>
+    ))}
+  </div>
+</FadeIn>
 
             <FadeIn direction="up" delay={550} threshold={0}>
               <div className="mt-8">
