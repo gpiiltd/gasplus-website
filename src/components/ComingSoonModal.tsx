@@ -68,6 +68,6 @@ export const ComingSoonModal: React.FC = () => {
     </div>
   );
 };
-function useComingSoon(): { open: any; closeModal: any; } {
+function useComingSoon(): { open: boolean; closeModal: () => void; } {
   throw new Error('Function not implemented.');
 }

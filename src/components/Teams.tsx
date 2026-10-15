@@ -3,9 +3,6 @@ import team2 from "../assets/images/team3.png";
 import team3 from "../assets/images/team2.png";
 import team4 from "../assets/images/team1.png";
 import { Heading, Paragraph } from "./Typography";
-import { Button } from "./Button";
-import { ArrowRight } from "lucide-react";
-import routeNames from "../routes/routes";
 import { useNavigate } from "react-router-dom";
 
 type Executive = {
@@ -21,25 +18,25 @@ const EXECUTIVES: Executive[] = [
     name: "Ken Etete",
     role: "Chief Executive Officer",
     image: team1,
-    linkedin: "https://www.linkedin.com/in/",
+    linkedin: "https://www.linkedin.com/in/kenetete/?isSelfProfile=false",
   },
   {
     name: "Dr. Preye Angaye",
     role: "Executive Director, Corporate Strategy and Business Performance",
     image: team2,
-    linkedin: "https://www.linkedin.com/in/",
+    linkedin: "https://www.linkedin.com/in/preye-angaye-phd-acca-b93a11106/",
   },
   {
     name: "Princewill Pamo",
     role: "General Manager Infrastructure and New Business",
     image: team3,
-    linkedin: "https://www.linkedin.com/in/",
+    linkedin: "https://www.linkedin.com/in/princewill-pamo-5b9a22153/",
   },
   {
     name: "Chika Obiesie",
     role: "Head Of Marketing and Business Development",
     image: team4,
-    linkedin: "https://www.linkedin.com/in/",
+    linkedin: "https://www.linkedin.com/in/chika-obiesie-5b09a3374/",
   },
 ];
 
@@ -126,7 +123,7 @@ export default function ExecutivesSection() {
         ))}
       </div>
 
-      <div className="relative mx-auto max-w-[700px] px-4 sm:px-6">
+      <div className="relative mx-auto max-w-[1028px] px-4 sm:px-6">
         <header className="mx-auto max-w-lg text-center">
           <Heading level={3} className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl">
             Meet the executives driving operations at GasPlus
@@ -142,15 +139,6 @@ export default function ExecutivesSection() {
           {EXECUTIVES.map((executive) => (
             <ExecutiveCard key={executive.name} executive={executive} />
           ))}
-        </div>
-
-        <div className="mt-10 flex justify-center">
-            <Button
-              onClick={() => navigate(`/${routeNames.ourTeam}`)}
-              icon={<ArrowRight size={18} />}
-            >
-              Meet the Group Executive Team
-            </Button>
         </div>
       </div>
     </section>

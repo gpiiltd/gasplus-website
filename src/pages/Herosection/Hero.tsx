@@ -1,4 +1,4 @@
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import HERO_IMG from "../../assets/images/hero.png";
 import { Button } from "../../components/Button";
 import { Heading, Paragraph } from "../../components/Typography";
@@ -9,10 +9,13 @@ import { useNavigate } from "react-router-dom";
 import { FadeIn } from "../../components/animations/Animations";
 
 const FEATURES = [
-  "Independent Power Producer (IPP)",
-  "Compressed Natural Gas (CNG)",
-  "Domestic Liquified Natural Gas (DLNG)",
-  "Industrial Gas Generator Maintenance",
+  { label: "Independent Power Producer (IPP)", target: "service-ipp" },
+  { label: "Compressed Natural Gas (CNG)", target: "service-cng" },
+  { label: "Domestic Liquified Natural Gas (DLNG)", target: "service-lng" },
+  {
+    label: "Industrial Gas Generator Maintenance",
+    target: "service-maintenance",
+  },
 ];
 
 export default function Hero() {
@@ -54,14 +57,23 @@ export default function Hero() {
 <FadeIn direction="up" delay={400} threshold={0}>
   <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
     {FEATURES.map((feature) => (
-      <div
-        key={feature}
-        className="animated-border group flex items-center rounded-xl bg-black/40 px-6 py-5 backdrop-blur-sm transition-colors duration-300 hover:bg-neutral-900"
+      <button
+        type="button"
+        key={feature.target}
+        onClick={() => {
+          document.getElementById(feature.target)?.scrollIntoView({
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+              ? "instant"
+              : "smooth",
+            block: "start",
+          });
+        }}
+        className="animated-border group flex cursor-pointer items-center rounded-xl bg-black/40 px-6 py-5 text-left backdrop-blur-sm transition-colors duration-300 hover:bg-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7ab342]"
       >
         <span className="text-base font-normal text-white transition-colors duration-300 group-hover:text-[#7ab342]">
-          {feature}
+          {feature.label}
         </span>
-      </div>
+      </button>
     ))}
   </div>
 </FadeIn>

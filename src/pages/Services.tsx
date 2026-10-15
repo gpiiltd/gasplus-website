@@ -8,6 +8,7 @@ import { Heading, Paragraph } from "../components/Typography";
 import { containerClass } from "../utils/constants";
 
 interface Service {
+  id: string;
   number: string;
   title: string;
   description: string;
@@ -16,29 +17,33 @@ interface Service {
 
 const SERVICES: Service[] = [
   {
+    id: "service-ipp",
     number: "01",
-    title: "Independent Power Producers (IPP)",
+    title: "Independent Power Producer (IPP)",
     description:
       "At GasPlus, we specialize in Independent Power Producer (IPP) captive power generation, providing tailored energy solutions that empower businesses to achieve greater energy independence and operational efficiency. Our IPP services are designed to meet the specific power needs of industrial sectors, ensuring reliable and cost-effective energy supply.",
     image: ippImg,
   },
   {
+    id: "service-lng",
     number: "02",
-    title: "Liquified Natural Gas",
+    title: "Domestic Liquified Natural Gas (DLNG)",
     description:
       "The GasPlus Domestic LNG is designed to bridge the gap between natural gas producers and energy consumers without pipeline access. Our integrated value chain encompasses LNG sourcing, liquefaction, cryogenic transportation, storage, regasification, and end-user supply. This model enables industries, embedded power plants, manufacturing facilities, and commercial customers to benefit from a secure, flexible, and lower-carbon energy solution.",
     image: lngImg,
   },
   {
+    id: "service-cng",
     number: "03",
-    title: "CNG Virtual Pipeline Distribution",
+    title: "Compressed Natural Gas (CNG)",
     description:
       "At GasPlus, our CNG Virtual Pipeline Distribution service provides an efficient and flexible solution for delivering compressed natural gas (CNG) directly from our mother stations to industrial users and AutoGas fleets. This innovative approach eliminates the need for extensive pipeline infrastructure, allowing your business to access clean and cost-effective energy seamlessly.",
     image: cngImg,
   },
   {
+    id: "service-maintenance",
     number: "04",
-    title: "Industrial Gas Generator Maintenance & Technical Support Services",
+    title: "Industrial Gas Generator Maintenance",
     description:
       "At GasPlus, we understand that reliable power generation is crucial for your industrial operations. Our Industrial Gas Generator Maintenance services are designed to ensure your systems operate at peak performance, minimize downtime, and extend the life of your equipment.",
     image: maintenanceImg,
@@ -52,8 +57,9 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
 
   return (
     <div
+      id={service.id}
       ref={ref}
-      className="grid grid-cols-1 items-center justify-between gap-8 py-10 sm:grid-cols-[repeat(2,minmax(0,560px))] sm:gap-12 sm:py-14"
+      className="grid scroll-mt-[60px] grid-cols-1 items-center justify-between gap-8 py-10 sm:grid-cols-[repeat(2,minmax(0,560px))] sm:gap-12 sm:py-14"
     >
       <div
         className={`flex w-full max-w-[560px] flex-col justify-center xl:h-[380px] transition-all duration-700 ease-out ${

@@ -46,7 +46,7 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <ul className="hidden items-center text-sm font-medium md:flex">
-          {NAV_LINKS.map((link, i) => (
+          {NAV_LINKS.map((link) => (
             <li key={link.label} className="flex items-center">
               <Link
                 to={{ pathname: toPath(link.href), hash: link.hash }}
