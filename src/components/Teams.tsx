@@ -3,7 +3,6 @@ import team2 from "../assets/images/team3.png";
 import team3 from "../assets/images/team2.png";
 import team4 from "../assets/images/team1.png";
 import { Heading, Paragraph } from "./Typography";
-import { useNavigate } from "react-router-dom";
 
 type Executive = {
   name: string;
@@ -99,7 +98,6 @@ const SQUARES = [
 ];
 
 export default function ExecutivesSection() {
-      const navigate = useNavigate();
 
   return (
     <section   id="team"
