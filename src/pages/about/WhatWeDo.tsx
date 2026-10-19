@@ -19,48 +19,42 @@ const SERVICE_ITEMS: ServiceItem[] = [
   },
   {
     number: "02",
-    title: "Gas Compression Solutions",
-    description:
-      "Compression systems engineered to move gas efficiently from source to end use, sized to your facility's demand.",
-  },
-  {
-    number: "03",
     title: "LNG Supply and Delivery",
     description:
       "Reliable liquefied natural gas sourcing, transport, and delivery for sites without pipeline access.",
   },
   {
-    number: "04",
+    number: "03",
     title: "Industrial Generator Maintenance",
     description:
       "Scheduled servicing and rapid-response repairs that keep industrial generators running at peak reliability.",
   },
   {
-    number: "05",
+    number: "04",
     title: "Preventive and Corrective Maintenance",
     description:
       "Structured maintenance programs that catch issues early and resolve faults quickly to minimize downtime.",
   },
   {
-    number: "06",
+    number: "05",
     title: "Gas Power Plant Operations",
     description:
       "End-to-end operational support for gas power plants, from daily monitoring to performance optimization.",
   },
   {
-    number: "07",
+    number: "06",
     title: "Engine Overhaul and Technical Diagnostics",
     description:
       "In-depth diagnostics and full engine overhauls that extend equipment lifespan and restore performance.",
   },
   {
-    number: "08",
+    number: "07",
     title: "Energy Infrastructure Development",
     description:
       "Planning and delivery of energy infrastructure projects built for long-term operational reliability.",
   },
   {
-    number: "09",
+    number: "08",
     title: "Gas Supply & Compression Solutions",
     description:
       "Integrated gas supply and compression services designed around your facility's specific throughput needs.",
