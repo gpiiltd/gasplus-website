@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { containerClass } from "../utils/constants";
 import { useInView } from "../components/animations/useInView";
-import WCU1 from "../assets/images/woman.png";
-import WCU2 from "../assets/images/city.png";
-import WCU3 from "../assets/images/men.png";
-import WCU4 from "../assets/images/frame.png";
+import WCU1 from "../assets/images/gasplus-image-5.jpg";
+import WCU2 from "../assets/images/lng-3.jpeg";
+import WCU3 from "../assets/images/gasplus-image-8.jpg";
+import WCU4 from "../assets/images/gasplus-image-3.jpg";
 
 import { Heading, Paragraph } from "../components/Typography";
 
@@ -28,26 +28,21 @@ const FEATURES: Feature[] = [
     image: WCU2,
   },
   {
-    title: "Safety and compliance",
-    description:
-      "Safety is built into every operation. We follow strict health, safety, environmental, and regulatory compliance procedures across all service areas, protecting your people, your assets, and your business.",
-    image: WCU3,
-  },
-  {
     title: "Solutions tailored to your operations",
     description:
       "No two facilities have the same energy requirements. We assess your operational needs and deliver customized power and gas solutions backed by long-term technical support and partnership.",
+    image: WCU3,
+  },
+  {
+    title: "Safety and compliance",
+    description:
+      "Safety is built into every operation. We follow strict health, safety, environmental, and regulatory compliance procedures across all service areas, protecting your people, your assets, and your business.",
     image: WCU4,
   },
 ];
 
-const featureGrid =
-  "grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-[480px_minmax(0,1fr)_480px]";
-
-// Tune this: 0.6 = image travels 60% of the frame height during the pass
-const IMAGE_PARALLAX = 0.25;
-function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
-  const textOnRight = index % 2 === 1;
+const IMAGE_PARALLAX = 0;
+function FeatureCard({ feature }: { feature: Feature }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
@@ -62,7 +57,6 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
     const update = () => {
       frame = null;
       const viewportHeight = document.documentElement.clientHeight;
-      const cardRect = card.getBoundingClientRect();
       const imageRect = image.parentElement!.getBoundingClientRect();
       const headerHeight =
         Number.parseFloat(
@@ -86,32 +80,6 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
       // (showing its top), so it moves slower than the page.
       const crop = reduceMotion ? 0 : imageRect.height * IMAGE_PARALLAX;
       image.style.transform = `translate3d(0, ${-crop * (1 - cropProgress)}px, 0)`;
-
-      // --- text logic unchanged ---
-      const textDistance = Math.max(
-        1,
-        Math.min(cardRect.height * 0.6, viewportHeight * 0.4),
-      );
-      const textEnter = Math.max(
-        0,
-        Math.min(1, (viewportHeight * 0.95 - cardRect.top) / textDistance),
-      );
-      const textExit = Math.max(
-        0,
-        Math.min(
-          1,
-          (visibleTop + textDistance - cardRect.bottom) / textDistance,
-        ),
-      );
-      card.style.setProperty(
-        "--text-opacity",
-        String(textEnter * (1 - textExit)),
-      );
-      const entryDirection = index === 0 ? -1 : 1;
-      card.style.setProperty(
-        "--text-offset",
-        `${(entryDirection * (1 - textEnter) - textExit) * 100}%`,
-      );
     };
     const schedule = () => {
       if (frame === null) frame = requestAnimationFrame(update);
@@ -130,46 +98,35 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
       window.removeEventListener("resize", schedule);
       if (frame !== null) cancelAnimationFrame(frame);
     };
-  }, [index]);
+  }, []);
 
   return (
     <div
       ref={cardRef}
-      className="relative isolate overflow-hidden border-b border-[#B2B2B2]"
+      className="relative isolate min-w-0 flex-1 overflow-hidden rounded-xl md:w-[44%] md:flex-none"
     >
-      <div className={`${containerClass} ${featureGrid} lg:min-h-[480px]`}>
-        <div
-          className={`min-w-0 flex items-center overflow-hidden py-6 lg:py-0 lg:row-start-1 ${
-            textOnRight ? "lg:col-start-3 lg:pl-8" : "lg:col-start-1 lg:pr-8"
-          }`}
-        >
-          <div
-            className="motion-reduce:!transform-none motion-reduce:!opacity-100"
-            style={{
-              transform: "translateY(var(--text-offset, 100%))",
-              opacity: "var(--text-opacity, 0)",
-            }}
-          >
+      <div className="relative min-h-[420px] sm:min-h-[400px] lg:min-h-[420px] ">
+        <div className="absolute inset-x-0 bottom-0 z-10 mx-auto flex lg:h-[37%] min-w-0 items-center bg-white p-4 shadow-lg sm:p-6">
+          <div>
             <Heading
               level={3}
-              className="!text-xl font-extrabold leading-snug !text-[#45712B] sm:!text-2xl lg:!text-3xl"
+              className="leading-snug !text-[#3f761f] sm:!text-[10px] lg:!text-[20px]"
             >
               {feature.title}
             </Heading>
-            <Paragraph className="mt-4 !text-gray-700">
+            <Paragraph className="mt-2 !text-[15px] !text-gray-700">
               {feature.description}
             </Paragraph>
           </div>
         </div>
-        <div className="relative h-72 overflow-hidden sm:h-80 lg:col-start-2 lg:row-start-1 lg:h-auto lg:min-h-[480px]">
+        <div className="absolute inset-0 h-full w-full overflow-hidden">
           <img
             ref={imageRef}
             src={feature.image}
             alt={feature.title}
             loading="lazy"
             decoding="async"
-            // 160% = 100% + IMAGE_PARALLAX (keep these two in sync)
-            className="absolute inset-x-0 top-0 block h-[125%] w-full object-cover object-center will-change-transform motion-reduce:h-full motion-reduce:!transform-none"
+            className="absolute inset-0 block sm:[400px] lg:h-[390px] w-full object-contain object-center will-change-transform motion-reduce:!transform-none"
           />
         </div>
       </div>
@@ -179,9 +136,16 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
 
 function FeatureRows() {
   return (
-    <div>
-      {FEATURES.map((feature, index) => (
-        <FeatureCard key={feature.title} feature={feature} index={index} />
+    <div className={`${containerClass} space-y-12 pb-12 lg:pb-16`}>
+      {[FEATURES.slice(0, 2), FEATURES.slice(2)].map((row, rowIndex) => (
+        <div
+          key={rowIndex}
+          className="flex flex-col gap-8 md:flex-row md:justify-center md:gap-14 lg:gap-30 lg:px-20"
+        >
+          {row.map((feature) => (
+            <FeatureCard key={feature.title} feature={feature} />
+          ))}
+        </div>
       ))}
     </div>
   );
@@ -210,15 +174,12 @@ export default function WhyChooseUs() {
   }, []);
 
   return (
-    <section className="relative border-t-2 border-[#45712B]/30 bg-[#e9f3e2]">
-      <div
-        ref={stickyHeaderRef}
-        className="sticky top-[60px] z-20 bg-[#e9f3e2]"
-      >
+    <section className="relative border-t-2 border-[#45712B]/30 bg-[#dfffe1]">
+      <div ref={stickyHeaderRef} className="bg-[#dfffe1]">
         <div className={containerClass}>
           <div
             ref={headerRef}
-            className={`py-6 lg:py-8 transition-[opacity,transform] duration-700 ease-out motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:transition-none ${
+            className={`py-6 lg:py-8 lg:px-20 transition-[opacity,transform] duration-700 ease-out motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:transition-none ${
               headerInView
                 ? "translate-y-0 opacity-100"
                 : "translate-y-6 opacity-0"
@@ -226,9 +187,9 @@ export default function WhyChooseUs() {
           >
             <Heading
               level={2}
-              className="!text-2xl font-extrabold !text-[#45712B] sm:!text-3xl lg:!text-4xl"
+              className="!text-2xl font-extrabold !text-[#3f761f] sm:!text-3xl lg:!text-4xl"
             >
-              Why industries choose Gasplus
+              Why Industries Choose Gasplus
             </Heading>
             <Paragraph className="mt-4 max-w-xl !text-gray-700">
               We combine technical depth with responsive service to deliver

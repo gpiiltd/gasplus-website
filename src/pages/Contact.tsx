@@ -203,16 +203,41 @@ const ContactPage: React.FC = () => {
           >
             <Heading
               level={1}
-              className="mb-4 !text-3xl !leading-[1.15] !text-white md:!text-[40px]"
+              className="mb-4 !text-[16px] !leading-[1.15] !text-white font-normal"
             >
               Start your journey with us
             </Heading>
+            <Heading
+              level={1}
+              className="mb-4 !text-[30px] !font-extrabold !leading-[1.15] !text-white font-normal"
+            >
+              CONTACT OUR TEAM
+            </Heading>
             <Paragraph
               size="sm"
-              className="!text-base !leading-6 !text-white/90"
+              className="!text-base !font-thin !text-[15px] !leading-6 !text-white/90"
             >
-              Tell us what you’re working on and where you need support. We’ll
-              get back to you with clear next steps.
+              Tell us what you’re working on and where you need support. A member of our team will get back to you.
+            </Paragraph>
+            <Paragraph
+              size="sm"
+              className="!text-base mt-4 !text-[15px] !leading-6 !text-white/90"
+            >
+              You can reach us by email at{" "}
+              <a
+                href="mailto:info@gasolus.ng"
+                className="font-thin text-green-500 underline decoration-current underline-offset-4 transition-colors hover:text-green-200"
+              >
+                info@gasolus.ng
+              </a>{" "}
+              or call us at{" "}
+              <a
+                href="tel:+2348134288922"
+                className="font-thin text-green-500 underline decoration-current underline-offset-4 transition-colors hover:text-green-200"
+              >
+                +234 813 428 8922
+              </a>
+              .
             </Paragraph>
           </FadeIn>
 

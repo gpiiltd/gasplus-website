@@ -39,22 +39,32 @@ const PRINCIPLES: Principle[] = [
     description:
       "We strategically collaborate with top OEMs, EPCs, gas suppliers, and industry stakeholders to deliver dependable, future-ready energy solutions.",
   },
+  {
+    title: "Operational Sustainability",
+    description:
+      "We optimize gas utilization and champion eco-friendly energy solutions that cut costs while fueling sustainable industrial growth.",
+  },
+  {
+    title: "Continuous Growth and Expansion",
+    description:
+      "We're expanding our footprint upgrading infrastructure, and building scalable solutions to meet surging market demands across multiple industries.",
+  },
 ];
 
 function PrincipleCard({ principle }: { principle: Principle }) {
   return (
-    <div className="relative min-h-[240px] w-full max-w-[384px] overflow-hidden rounded-lg border border-gray-200 bg-white pt-8 px-4 opacity-100 xl:h-[240px]">
+    <div className="relative min-h-[180px] w-full max-w-[300px] overflow-hidden rounded-lg border border-gray-200 bg-white px-4 py-5">
       <img
         src={opacedFire}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-4 -right-4  object-contain"
+        className="pointer-events-none absolute -bottom-3 -right-3 h-20 w-20 object-contain"
       />
       <div className="relative">
-        <Heading level={5} className="!leading-tight !text-gray-900">
+        <Heading level={5} className="!text-base !leading-tight !text-black">
           {principle.title}
         </Heading>
-        <Text variant="muted" size="base" className="mt-3 block !text-lg leading-7">
+        <Text variant="muted" size="base" className="mt-2 block !text-[14px] leading-5">
           {principle.description}
         </Text>
       </div>
@@ -64,7 +74,7 @@ function PrincipleCard({ principle }: { principle: Principle }) {
 
 export default function PrinciplesSection() {
   return (
-    <section className="relative overflow-hidden bg-[#16220f] py-16 sm:py-24">
+    <section className="relative lg:px-20 px-10 overflow-hidden bg-[#253919] py-12 sm:py-16">
       {/* Diagonal transition shape, bottom, into the section below */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 h-16 w-full bg-white sm:h-20"
@@ -73,20 +83,24 @@ export default function PrinciplesSection() {
 
       <div className={`${containerClass} relative`}>
         <FadeIn direction="up" delay={100}>
-          <Heading level={2} className="!text-white max-w-2xl">
-            The principles that govern how we operate at Gasplus
+          <Heading
+            level={2}
+            className="!text-xl md:!text-4xl !text-white max-w-2xl"
+          >
+            The principles that govern how we operate at <span className="text-green-500">Gasplus</span> 
           </Heading>
         </FadeIn>
 
         <FadeIn direction="up" delay={250}>
-          <Paragraph className="mt-4 max-w-xl !text-gray-300">
-            Every decision we make is built around one standard: Does this make
-            our client&apos;s operations more efficient?
+          <Paragraph className="mt-4 max-w-xl !text-[15px] !text-white">
+            Every decision we make is built around one standard; 
+            <br />
+            Making all our client&apos;s operations more efficient.
           </Paragraph>
         </FadeIn>
 
         <StaggerChildren
-          className="mt-10 grid grid-cols-[minmax(0,384px)] gap-6 pb-10 sm:grid-cols-[repeat(2,minmax(0,384px))] sm:pb-14 xl:grid-cols-[repeat(3,minmax(0,384px))]"
+          className="mt-8 grid grid-cols-[minmax(0,320px)] gap-4 pb-10 sm:grid-cols-[repeat(2,minmax(0,320px))] sm:pb-14 xl:grid-cols-[repeat(3,minmax(0,320px))]"
           staggerDelay={100}
           baseDelay={200}
           direction="up"

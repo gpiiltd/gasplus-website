@@ -1,11 +1,12 @@
 import visionImg from "../assets/images/Image.png";
+import gasplusBg from "../assets/images/gasplus-lng.jpeg";
 import { Heading, Paragraph } from "../components/Typography";
 import Badge from "./about/Badge";
 import MissionSection from "./about/Vission";
 import Principles from "./about/Principles";
 import WhatWeDo from "./about/WhatWeDo";
+import Executives from "./about/Executives";
 import { FadeIn } from "../components/animations/Animations";
-import ExecutivesSection from "../components/Teams";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -68,35 +69,45 @@ export default function About() {
   }, [hash, key]);
   return (
     <div>
-      <section className="pt-12 md:pt-0 grid grid-cols-1 bg-[#e9f3e2] sm:grid-cols-2">
-        <div className="flex flex-col justify-center gap-6 site-split-copy py-16 sm:py-24 pt-12 md:pt-24">
+      <section className="about-hero" aria-label="About GasPlus">
+        <h1
+          className="about-hero__title"
+          style={{ backgroundImage: `url("${gasplusBg}")` }}
+        >
+          GASPLUS
+        </h1>
+      </section>
+      <section className="flex flex-col lg:mx-20">
+        <div className="site-container flex flex-col gap-5 py-16 sm:py-24">
           <FadeIn direction="up" delay={100}>
             <Badge>Our Mission</Badge>
           </FadeIn>
 
-          <FadeIn direction="up" delay={250}>
-            <Heading level={3} className="!text-[#1A1A1A] leading-wide">
-              We exist to provide gas and power solutions to the businesses that
-              power the African continent
-            </Heading>
-          </FadeIn>
+          <div className="flex flex-col md:flex-row md:items-start md:gap-12 mx-auto gap-5">
+            <FadeIn direction="up" delay={250} className="md:flex-1">
+              <Heading level={3} className="!text-black leading-wide">
+                We exist to provide gas and power solutions to the businesses
+                that power the African continent
+              </Heading>
+            </FadeIn>
 
-          <FadeIn direction="up" delay={400}>
-            <Paragraph className="max-w-lg">
-              We are on a mission to deliver innovative, efficient, and
-              sustainable energy solutions that empower industries, drive
-              productivity, and create long-term value for our clients and
-              stakeholders.
-            </Paragraph>
-          </FadeIn>
+            <FadeIn direction="up" delay={400} className="md:flex-1">
+              <Paragraph className="max-w-lg !text-[15px] !text-black">
+                To deliver innovative, efficient, and
+                sustainable energy solutions that empower industries, drive
+                productivity, and create long-term value for our clients and
+                stakeholders.
+              </Paragraph>
+            </FadeIn>
+          </div>
         </div>
 
-        <FadeIn direction="left" delay={200} className="h-72 sm:h-auto">
-          <div className="h-full w-full">
+        <FadeIn direction="left" delay={200} className="h-72 w-full sm:h-[30rem]">
+          <div className="h-full w-full -mt-15 mx-auto">
             <img
               src={visionImg}
               alt="Power plant cooling towers at sunset"
-              className="h-full w-full object-cover"
+              className="h-[90%] w-full object-cover rounded-lg"
             />
           </div>
         </FadeIn>
@@ -104,9 +115,7 @@ export default function About() {
       <WhatWeDo />
       <MissionSection />
       <Principles />
-      <ExecutivesSection />
+      <Executives />
     </div>
   );
 }
-
-

@@ -8,8 +8,8 @@ import routeNames from "../routes/routes";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: routeNames.about },
-  { label: "Our Teams", href: routeNames.about, hash: "#team" },
+  { label: "About GasPlus", href: routeNames.about },
+  // { label: "Our Teams", href: routeNames.about, hash: "#team" },
   { label: "Contact Us", href: routeNames.contact },
 ];
 const toPath = (href: string) => (href.startsWith("/") ? href : `/${href}`);
@@ -45,13 +45,14 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop links */}
+        {/* , hash: link.hash *this was deleted @ all link. */}
         <ul className="hidden items-center text-sm font-medium md:flex">
           {NAV_LINKS.map((link) => (
-            <li key={link.label} className="flex items-center">
+            <li key={link.label} className="flex items-center border-r-1 border-gray-400">
               <Link
-                to={{ pathname: toPath(link.href), hash: link.hash }}
+                to={{ pathname: toPath(link.href)}}
                 className={`px-5 transition-colors duration-200 ${
-                  isActive(link.href, link.hash)
+                  isActive(link.href)
                     ? "text-green-600"
                     : "text-gray-800 hover:text-green-600"
                 }`}
@@ -88,10 +89,10 @@ export default function Navbar() {
               style={{ animationDelay: `${i * 90}ms` }}
             >
               <Link
-                to={{ pathname: toPath(link.href), hash: link.hash }}
+                to={{ pathname: toPath(link.href)}}
                 onClick={closeMenu}
                 className={`block py-2.5 transition-colors duration-200 ${
-                  isActive(link.href, link.hash)
+                  isActive(link.href)
                     ? "text-green-600"
                     : "text-gray-800 hover:text-green-600"
                 }`}

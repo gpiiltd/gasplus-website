@@ -1,7 +1,5 @@
-import { containerClass } from "../../utils/constants";
-import { useState, useSyncExternalStore } from "react";
-import { ChevronDown } from "lucide-react";
-import { Heading, Paragraph, Text} from "../../components/Typography";
+import { useSyncExternalStore } from "react";
+import { Heading, Paragraph, Text } from "../../components/Typography";
 import { FadeIn, StaggerChildren } from "../../components/animations/Animations";
 
 interface ServiceItem {
@@ -15,49 +13,55 @@ const SERVICE_ITEMS: ServiceItem[] = [
     number: "01",
     title: "IPP Captive Power Generation",
     description:
-      "Tailored captive power solutions that give industrial sites greater energy independence and consistent output.",
+      "We generate reliable power on site, so your operations stay independent and uninterrupted.",
   },
   {
     number: "02",
-    title: "LNG Supply and Delivery",
+    title: "Gas Compression Solutions",
     description:
-      "Reliable liquefied natural gas sourcing, transport, and delivery for sites without pipeline access.",
+      "We provide systems that raise gas pressure for transport and use, to keep it moving efficiently through your system.",
   },
   {
     number: "03",
-    title: "Industrial Generator Maintenance",
+    title: "LNG Supply and Delivery",
     description:
-      "Scheduled servicing and rapid-response repairs that keep industrial generators running at peak reliability.",
+      "We supply and transport liquefied natural gas where you need it, when you need it.",
   },
   {
     number: "04",
-    title: "Preventive and Corrective Maintenance",
+    title: "Industrial Generator Maintenance",
     description:
-      "Structured maintenance programs that catch issues early and resolve faults quickly to minimize downtime.",
+      "We service and repair industrial generators to keep your power running, cut downtime and extend equipment life.",
   },
   {
     number: "05",
-    title: "Gas Power Plant Operations",
+    title: "Preventive and Corrective Maintenance",
     description:
-      "End-to-end operational support for gas power plants, from daily monitoring to performance optimization.",
+      "We carry out scheduled checks on your equipment to stop problems before they start and fix issues quickly when they arise.",
   },
   {
     number: "06",
-    title: "Engine Overhaul and Technical Diagnostics",
+    title: "Gas Power Plant Operations",
     description:
-      "In-depth diagnostics and full engine overhauls that extend equipment lifespan and restore performance.",
+      "We manage and monitor gas power plants, handling everything from fuel use to output to ensure efficient daily performance.",
   },
   {
     number: "07",
-    title: "Energy Infrastructure Development",
+    title: "Engine Overhaul and Technical Diagnostics",
     description:
-      "Planning and delivery of energy infrastructure projects built for long-term operational reliability.",
+      "We inspect, diagnose, and rebuild engines to extend thier lifespan and prevent future breakdowns.",
   },
   {
     number: "08",
+    title: "Energy Infrastructure Development",
+    description:
+      "We design and build the energy systems that power your operations and distribute energy across site.",
+  },
+  {
+    number: "09",
     title: "Gas Supply & Compression Solutions",
     description:
-      "Integrated gas supply and compression services designed around your facility's specific throughput needs.",
+      "We handle both gas delivery and compression, supporting smooth and efficient energy flow across your operations.",
   },
 ];
 
@@ -72,97 +76,53 @@ function getColumnCount() {
     : window.matchMedia("(min-width: 640px)").matches ? 2 : 1;
 }
 
-function ServiceAccordionItem({
-  item,
-  isOpen,
-  onToggle,
-}: {
-  item: ServiceItem;
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
+function ServiceCard({ item }: { item: ServiceItem }) {
   return (
-    <div
-      className={`w-full cursor-pointer rounded-2xl p-6 transition-colors duration-600 ease-in-out hover:bg-[#E5F3DC] focus-within:bg-[#CAE7B9] motion-reduce:transition-none ${
-        isOpen ? "bg-[#CAE7B9]" : "bg-gray-100"
-      }`}
-    >
-      <button
-        type="button"
-        onClick={onToggle}
-        className="flex w-full items-start justify-between gap-4 text-left"
-        aria-expanded={isOpen}
-      >
-        <div className="flex items-start gap-3">
-          <Text variant="muted" size="base" className="font-semibold">
-            {item.number}
-          </Text>
-
-          <Heading level={6} className="!text-gray-900 font-semibold">
-            {item.title}
-          </Heading>
-        </div>
-
-        <ChevronDown
-          className={`mt-1 h-5 w-5 shrink-0 text-gray-500 transition-transform duration-600 ease-in-out motion-reduce:transition-none ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-
-      <div
-        className={`grid transition-[grid-template-rows,opacity,margin-top] duration-600 ease-in-out motion-reduce:transition-none ${
-          isOpen
-            ? "mt-4 grid-rows-[1fr] opacity-100"
-            : "grid-rows-[0fr] opacity-0"
-        }`}
-      >
-        <div className="min-h-0 overflow-hidden">
-          <Text variant="muted" size="base" className="block leading-relaxed">
-            {item.description}
-          </Text>
-        </div>
-      </div>
-    </div>
+    <article className="w-full rounded-lg bg-green-300/50 p-6">
+      <Text variant="muted" size="base" className="block font-semibold">
+        {item.number}
+      </Text>
+      <Heading level={6} className="mt-3 !text-gray-900 font-semibold">
+        {item.title}
+      </Heading>
+      <Text variant="muted" size="base" className="mt-3 block leading-relaxed text-[15px]">
+        {item.description}
+      </Text>
+    </article>
   );
 }
 
 export default function WhatWeDoSection() {
-  const [openNumber, setOpenNumber] = useState<string | null>(null);
   const columnCount = useSyncExternalStore(subscribeToColumns, getColumnCount, () => 1);
 
   return (
-    <section className="bg-white py-16 sm:py-24">
-      <div className={containerClass}>
+    <section className="bg-white pt-8 pb-16 sm:pt-12 sm:pb-24">
+      <div className="lg:mx-30 mx-10">
         <FadeIn direction="up" delay={100}>
-          <Heading level={2} className="!text-gray-900">
-            How we provide value at Gasplus
+          <Heading
+            level={2}
+            className="!text-xl md:!text-2xl lg:!text-3xl [word-spacing:-0.08em] !text-green-800 font-extrabold"
+          >
+            Energy Solutions at Gasplus
           </Heading>
         </FadeIn>
 
         <FadeIn direction="up" delay={250}>
-          <Paragraph className="mt-4 max-w-2xl font-base !text-gray-700">
+          <Paragraph className="mt-4 max-w-2xl font-base !text-black !text-[15px]">
             With a commitment to sustainability, innovation, and excellence, we empower our clients to meet their energy needs efficiently and responsibly.
           </Paragraph>
         </FadeIn>
 
         <StaggerChildren
-          className="mt-10 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3 cursor-pointer"
+          className="mt-10 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3"
           staggerDelay={100}
           baseDelay={200}
           direction="up"
         >
           {Array.from({ length: columnCount }, (_, columnIndex) => (
-            <div key={columnIndex} className="flex min-w-0 flex-col gap-4 cursor-pointer">
+            <div key={columnIndex} className="flex min-w-0 flex-col gap-4">
               {SERVICE_ITEMS.filter((_, index) => index % columnCount === columnIndex).map((item) => (
-                <ServiceAccordionItem
-                  key={item.number}
-                  item={item}
-                  isOpen={openNumber === item.number}
-                  onToggle={() =>
-                    setOpenNumber((current) => current === item.number ? null : item.number)
-                  }
-                />
+                <ServiceCard key={item.number} item={item} />
               ))}
             </div>
           ))}
