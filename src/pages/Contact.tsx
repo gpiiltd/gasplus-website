@@ -217,7 +217,8 @@ const ContactPage: React.FC = () => {
               size="sm"
               className="!text-base !font-thin !text-[15px] !leading-6 !text-white/90"
             >
-              Tell us what you’re working on and where you need support. A member of our team will get back to you.
+              Tell us what you’re working on and where you need support. A
+              member of our team will get back to you.
             </Paragraph>
             <Paragraph
               size="sm"
@@ -616,8 +617,16 @@ const ContactPage: React.FC = () => {
                         aria-busy={sending}
                         className="inline-flex items-center justify-center gap-2 rounded-sm bg-[#7BC24F] px-4 py-2 font-display text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-[#559b3b] focus:outline-none focus:ring-2 focus:ring-[#65b447] focus:ring-offset-2 disabled:cursor-wait disabled:opacity-70"
                       >
-                        {sending && <LoaderCircle size={16} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />}
-                        <span role="status">{sending ? "Sending…" : "Send Inquiry"}</span>
+                        {sending && (
+                          <LoaderCircle
+                            size={16}
+                            className="animate-spin motion-reduce:animate-none"
+                            aria-hidden="true"
+                          />
+                        )}
+                        <span role="status">
+                          {sending ? "Sending…" : "Send Inquiry"}
+                        </span>
                       </button>
                     </div>
                   </div>
