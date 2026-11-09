@@ -20,15 +20,7 @@ const HERO_SLIDES = [
   STORAGE_IMG,
 ];
 
-const FEATURES = [
-  { label: "Independent Power Producer (IPP)", target: "service-ipp" },
-  { label: "Compressed Natural Gas (CNG)", target: "service-cng" },
-  { label: "Domestic Liquified Natural Gas (DLNG)", target: "service-lng" },
-  {
-    label: "Industrial Gas Generator Maintenance",
-    target: "service-maintenance",
-  },
-];
+
 
 export default function Hero() {
   const navigate = useNavigate();
