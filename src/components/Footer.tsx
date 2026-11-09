@@ -1,4 +1,4 @@
-import {ArrowRight } from "lucide-react";
+// import {ArrowRight } from "lucide-react";
 import LOGO from "../assets/images/logo.svg";
 import { Button } from "./Button";
 import { containerClass } from "../utils/constants";
@@ -33,7 +33,7 @@ export default function Footer() {
       </FadeIn>
 
       {/* CTA */}
-      <div className="relative z-10 site-container pb-16 pt-32 text-center sm:pt-40">
+      <div className="relative z-10 site-container !px-6 pb-20 pt-36 text-center sm:!px-10 sm:pb-24 sm:pt-44 lg:!px-12">
         <FadeIn direction="up" delay={100}>
           <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-gray-900 sm:text-4xl">
             Ready to secure a reliable power supply for your operations?
@@ -51,7 +51,7 @@ export default function Footer() {
           <div className="mt-8 flex justify-center gap-4">
             <Button
               onClick={() => navigate(`/${routeNames.contact}`)}
-              icon={<ArrowRight size={18} />}
+              className="px-7"
             >
               Contact Us
             </Button>
@@ -60,7 +60,7 @@ export default function Footer() {
       </div>
 
       {/* Info row */}
-      <div className={`${containerClass} relative z-10 mb-20`}>
+      <div className={`${containerClass} !px-6 relative z-10 mb-20 pb-8 sm:!px-10 lg:!pl-20 lg:!pr-50`}>
         <div className="relative mx-auto flex flex-col gap-8 sm:flex-row sm:gap-24">
           <div>
             <a href="/" className="flex items-center gap-1">
@@ -74,6 +74,13 @@ export default function Footer() {
                 <br />
                 Alabi Street, Lekki Phase 1, Lekki Lagos
               </p>
+              <iframe
+                title="GasPlus office location on Google Maps"
+                src="https://maps.google.com/maps?q=Block%20105%2C%20Ibukun%20House%2C%20No8%2C%20Baderinwa%20Alabi%20Street%2C%20Lekki%20Phase%201%2C%20Lekki%20Lagos&output=embed"
+                className="mt-4 h-35 w-full max-w-sm rounded-md border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
 
@@ -96,7 +103,7 @@ export default function Footer() {
               aria-label="GasPlus Synergy Limited on LinkedIn (opens in a new tab)"
               className="inline-flex shrink-0 items-center rounded transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3B82F6]"
             >
-              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 shrink-0">
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6 shrink-0">
                 <rect width="24" height="24" rx="4" fill="#3B82F6" />
                 <path
                   fill="#fff"
@@ -106,10 +113,44 @@ export default function Footer() {
             </a>
             </div>
           </div>
+
+          <div className="text-sm text-gray-700 sm:ml-16 lg:ml-50 sm:pt-24">
+            <p className="font-semibold text-gray-900">Company</p>
+            <ul className="mt-1 flex flex-col items-start gap-2">
+              <li>
+                <a
+                  href="https://gasplus.ng/about.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-green-700"
+                >
+                  GasPlus Executives
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://gasplus.ng/solutions.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-green-700"
+                >
+                  GasPlus Energy Solution
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:info@gasplus.ng?subject=Careers%20Enquiry"
+                  className="underline underline-offset-2 hover:text-green-700"
+                >
+                  Careers
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="relative mx-auto mt-10 border-t border-gray-200 py-6">
+        <div className="relative mx-auto mt-12 border-t border-gray-200 py-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-sm text-gray-500">
               2026 Gasplus. All right reserved.

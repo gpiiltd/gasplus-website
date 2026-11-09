@@ -2,11 +2,11 @@ import { Text } from "../../components/Typography";
 
 export default function Badge({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex w-fit items-center rounded-full bg-[#5F973C] px-4 py-1.5">
+    <span className="inline-flex w-fit items-center ">
       <Text
         variant="strong"
-        size="xs"
-        className="!text-white uppercase tracking-widest"
+        size="sm"
+        className="!text-green-800 !font-extrabold uppercase tracking-widest"
       >
         {children}
       </Text>

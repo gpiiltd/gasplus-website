@@ -42,7 +42,7 @@ export default function TrustSection() {
   }, []);
 
   return (
-    <section ref={ref} className="w-full bg-gray-950 py-16">
+    <section ref={ref} className="w-full bg-gray-950 py-16 lg:px-10">
       <div className={`${containerClass} max-sm:!pr-2`}>
         <p
           className="text-xs font-semibold uppercase tracking-widest text-[#E5E5E5]"

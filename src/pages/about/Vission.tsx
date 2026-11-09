@@ -5,29 +5,35 @@ import { FadeIn } from "../../components/animations/Animations";
 
 export default function VisionSection() {
   return (
-    <section className="grid grid-cols-1 bg-[#150e1a] sm:grid-cols-2">
-      <div className="flex flex-col justify-center gap-6 site-split-copy py-16 sm:py-24">
-        <FadeIn direction="up" delay={100}>
-          <Badge>Our Vision</Badge>
-        </FadeIn>
+    <section className="flex flex-col bg-[#150e1a]">
+      <div className="site-container pt-16 pb-6 sm:pt-24 sm:pb-8">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
+          <FadeIn direction="up" delay={100}>
+            <Badge>Our Vision</Badge>
+          </FadeIn>
 
-        <FadeIn direction="up" delay={250}>
-          <Heading level={2} className="!text-white">
-            To become a leading provider of reliable gas-powered energy and
-            industrial maintenance solutions across Africa.
-          </Heading>
-        </FadeIn>
+          <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-12">
+            <FadeIn direction="up" delay={250} className="min-w-0 flex-1">
+              <Heading level={3} className="!text-white -mt-3">
+                To become the most trusted name in gas and power infrastructure and industrial maintenance.
+              </Heading>
+            </FadeIn>
 
-        <FadeIn direction="up" delay={400}>
-          <Paragraph className="!text-gray-300 max-w-lg">
-            We want to become the most trusted name in gas and power
-            infrastructure and industrial maintenance
-          </Paragraph>
-        </FadeIn>
+            <FadeIn direction="up" delay={400} className="min-w-0 flex-1">
+              <Paragraph className="!text-gray-300 max-w-lg !text-[16px]">
+                Our vision is to provide reliable gas-powered energy and industrial maintenance solutions to businesses across Africa.
+              </Paragraph>
+            </FadeIn>
+          </div>
+        </div>
       </div>
 
-      <FadeIn direction="right" delay={200} className="h-72 sm:h-auto">
-        <div className="h-full w-full">
+      <FadeIn
+        direction="right"
+        delay={200}
+        className="site-container w-full pb-16 sm:pb-24"
+      >
+        <div className="mx-auto h-64 w-full max-w-5xl overflow-hidden rounded-lg sm:h-96">
           <img
             src={visionImg}
             alt="GasPlus field engineers on an offshore platform"
