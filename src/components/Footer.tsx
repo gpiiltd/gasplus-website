@@ -116,7 +116,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-700">
               <Link to={`/${routeNames.privacy_policy}`} className="underline underline-offset-2">
-                Privacy Policy
+                Privacy policy
               </Link>
               <Link to={`/${routeNames.terms_of_use}`} className="underline underline-offset-2">
                 Terms of Service
