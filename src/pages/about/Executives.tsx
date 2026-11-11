@@ -42,8 +42,14 @@ export default function Executives() {
   return (
     <section
       id="team"
-      className="bg-gradient-to-b from-white to-[#F2F2F2] py-14 lg:py-16"
+      className="relative overflow-hidden bg-gradient-to-b from-white to-[#F2F2F2] pt-14 pb-24 lg:pt-16 lg:pb-28"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 left-0 h-16 w-full bg-white sm:h-20"
+        style={{ clipPath: "polygon(0 0, 40% 0, 60% 100%, 0 100%)" }}
+      />
+
       <div className="mx-auto max-w-[1028px] px-4 sm:px-6">
         <header className="mx-auto max-w-lg text-center">
           <Heading

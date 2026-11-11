@@ -78,7 +78,7 @@ function getColumnCount() {
 
 function ServiceCard({ item }: { item: ServiceItem }) {
   return (
-    <article className="w-full rounded-lg bg-green-300/50 p-6">
+    <article className="w-full rounded-lg bg-slate-300/40 p-6">
       <Text variant="muted" size="base" className="block font-semibold">
         {item.number}
       </Text>
@@ -96,7 +96,7 @@ export default function WhatWeDoSection() {
   const columnCount = useSyncExternalStore(subscribeToColumns, getColumnCount, () => 1);
 
   return (
-    <section className="bg-white pt-8 pb-16 sm:pt-12 sm:pb-24">
+    <section className="bg-white -mt-15 pb-16 sm:pt-12 sm:pb-24">
       <div className="lg:mx-30 mx-10">
         <FadeIn direction="up" delay={100}>
           <Heading

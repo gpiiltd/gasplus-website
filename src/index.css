@@ -135,6 +135,36 @@
   padding-right: var(--site-gutter);
 }
 
+.hero-thumbnail-viewport {
+  width: calc(100vw - max(var(--site-gutter), calc((100vw - 88rem) / 2 + var(--site-gutter))));
+  margin-left: max(var(--site-gutter), calc((100vw - 88rem) / 2 + var(--site-gutter)));
+  overflow-x: auto;
+  padding-top: 0.4rem;
+  scrollbar-width: none;
+}
+
+.hero-thumbnail-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-thumbnail-track {
+  width: 100%;
+  gap: 14px;
+}
+
+.hero-thumbnail {
+  aspect-ratio: 2.2 / 1;
+  box-sizing: border-box;
+  flex: 0 0 calc((100% - 42px) / 4.5);
+}
+
+@media (min-width: 1024px) {
+  .hero-thumbnail-viewport {
+    width: calc(100vw - max(calc(var(--site-gutter) + 2.5rem), calc((100vw - 88rem) / 2 + var(--site-gutter) + 2.5rem)));
+    margin-left: max(calc(var(--site-gutter) + 2.5rem), calc((100vw - 88rem) / 2 + var(--site-gutter) + 2.5rem));
+  }
+}
+
 .about-hero {
   display: grid;
   min-height: 60vh;

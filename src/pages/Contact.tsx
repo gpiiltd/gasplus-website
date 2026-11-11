@@ -24,12 +24,12 @@ interface FormData {
 }
 
 const enquiryOptions = [
-  "EPC (Engineering Procurement Construction)",
+  "IPP (Captive Power Generation)",
   "LNG Supply & Distribution",
   "Gas Compression Solutions",
   "Industrial Gas Generator Maintenance",
-  "Pressure Monitoring",
-  "Energy Solutions & Equipment",
+  "Preventive Maintenance",
+  "Engine Overhaul and Repairs",
   "Technical Consultation",
   "Other",
 ];
@@ -183,9 +183,9 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <main className="min-h-screen pt-[60px]">
+    <main className="min-h-screen pt-[60px] bg-[#1D151D] lg:px-20">
       {/* CONTACT SECTION */}
-      <section className="relative flex min-h-[calc(100svh-60px)] items-center overflow-hidden bg-[#16280A] py-12 md:py-16">
+      <section className="relative flex min-h-[calc(100svh-60px)] items-center overflow-hidden py-12 md:py-16">
         <img
           src={gridPattern}
           alt=""
@@ -194,47 +194,47 @@ const ContactPage: React.FC = () => {
         />
 
         <div
-          className={`${containerClass} relative z-10 grid items-start gap-8 lg:justify-center lg:grid-cols-[330px_minmax(0,760px)] lg:gap-8`}
+          className={`${containerClass} relative z-10 grid items-start gap-8 lg:grid-cols-2 lg:gap-10`}
         >
           <FadeIn
             duration={500}
             distance={16}
-            className="max-w-[330px] text-left motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none"
+            className="w-full min-w-0 text-left motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!transition-none"
           >
             <Heading
               level={1}
-              className="mb-4 !text-[16px] !leading-[1.15] !text-white font-normal"
+              className="lg:w-[400px] mb-4 !text-[16px] !leading-[1.15] !text-white font-normal"
             >
               Start your journey with us
             </Heading>
             <Heading
               level={1}
-              className="mb-4 !text-[30px] !font-extrabold !leading-[1.15] !text-white font-normal"
+              className="lg:w-[400px] mb-4 !text-[30px] !font-extrabold !leading-[1.15] !text-white font-normal"
             >
               CONTACT OUR TEAM
             </Heading>
             <Paragraph
               size="sm"
-              className="!text-base !font-thin !text-[15px] !leading-6 !text-white/90"
+              className="lg:w-[400px] !text-base !font-thin !text-[15px] !leading-6 !text-white/90"
             >
               Tell us what you’re working on and where you need support. A
               member of our team will get back to you.
             </Paragraph>
             <Paragraph
               size="sm"
-              className="!text-base mt-4 !text-[15px] !leading-6 !text-white/90"
+              className="lg:w-[400px] !text-base mt-4 !text-[15px] !leading-6 !text-white/90"
             >
               You can reach us by email at{" "}
               <a
-                href="mailto:info@gasolus.ng"
-                className="font-thin text-green-500 underline decoration-current underline-offset-4 transition-colors hover:text-green-200"
+                href="mailto:info@gasplus.ng"
+                className="font-thin text-[#4b9f3b] underline decoration-current underline-offset-4 transition-colors hover:text-green-200"
               >
-                info@gasolus.ng
+                info@gasplus.ng
               </a>{" "}
               or call us at{" "}
               <a
                 href="tel:+2348134288922"
-                className="font-thin text-green-500 underline decoration-current underline-offset-4 transition-colors hover:text-green-200"
+                className="font-thin text-[#4b9f3b] underline decoration-current underline-offset-4 transition-colors hover:text-green-200"
               >
                 +234 813 428 8922
               </a>
@@ -242,7 +242,7 @@ const ContactPage: React.FC = () => {
             </Paragraph>
           </FadeIn>
 
-          <div className="w-full min-w-0 lg:max-w-[760px]">
+          <div className="w-full min-w-0">
             {/* STEP 1 */}
             <div hidden={step !== 1}>
               <FadeIn
@@ -377,7 +377,7 @@ const ContactPage: React.FC = () => {
                         htmlFor="company"
                         required
                       >
-                        Company / Name
+                        Company Name
                       </Label>
                       <input
                         id="company"
@@ -413,7 +413,7 @@ const ContactPage: React.FC = () => {
 
                     <fieldset className="pt-1">
                       <legend className="mb-3 font-display text-base font-medium text-[#374151]">
-                        Service/Request/What are you interested in?{" "}
+                        Service Required (select all options that apply){" "}
                         <span className="text-red-500">*</span>
                       </legend>
                       <div className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">

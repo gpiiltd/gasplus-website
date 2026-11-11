@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FadeIn } from "./animations/Animations";
 
 
-export default function Footer() {
+export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
   const navigate = useNavigate();
 
   return (
@@ -32,32 +32,33 @@ export default function Footer() {
         <div className="h-full w-full" />
       </FadeIn>
 
-      {/* CTA */}
-      <div className="relative z-10 site-container !px-6 pb-20 pt-36 text-center sm:!px-10 sm:pb-24 sm:pt-44 lg:!px-12">
-        <FadeIn direction="up" delay={100}>
-          <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-gray-900 sm:text-4xl">
-            Ready to secure a reliable power supply for your operations?
-          </h2>
-        </FadeIn>
+      {!hideCta && (
+        <div className="relative z-10 site-container !px-6 pb-20 pt-25 text-center sm:!px-10 sm:pb-24 lg:!px-12">
+          <FadeIn direction="up" delay={100}>
+            <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-gray-900 sm:text-[45px]">
+              Ready to secure a reliable power supply for your operations?
+            </h2>
+          </FadeIn>
 
-        <FadeIn direction="up" delay={250}>
-          <p className="mx-auto mt-4 max-w-xl text-gray-600">
-            Talk to our team about your power and gas requirements. We will assess
-            your needs and propose the right solution for your facility.
-          </p>
-        </FadeIn>
+          <FadeIn direction="up" delay={250}>
+            <p className="mx-auto mt-4 max-w-xl text-gray-600">
+              Talk to our team about your power and gas requirements. We will assess
+              your needs and propose the right solution for your facility.
+            </p>
+          </FadeIn>
 
-        <FadeIn direction="up" delay={400}>
-          <div className="mt-8 flex justify-center gap-4">
-            <Button
-              onClick={() => navigate(`/${routeNames.contact}`)}
-              className="px-7"
-            >
-              Contact Us
-            </Button>
-          </div>
-        </FadeIn>
-      </div>
+          <FadeIn direction="up" delay={400}>
+            <div className="mt-8 flex justify-center gap-4">
+              <Button
+                onClick={() => navigate(`/${routeNames.contact}`)}
+                className="px-7"
+              >
+                Contact Us
+              </Button>
+            </div>
+          </FadeIn>
+        </div>
+      )}
 
       {/* Info row */}
       <div className={`${containerClass} !px-6 relative z-10 mb-20 pb-8 sm:!px-10 lg:!pl-20 lg:!pr-50`}>
