@@ -68,7 +68,7 @@ export default function About() {
     };
   }, [hash, key]);
   return (
-    <div>
+    <div className="bg-slate-100">
       <section className="about-hero" aria-label="About GasPlus">
         <h1
           className="about-hero__title"
@@ -103,11 +103,11 @@ export default function About() {
         </div>
 
         <FadeIn direction="left" delay={200} className="h-72 w-full sm:h-[30rem]">
-          <div className="h-full w-full -mt-15 mx-auto">
+          <div className="h-full lg:w-[calc(100%-4rem)] -mt-15 mx-auto">
             <img
               src={visionImg}
               alt="Power plant cooling towers at sunset"
-              className="h-[90%] w-full object-cover rounded-lg"
+              className="h-[90%] w-full object-cover lg:rounded-lg"
             />
           </div>
         </FadeIn>

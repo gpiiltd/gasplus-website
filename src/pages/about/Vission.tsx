@@ -1,15 +1,14 @@
 import { Heading, Paragraph, } from "../../components/Typography";
-import Badge from "./Badge";
 import visionImg from "../../assets/images/about2.png";
 import { FadeIn } from "../../components/animations/Animations";
 
 export default function VisionSection() {
   return (
-    <section className="flex flex-col bg-[#150e1a]">
-      <div className="site-container pt-16 pb-6 sm:pt-24 sm:pb-8">
+    <section className="flex flex-col bg-[#1D151D]">
+      <div className="site-container !pt-15 pb-6 sm:pt-24 sm:pb-8">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
           <FadeIn direction="up" delay={100}>
-            <Badge>Our Vision</Badge>
+            <h6 className="!text-white text-[14px]">Our Vision</h6>
           </FadeIn>
 
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-12">
@@ -20,7 +19,7 @@ export default function VisionSection() {
             </FadeIn>
 
             <FadeIn direction="up" delay={400} className="min-w-0 flex-1">
-              <Paragraph className="!text-gray-300 max-w-lg !text-[16px]">
+              <Paragraph className="!text-white max-w-lg lg:!text-[16px]">
                 Our vision is to provide reliable gas-powered energy and industrial maintenance solutions to businesses across Africa.
               </Paragraph>
             </FadeIn>
