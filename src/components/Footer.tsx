@@ -35,8 +35,9 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
       {!hideCta && (
         <div className="relative z-10 site-container !px-6 pb-20 pt-25 text-center sm:!px-10 sm:pb-24 lg:!px-12">
           <FadeIn direction="up" delay={100}>
-            <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-gray-900 sm:text-[45px]">
-              Ready to secure a reliable power supply for your operations?
+            <h2 className="mx-auto max-w-5xl !text-4xl font-extrabold leading-tight text-gray-900 sm:text-[45px]">
+              Ready to secure a reliable
+              <br className="hidden sm:block" /> power supply for your operations?
             </h2>
           </FadeIn>
 
@@ -68,17 +69,17 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
               <img src={LOGO} alt="Gasplus Logo" />
             </a>
 
-            <div className="mt-4 text-sm text-gray-700">
+            <div className="mt-4 w-full max-w-[320px] text-sm text-gray-700">
               <p className="font-semibold text-gray-900">Address:</p>
-              <p className="mt-1 underline underline-offset-2">
-                Block 105, Ibukun House, No8, Baderinwa
+              <p className="mt-1 underline underline-offset-2 text-[12px]">
+                Block 105, Ibukun House, No8, Baderinwa Alabi
                 <br />
-                Alabi Street, Lekki Phase 1, Lekki Lagos
+                Street, Lekki Phase 1, Lekki Lagos
               </p>
               <iframe
                 title="GasPlus office location on Google Maps"
                 src="https://maps.google.com/maps?q=Block%20105%2C%20Ibukun%20House%2C%20No8%2C%20Baderinwa%20Alabi%20Street%2C%20Lekki%20Phase%201%2C%20Lekki%20Lagos&output=embed"
-                className="mt-4 h-35 w-full max-w-sm rounded-md border-0"
+                className="mt-4 h-35 w-full rounded-md border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
@@ -89,12 +90,12 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
             <p className="font-semibold text-gray-900">Contact:</p>
             <a
               href="tel:+2348134288922"
-              className="mt-1 block w-fit underline underline-offset-2"
+              className="mt-1 block w-fit underline underline-offset-2 text-[12px]"
             >
               +234 813 428 8922
             </a>
             <div className="flex flex-col items-start gap-2">
-            <a href="mailto:info@gasplus.ng" className="underline underline-offset-2">
+            <a href="mailto:info@gasplus.ng" className="underline underline-offset-2 text-[12px]">
               info@gasplus.ng
             </a>
             <a
@@ -123,7 +124,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
                   href="https://gasplus.ng/about.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline underline-offset-2 hover:text-green-700"
+                  className="underline underline-offset-2 hover:text-green-700 text-[12px]"
                 >
                   GasPlus Executives
                 </a>
@@ -133,7 +134,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
                   href="https://gasplus.ng/solutions.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline underline-offset-2 hover:text-green-700"
+                  className="underline underline-offset-2 hover:text-green-700 text-[12px]"
                 >
                   GasPlus Energy Solution
                 </a>
@@ -141,7 +142,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
               <li>
                 <a
                   href="mailto:info@gasplus.ng?subject=Careers%20Enquiry"
-                  className="underline underline-offset-2 hover:text-green-700"
+                  className="underline underline-offset-2 hover:text-green-700 text-[12px]"
                 >
                   Careers
                 </a>
@@ -153,14 +154,14 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
         {/* Bottom bar */}
         <div className="relative mx-auto mt-12 border-t border-gray-200 py-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 text-[12px]">
               2026 Gasplus. All right reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-700">
-              <Link to={`/${routeNames.privacy_policy}`} className="underline underline-offset-2">
+              <Link to={`/${routeNames.privacy_policy}`} className="underline underline-offset-2 text-[12px]">
                 Privacy Policy
               </Link>
-              <Link to={`/${routeNames.terms_of_use}`} className="underline underline-offset-2">
+              <Link to={`/${routeNames.terms_of_use}`} className="underline underline-offset-2 text-[12px]">
                 Terms of Service
               </Link>
             </div>

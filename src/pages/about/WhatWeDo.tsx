@@ -76,9 +76,9 @@ function getColumnCount() {
     : window.matchMedia("(min-width: 640px)").matches ? 2 : 1;
 }
 
-function ServiceCard({ item }: { item: ServiceItem }) {
+function ServiceCard({ item, featured = false }: { item: ServiceItem; featured?: boolean }) {
   return (
-    <article className="w-full rounded-lg bg-slate-300/40 p-6">
+    <article className={`w-full rounded-lg bg-[#E5F3DC] p-6 ${featured ? "lg:py-7" : ""}`}>
       <Text variant="muted" size="base" className="block font-semibold">
         {item.number}
       </Text>
@@ -97,18 +97,18 @@ export default function WhatWeDoSection() {
 
   return (
     <section className="bg-white -mt-15 pb-16 sm:pt-12 sm:pb-24">
-      <div className="lg:mx-30 mx-10">
+      <div className="lg:mx-20 mx-10">
         <FadeIn direction="up" delay={100}>
           <Heading
             level={2}
-            className="!text-xl md:!text-2xl lg:!text-3xl [word-spacing:-0.08em] !text-green-800 font-extrabold"
+            className="!text-xl md:!text-2xl lg:!text-3xl [word-spacing:-0.08em] !text-[#2D4C1A] font-extrabold"
           >
             Energy Solutions at Gasplus
           </Heading>
         </FadeIn>
 
         <FadeIn direction="up" delay={250}>
-          <Paragraph className="mt-4 max-w-2xl font-base !text-black !text-[15px]">
+          <Paragraph className="mt-4 max-w-2xl font-base !text-[#333333] !text-[15px]">
             With a commitment to sustainability, innovation, and excellence, we empower our clients to meet their energy needs efficiently and responsibly.
           </Paragraph>
         </FadeIn>
@@ -122,7 +122,7 @@ export default function WhatWeDoSection() {
           {Array.from({ length: columnCount }, (_, columnIndex) => (
             <div key={columnIndex} className="flex min-w-0 flex-col gap-4">
               {SERVICE_ITEMS.filter((_, index) => index % columnCount === columnIndex).map((item) => (
-                <ServiceCard key={item.number} item={item} />
+                <ServiceCard key={item.number} item={item} featured={columnIndex === 1} />
               ))}
             </div>
           ))}

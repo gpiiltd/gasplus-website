@@ -86,7 +86,7 @@ export default function Hero() {
               src={image}
               alt=""
               aria-hidden="true"
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
+              className={`absolute inset-0 h-screen w-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
                 index === activeSlide ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -96,13 +96,13 @@ export default function Hero() {
 
         {/* Content */}
         <div
-          className={`relative z-10 ${containerClass} pt-8 pb-16 sm:pt-10 sm:pb-20 lg:pt-16 lg:pb-20`}
+          className={`relative z-10 ${containerClass} pt-8 pb-16 sm:pt-10 sm:pb-20 lg:pt-22 lg:pb-20`}
         >
           <div className="max-w-2xl lg:pl-10">
             <FadeIn direction="up" delay={100} threshold={0}>
               <Heading
                 level={1}
-                className="!text-4xl !font-serif leading-[1.1] !text-white sm:!text-5xl"
+                className="!text-4xl font-semibold !font-serif leading-[1.1] !text-white sm:!text-5xl"
               >
                 Dependable power and gas solutions for your operations
               </Heading>
@@ -115,30 +115,6 @@ export default function Hero() {
                 power generation and maintenance.
               </Paragraph>
             </FadeIn>
-            {/* Feature cards */}
-            {/* <FadeIn direction="up" delay={400} threshold={0}>
-  <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-    {FEATURES.map((feature) => (
-      <button
-        type="button"
-        key={feature.target}
-        onClick={() => {
-          document.getElementById(feature.target)?.scrollIntoView({
-            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-              ? "instant"
-              : "smooth",
-            block: "start",
-          });
-        }}
-        className="animated-border group flex cursor-pointer items-center rounded-xl bg-black/40 px-6 py-5 text-left backdrop-blur-sm transition-colors duration-300 hover:bg-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7ab342]"
-      >
-        <span className="text-base font-normal text-white transition-colors duration-300 group-hover:text-[#7ab342]">
-          {feature.label}
-        </span>
-      </button>
-    ))}
-  </div>
-</FadeIn> */}
 
             <FadeIn direction="up" delay={550} threshold={0}>
               <div className="mt-6">

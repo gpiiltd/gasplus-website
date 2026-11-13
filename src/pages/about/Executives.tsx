@@ -3,6 +3,7 @@ import team2 from "../../assets/images/team3.png";
 import team3 from "../../assets/images/team2.png";
 import team4 from "../../assets/images/team1.png";
 import { Heading, Paragraph } from "../../components/Typography";
+import { containerClass } from "../../utils/constants";
 
 interface Executive {
   name: string;
@@ -50,25 +51,26 @@ export default function Executives() {
         style={{ clipPath: "polygon(0 0, 40% 0, 60% 100%, 0 100%)" }}
       />
 
-      <div className="mx-auto max-w-[1028px] px-4 sm:px-6">
-        <header className="mx-auto max-w-lg text-center">
+      <div className={containerClass}>
+        <header className="mx-auto w-full text-center">
           <Heading
             level={3}
-            className="!text-4xl font-bold leading-tight !text-[#253919] font-extrabold sm:text-3xl"
+            className="!text-4xl font-bold leading-tight !text-[#1A1A1A] font-extrabold sm:text-3xl sm:whitespace-nowrap"
           >
             The Executives driving operations at GasPlus
           </Heading>
-          <Paragraph className="mt-3 !text-[15px] leading-relaxed text-black ">
+          <Paragraph className="mx-auto mt-3 max-w-2xl !text-[15px] leading-relaxed text-[#333333]">
             GasPlus is led by energy leaders with hands-on experience across
+            <br className="hidden sm:block" />
             power generation, gas infrastructure, and industrial operations
             across Africa.
           </Paragraph>
         </header>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-x-5 gap-y-8">
+        <div className="mt-10 flex flex-wrap justify-center gap-x-3 gap-y-8 px-4 sm:px-6 lg:px-8">
           {EXECUTIVES.map((executive) => (
             <article key={executive.name} className="w-full sm:w-[calc(50%-0.625rem)] xl:w-[calc(25%-0.9375rem)]">
-              <div className="aspect-[3/2] w-full overflow-hidden rounded-xl bg-gray-200">
+              <div className="mx-auto aspect-[3/2] w-full max-w-[260px] overflow-hidden rounded-xl bg-gray-200">
                 <img
                   src={executive.image}
                   alt={`Portrait of ${executive.name}`}

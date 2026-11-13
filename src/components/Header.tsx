@@ -35,9 +35,9 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full bg-white z-40">
+    <header className="fixed inset-x-0 top-0 z-50 w-full px-6 bg-white z-40">
       <nav
-        className={`${containerClass} flex h-[60px] items-center justify-between`}
+        className={`${containerClass} flex mx-auto h-[60px] items-center justify-between`}
       >
         {/* Logo */}
         <Link to="/" className="flex h-full shrink-0 items-center">

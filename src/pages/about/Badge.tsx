@@ -6,7 +6,7 @@ export default function Badge({ children }: { children: React.ReactNode }) {
       <Text
         variant="strong"
         size="sm"
-        className="!text-green-800 !font-extrabold uppercase tracking-widest"
+        className="!text-[#5F973C] !font-extrabold uppercase tracking-widest"
       >
         {children}
       </Text>

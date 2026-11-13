@@ -103,23 +103,23 @@ function FeatureCard({ feature }: { feature: Feature }) {
   return (
     <div
       ref={cardRef}
-      className="relative isolate min-w-0 flex-1 overflow-hidden mb-10 rounded-xl md:w-[44%] md:flex-none"
+      className="group relative isolate min-w-0 flex-1 overflow-hidden mb-10 rounded-xl md:w-[45%] md:flex-none"
     >
-      <div className="relative min-h-[420px] sm:min-h-[400px] lg:min-h-[400px] ">
-        <div className="absolute inset-x-0 bottom-0 z-10 mx-auto flex lg:h-[37%] min-w-0 items-center bg-white p-4 shadow-lg sm:p-6">
+      <div className="relative min-h-[420px] sm:min-h-[400px] lg:min-h-[420px] ">
+        <div className="absolute inset-x-0 bottom-0 z-10 px-10 flex lg:h-[35%] w-full items-center bg-white p-4 shadow-lg sm:p-6">
           <div>
             <Heading
               level={3}
-              className="leading-snug !text-[#3f761f] sm:!text-[10px] lg:!text-[20px]"
+              className="leading-snug !text-[#1A1A1A] sm:!text-[10px] lg:!text-[20px]"
             >
               {feature.title}
             </Heading>
-            <Paragraph className="mt-2 !text-[15px] !text-gray-700">
+            <Paragraph className="mt-2 !text-[15px] !text-[#333333]">
               {feature.description}
             </Paragraph>
           </div>
         </div>
-        <div className="absolute inset-0 h-full w-full overflow-hidden">
+        <div className="absolute inset-0 h-full w-full overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none">
           <img
             ref={imageRef}
             src={feature.image}
@@ -179,7 +179,7 @@ export default function WhyChooseUs() {
         <div className={containerClass}>
           <div
             ref={headerRef}
-            className={`py-6 lg:py-8 lg:px-13 transition-[opacity,transform] duration-700 ease-out motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:transition-none ${
+            className={`py-6 lg:py-8 lg:px-10 transition-[opacity,transform] duration-700 ease-out motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:transition-none ${
               headerInView
                 ? "translate-y-0 opacity-100"
                 : "translate-y-6 opacity-0"
@@ -187,7 +187,7 @@ export default function WhyChooseUs() {
           >
             <Heading
               level={2}
-              className="!text-2xl font-extrabold !text-[#274f11] sm:!text-3xl lg:!text-4xl"
+              className="!text-2xl font-extrabold !text-[#2D4C1A] sm:!text-3xl lg:!text-4xl"
             >
               Why Industries Choose Gasplus
             </Heading>
