@@ -96,7 +96,7 @@ export default function WhatWeDoSection() {
   const columnCount = useSyncExternalStore(subscribeToColumns, getColumnCount, () => 1);
 
   return (
-    <section className="bg-white -mt-15 pb-16 sm:pt-12 sm:pb-24">
+    <section id="energy-solutions" className="scroll-mt-[60px] bg-white -mt-15 pb-16 sm:pt-12 sm:pb-24">
       <div className="site-container about-layout-container">
         <FadeIn direction="up" delay={100}>
           <Heading

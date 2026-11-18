@@ -1,10 +1,6 @@
 import { containerClass } from "../../utils/constants";
 import { useEffect, useRef } from "react";
 import { Heading } from "../../components/Typography";
-import gasplusImage8 from "../../assets/images/gasplus-image-8.jpg";
-import gasplusImage5 from "../../assets/images/gasplus-image-5.jpg";
-import gasplusImage3 from "../../assets/images/gasplus-image-3.jpg";
-import lngImage from "../../assets/images/lng-3.jpeg";
 
 const trustText =
   "We partner with manufacturing plants, commercial facilities, estates, and energy infrastructure projects that require stable, uninterrupted power supply.";
@@ -73,47 +69,10 @@ export default function TrustSection() {
                   >
                     {word === "plants," || word === "facilities," || word === "estates," ? word.slice(0, -1) : word}
                   </span>
-                  {word === "plants," ? (
-                    <>
-                      <img
-                        src={gasplusImage8}
-                        alt=""
-                        aria-hidden="true"
-                        className="mx-1 inline-block h-[calc(1em+2px)] w-[calc(1em+2px)] rounded-md object-cover align-middle"
-                      />
-                      <span>,</span>
-                    </>
-                  ) : null}
-                  {word === "facilities," ? (
-                    <>
-                      <img
-                        src={gasplusImage5}
-                        alt=""
-                        aria-hidden="true"
-                        className="mx-1 inline-block h-[calc(1em+2px)] w-[calc(1em+2px)] rounded-md object-cover align-middle"
-                      />
-                      <span>,</span>
-                    </>
-                  ) : null}
-                  {word === "estates," ? (
-                    <>
-                      <img
-                        src={gasplusImage3}
-                        alt=""
-                        aria-hidden="true"
-                        className="mx-1 inline-block h-[calc(1em+2px)] w-[calc(1em+2px)] rounded-md object-cover align-middle"
-                      />
-                      <span>,</span>
-                    </>
-                  ) : null}
-                  {word === "projects" ? (
-                    <img
-                      src={lngImage}
-                      alt=""
-                      aria-hidden="true"
-                      className="mx-1 inline-block h-[calc(1em+2px)] w-[calc(1em+2px)] rounded-md object-cover align-middle"
-                    />
-                  ) : null}
+                  {word === "plants," ? <span>,</span> : null}
+                  {word === "facilities," ? <span>,</span> : null}
+                  {word === "estates," ? <span>,</span> : null}
+                  
                 </span>
               ))}
             </span>

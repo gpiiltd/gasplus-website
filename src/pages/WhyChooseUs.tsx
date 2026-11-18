@@ -107,7 +107,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
     >
       <div className="relative min-h-[420px] sm:min-h-[400px] lg:min-h-[420px] ">
         <div
-          className={`absolute inset-x-0 bottom-0 z-10 flex w-full items-center bg-white p-4 shadow-lg transition-all duration-700 ease-out motion-reduce:transition-none sm:p-6 lg:h-[35%] ${
+          className={`absolute inset-x-0 bottom-0 z-10 flex w-full items-center bg-white p-4 shadow-lg transition-all duration-700 ease-out sm:p-6 lg:h-[35%] ${
             inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
         >
@@ -124,9 +124,9 @@ function FeatureCard({ feature }: { feature: Feature }) {
           </div>
         </div>
         <div
-          className={`absolute inset-0 h-full w-full overflow-hidden transition-all duration-700 ease-out motion-reduce:transition-none ${
+          className={`absolute inset-0 h-full w-full overflow-hidden transition-all duration-700 ease-out ${
             inView ? "translate-y-0 scale-100 opacity-100" : "translate-y-8 scale-95 opacity-0"
-          } group-hover:scale-105`}
+          }`}
         >
           <img
             ref={imageRef}
@@ -161,7 +161,7 @@ function FeatureRows() {
 
 export default function WhyChooseUs() {
   const [headerRef, headerInView] = useInView<HTMLDivElement>({
-    threshold: 0.1,
+    threshold: 0.4,
   });
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
 
@@ -187,10 +187,10 @@ export default function WhyChooseUs() {
         <div className={containerClass}>
           <div
             ref={headerRef}
-            className={`py-6 lg:py-8 lg:px-10 transition-[opacity,transform] duration-700 ease-out motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:transition-none ${
-              headerInView
-                ? "translate-y-0 opacity-100"
-                : "translate-y-6 opacity-0"
+            className={`py-6 lg:py-8 lg:px-10 transition-all duration-700 ease-out lg:px-10 ${
+             headerInView
+              ? "translate-y-0 opacity-100"
+              : "translate-y-6 opacity-0"
             }`}
           >
             <Heading
@@ -204,6 +204,7 @@ export default function WhyChooseUs() {
               energy infrastructure that performs when it matters most.
             </Paragraph>
           </div>
+       
         </div>
       </div>
       <FeatureRows />

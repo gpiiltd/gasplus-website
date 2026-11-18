@@ -71,7 +71,7 @@ export default function About() {
     <div className="bg-slate-100">
       <section className="about-hero" aria-label="About GasPlus">
         <h1
-          className="about-hero__title"
+          className="about-hero__title animate-hero-title"
           style={{ backgroundImage: `url("${gasplusBg}")` }}
         >
           GASPLUS

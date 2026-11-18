@@ -129,7 +129,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div
+        {/* <div
           ref={thumbnailsRef}
           className="hero-thumbnail-viewport relative z-10 mt-4 pb-5"
         >
@@ -173,7 +173,7 @@ export default function Hero() {
               },
             )}
           </div>
-        </div>
+        </div> */}
       </section>
       <TrustSection />
     </>

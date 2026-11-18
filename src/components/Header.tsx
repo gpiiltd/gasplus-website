@@ -20,18 +20,13 @@ export default function Navbar() {
   const closeMenu = () => {
     setIsOpen(false);
   };
-  const { pathname, hash: currentHash } = useLocation();
+  const { pathname } = useLocation();
 
-  const isActive = (href: string, hash?: string) => {
+  const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
 
     const routePath = toPath(href);
-    const onRoute =
-      pathname === routePath || pathname.startsWith(`${routePath}/`);
-    if (!onRoute) return false;
-
-    // "Our Teams" is active only on #team, "About Us" only when there's no hash
-    return hash ? currentHash === hash : !currentHash;
+    return pathname === routePath || pathname.startsWith(`${routePath}/`);
   };
 
   return (
