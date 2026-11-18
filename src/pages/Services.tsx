@@ -123,7 +123,7 @@ export default function Services() {
       {/* Diagonal transition shape, bottom, into the section below */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 h-16 w-full bg-white sm:h-20"
-        style={{ clipPath: "polygon(0 0, 40% 0, 60% 100%, 0 100%)" }}
+        style={{ clipPath: "polygon(0 0, 20% 0, 40% 100%, 0 100%)" }}
       />
 
       <div className={`${containerClass} relative py-16 sm:py-20 lg:py-28`}>

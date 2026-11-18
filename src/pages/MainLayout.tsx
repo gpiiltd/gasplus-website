@@ -31,7 +31,7 @@ const MainLayout = () => {
           <Outlet />
         </main>
       </div>
-      <Footer />
+      <Footer hideCta={pathname === `/${routeNames.contact}`} />
     </>
   );
 };

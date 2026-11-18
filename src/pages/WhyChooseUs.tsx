@@ -103,30 +103,30 @@ function FeatureCard({ feature }: { feature: Feature }) {
   return (
     <div
       ref={cardRef}
-      className="relative isolate min-w-0 flex-1 overflow-hidden rounded-xl md:w-[44%] md:flex-none"
+      className="group relative isolate min-w-0 flex-1 overflow-hidden mb-10 rounded-xl md:w-[45%] md:flex-none"
     >
       <div className="relative min-h-[420px] sm:min-h-[400px] lg:min-h-[420px] ">
-        <div className="absolute inset-x-0 bottom-0 z-10 mx-auto flex lg:h-[37%] min-w-0 items-center bg-white p-4 shadow-lg sm:p-6">
+        <div className="absolute inset-x-0 bottom-0 z-10 px-10 flex lg:h-[35%] w-full items-center bg-white p-4 shadow-lg sm:p-6">
           <div>
             <Heading
               level={3}
-              className="leading-snug !text-[#3f761f] sm:!text-[10px] lg:!text-[20px]"
+              className="leading-snug !text-[#1A1A1A] sm:!text-[10px] lg:!text-[20px]"
             >
               {feature.title}
             </Heading>
-            <Paragraph className="mt-2 !text-[15px] !text-gray-700">
+            <Paragraph className="mt-2 !text-[15px] !text-[#333333]">
               {feature.description}
             </Paragraph>
           </div>
         </div>
-        <div className="absolute inset-0 h-full w-full overflow-hidden">
+        <div className="absolute inset-0 h-full w-full overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none">
           <img
             ref={imageRef}
             src={feature.image}
             alt={feature.title}
             loading="lazy"
             decoding="async"
-            className="absolute inset-0 block sm:[400px] lg:h-[390px] w-full object-contain object-center will-change-transform motion-reduce:!transform-none"
+            className="absolute inset-0 block sm:[400px] w-full object-cover object-center will-change-transform motion-reduce:!transform-none"
           />
         </div>
       </div>
@@ -136,11 +136,11 @@ function FeatureCard({ feature }: { feature: Feature }) {
 
 function FeatureRows() {
   return (
-    <div className={`${containerClass} space-y-12 pb-12 lg:pb-16`}>
+    <div className={`${containerClass}  pb-4 lg:pb-5`}>
       {[FEATURES.slice(0, 2), FEATURES.slice(2)].map((row, rowIndex) => (
         <div
           key={rowIndex}
-          className="flex flex-col gap-8 md:flex-row md:justify-center md:gap-14 lg:gap-30 lg:px-20"
+          className="flex flex-col gap-8 md:flex-row md:justify-center"
         >
           {row.map((feature) => (
             <FeatureCard key={feature.title} feature={feature} />
@@ -175,11 +175,11 @@ export default function WhyChooseUs() {
 
   return (
     <section className="relative border-t-2 border-[#45712B]/30 bg-[#dfffe1]">
-      <div ref={stickyHeaderRef} className="bg-[#dfffe1]">
+      <div ref={stickyHeaderRef} className="bg-[#E6FDDD]">
         <div className={containerClass}>
           <div
             ref={headerRef}
-            className={`py-6 lg:py-8 lg:px-20 transition-[opacity,transform] duration-700 ease-out motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:transition-none ${
+            className={`py-6 lg:py-8 lg:px-10 transition-[opacity,transform] duration-700 ease-out motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:transition-none ${
               headerInView
                 ? "translate-y-0 opacity-100"
                 : "translate-y-6 opacity-0"
@@ -187,7 +187,7 @@ export default function WhyChooseUs() {
           >
             <Heading
               level={2}
-              className="!text-2xl font-extrabold !text-[#3f761f] sm:!text-3xl lg:!text-4xl"
+              className="!text-2xl font-extrabold !text-[#2D4C1A] sm:!text-3xl lg:!text-4xl"
             >
               Why Industries Choose Gasplus
             </Heading>

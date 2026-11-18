@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HERO_IMG from "../../assets/images/gasplus-bg.png";
 import LNG_SHIP_IMG from "../../assets/images/gasplus-image-4.jpg";
 import PIPELINE_IMG from "../../assets/images/gasplus-lng.jpeg";
@@ -24,7 +24,10 @@ const HERO_SLIDES = [
 
 export default function Hero() {
   const navigate = useNavigate();
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [trackIndex, setTrackIndex] = useState(HERO_SLIDES.length);
+  const activeSlide = trackIndex % HERO_SLIDES.length;
+  const thumbnailsRef = useRef<HTMLDivElement>(null);
+  const shouldSnapThumbnailsRef = useRef(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -32,11 +35,42 @@ export default function Hero() {
     }
 
     const intervalId = window.setInterval(() => {
-      setActiveSlide((currentSlide) => (currentSlide + 1) % HERO_SLIDES.length);
+      setTrackIndex((currentIndex) => currentIndex + 1);
     }, 2000);
 
     return () => window.clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    const viewport = thumbnailsRef.current;
+    const activeThumbnail =
+      viewport?.querySelectorAll("button")[trackIndex];
+    if (!viewport || !activeThumbnail) return;
+
+    viewport.scrollTo({
+      left:
+        activeThumbnail.getBoundingClientRect().left -
+        viewport.getBoundingClientRect().left +
+        viewport.scrollLeft,
+      behavior:
+        shouldSnapThumbnailsRef.current ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
+    });
+    shouldSnapThumbnailsRef.current = false;
+  }, [trackIndex]);
+
+  useEffect(() => {
+    if (trackIndex < HERO_SLIDES.length * 2) return;
+
+    const timeoutId = window.setTimeout(() => {
+      shouldSnapThumbnailsRef.current = true;
+      setTrackIndex(HERO_SLIDES.length);
+    }, 600);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [trackIndex]);
 
   return (
     <>
@@ -52,7 +86,7 @@ export default function Hero() {
               src={image}
               alt=""
               aria-hidden="true"
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
+              className={`absolute inset-0 h-screen w-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
                 index === activeSlide ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -61,12 +95,14 @@ export default function Hero() {
         </div>
 
         {/* Content */}
-        <div className={`relative z-10 ${containerClass} py-20 lg:py-28`}>
+        <div
+          className={`relative z-10 ${containerClass} pt-8 pb-16 sm:pt-10 sm:pb-20 lg:pt-22 lg:pb-20`}
+        >
           <div className="max-w-2xl lg:pl-10">
             <FadeIn direction="up" delay={100} threshold={0}>
               <Heading
                 level={1}
-                className="!text-4xl !font-serif leading-[1.1] !text-white sm:!text-5xl"
+                className="!text-4xl font-semibold !font-serif leading-[1.1] !text-white sm:!text-5xl"
               >
                 Dependable power and gas solutions for your operations
               </Heading>
@@ -79,33 +115,9 @@ export default function Hero() {
                 power generation and maintenance.
               </Paragraph>
             </FadeIn>
-            {/* Feature cards */}
-            {/* <FadeIn direction="up" delay={400} threshold={0}>
-  <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-    {FEATURES.map((feature) => (
-      <button
-        type="button"
-        key={feature.target}
-        onClick={() => {
-          document.getElementById(feature.target)?.scrollIntoView({
-            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-              ? "instant"
-              : "smooth",
-            block: "start",
-          });
-        }}
-        className="animated-border group flex cursor-pointer items-center rounded-xl bg-black/40 px-6 py-5 text-left backdrop-blur-sm transition-colors duration-300 hover:bg-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7ab342]"
-      >
-        <span className="text-base font-normal text-white transition-colors duration-300 group-hover:text-[#7ab342]">
-          {feature.label}
-        </span>
-      </button>
-    ))}
-  </div>
-</FadeIn> */}
 
             <FadeIn direction="up" delay={550} threshold={0}>
-              <div className="mt-8">
+              <div className="mt-6">
                 <Button
                   onClick={() => navigate(`/${routeNames.contact}`)}
                   className="!px-8"
@@ -118,30 +130,49 @@ export default function Hero() {
         </div>
 
         <div
-          aria-label="Choose a hero slide"
-          className="relative z-10 mx-auto -mt-20 flex max-w-7xl justify-center gap-5 pb-6"
+          ref={thumbnailsRef}
+          className="hero-thumbnail-viewport relative z-10 -mt-15 pb-5"
         >
-          {HERO_SLIDES.map((image, index) => (
-            <button
-              key={index}
-              type="button"
-              aria-label={`Show slide ${index + 1}`}
-              aria-pressed={index === activeSlide}
-              onClick={() => setActiveSlide(index)}
-              className={`h-16 w-24 overflow-hidden rounded-md border-2 transition-all sm:h-20 sm:w-28 ${
-                index === activeSlide
-                  ? "border-white opacity-100"
-                  : "border-white/40 opacity-70 hover:border-white/80 hover:opacity-100"
-              }`}
-            >
-              <img
-                src={image}
-                alt=""
-                aria-hidden="true"
-                className="h-full w-full object-cover"
-              />
-            </button>
-          ))}
+          <div
+            role="group"
+            aria-label="Choose a hero slide"
+            className="hero-thumbnail-track flex w-max"
+          >
+            {[...HERO_SLIDES, ...HERO_SLIDES, ...HERO_SLIDES].map(
+              (image, indexInTrack) => {
+                const index = indexInTrack % HERO_SLIDES.length;
+                const isDuplicate =
+                  indexInTrack < HERO_SLIDES.length ||
+                  indexInTrack >= HERO_SLIDES.length * 2;
+
+                return (
+                  <button
+                    key={`${indexInTrack}-${image}`}
+                    type="button"
+                    aria-label={
+                      isDuplicate ? undefined : `Show slide ${index + 1}`
+                    }
+                    aria-pressed={!isDuplicate && index === activeSlide}
+                    aria-hidden={isDuplicate}
+                    tabIndex={isDuplicate ? -1 : undefined}
+                    onClick={() => setTrackIndex(HERO_SLIDES.length + index)}
+                    className={`hero-thumbnail relative overflow-hidden rounded-md transition-[transform,opacity] duration-500 ease-out motion-reduce:transition-none ${
+                      index === activeSlide
+                        ? "z-10 scale-y-[1.10] opacity-100"
+                        : "opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt=""
+                      aria-hidden="true"
+                      className="h-full w-full object-cover"
+                    />
+                  </button>
+                );
+              },
+            )}
+          </div>
         </div>
       </section>
       <TrustSection />

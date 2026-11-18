@@ -51,14 +51,14 @@ const PRINCIPLES: Principle[] = [
   },
 ];
 
-function PrincipleCard({ principle }: { principle: Principle }) {
+function PrincipleCard({ principle, featured = false }: { principle: Principle; featured?: boolean }) {
   return (
-    <div className="relative min-h-[180px] w-full max-w-[300px] overflow-hidden rounded-lg border border-gray-200 bg-white px-4 py-5">
+    <div className={`relative min-h-[180px] w-full overflow-hidden rounded-lg border border-gray-200 bg-white px-4 py-5 ${featured ? "xl:py-9" : ""}`}>
       <img
         src={opacedFire}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-3 -right-3 h-20 w-20 object-contain"
+        className="pointer-events-none absolute -bottom-3 -right-3 h-30 w-50 object-contain"
       />
       <div className="relative">
         <Heading level={5} className="!text-base !leading-tight !text-black">
@@ -74,25 +74,25 @@ function PrincipleCard({ principle }: { principle: Principle }) {
 
 export default function PrinciplesSection() {
   return (
-    <section className="relative lg:px-20 px-10 overflow-hidden bg-[#253919] py-12 sm:py-16">
+    <section className="relative mx-auto px-10 overflow-hidden bg-[#16280A] py-12 sm:py-16">
       {/* Diagonal transition shape, bottom, into the section below */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 h-16 w-full bg-white sm:h-20"
-        style={{ clipPath: "polygon(0 0, 40% 0, 60% 100%, 0 100%)" }}
+        style={{ clipPath: "polygon(60% 0, 100% 0, 100% 100%, 40% 100%)" }}
       />
 
       <div className={`${containerClass} relative`}>
         <FadeIn direction="up" delay={100}>
           <Heading
             level={2}
-            className="!text-xl md:!text-4xl !text-white max-w-2xl"
+            className="!text-4xl !text-white max-w-2xl"
           >
-            The principles that govern how we operate at <span className="text-green-500">Gasplus</span> 
+            The principles that govern how we operate at <span className="text-[#7BC24F]">Gasplus</span> 
           </Heading>
         </FadeIn>
 
         <FadeIn direction="up" delay={250}>
-          <Paragraph className="mt-4 max-w-xl !text-[15px] !text-white">
+          <Paragraph className="mt-4 max-w-xl !text-[16px] !text-white">
             Every decision we make is built around one standard; 
             <br />
             Making all our client&apos;s operations more efficient.
@@ -100,13 +100,17 @@ export default function PrinciplesSection() {
         </FadeIn>
 
         <StaggerChildren
-          className="mt-8 grid grid-cols-[minmax(0,320px)] gap-4 pb-10 sm:grid-cols-[repeat(2,minmax(0,320px))] sm:pb-14 xl:grid-cols-[repeat(3,minmax(0,320px))]"
+          className="mt-8 grid w-full grid-cols-1 gap-4 pb-10 sm:grid-cols-2 sm:pb-14 xl:grid-cols-3"
           staggerDelay={100}
           baseDelay={200}
           direction="up"
         >
-          {PRINCIPLES.map((principle) => (
-            <PrincipleCard key={principle.title} principle={principle} />
+          {PRINCIPLES.map((principle, index) => (
+            <PrincipleCard
+              key={principle.title}
+              principle={principle}
+              featured={index % 3 === 1}
+            />
           ))}
         </StaggerChildren>
       </div>

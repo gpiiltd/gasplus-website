@@ -68,7 +68,7 @@ export default function About() {
     };
   }, [hash, key]);
   return (
-    <div>
+    <div className="bg-slate-100">
       <section className="about-hero" aria-label="About GasPlus">
         <h1
           className="about-hero__title"
@@ -77,7 +77,7 @@ export default function About() {
           GASPLUS
         </h1>
       </section>
-      <section className="flex flex-col lg:mx-20">
+      <section className="flex flex-col lg:mx-10">
         <div className="site-container flex flex-col gap-5 py-16 sm:py-24">
           <FadeIn direction="up" delay={100}>
             <Badge>Our Mission</Badge>
@@ -85,14 +85,14 @@ export default function About() {
 
           <div className="flex flex-col md:flex-row md:items-start md:gap-12 mx-auto gap-5">
             <FadeIn direction="up" delay={250} className="md:flex-1">
-              <Heading level={3} className="!text-black leading-wide">
+              <Heading level={3} className="!text-black font-extrabold leading-wide">
                 We exist to provide gas and power solutions to the businesses
                 that power the African continent
               </Heading>
             </FadeIn>
 
             <FadeIn direction="up" delay={400} className="md:flex-1">
-              <Paragraph className="max-w-lg !text-[15px] !text-black">
+              <Paragraph className="max-w-lg !text-[17px] !text-[#333333]">
                 To deliver innovative, efficient, and
                 sustainable energy solutions that empower industries, drive
                 productivity, and create long-term value for our clients and
@@ -103,11 +103,11 @@ export default function About() {
         </div>
 
         <FadeIn direction="left" delay={200} className="h-72 w-full sm:h-[30rem]">
-          <div className="h-full w-full -mt-15 mx-auto">
+          <div className="h-full lg:w-[calc(100%-4rem)] -mt-15 mx-auto">
             <img
               src={visionImg}
               alt="Power plant cooling towers at sunset"
-              className="h-[90%] w-full object-cover rounded-lg"
+              className="h-[90%] w-full object-cover lg:rounded-lg"
             />
           </div>
         </FadeIn>
