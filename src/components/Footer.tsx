@@ -160,6 +160,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
             <div className="flex items-center gap-6 text-sm text-gray-700">
               <Link to={`/${routeNames.privacy_policy}`} className="underline underline-offset-2 text-[12px]">
                 Privacy Policy
+
               </Link>
               <Link to={`/${routeNames.terms_of_use}`} className="underline underline-offset-2 text-[12px]">
                 Terms of Service
