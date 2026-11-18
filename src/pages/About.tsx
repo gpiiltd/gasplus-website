@@ -77,13 +77,13 @@ export default function About() {
           GASPLUS
         </h1>
       </section>
-      <section className="flex flex-col lg:mx-10">
-        <div className="site-container flex flex-col gap-5 py-16 sm:py-24">
+      <section className="flex flex-col">
+        <div className="site-container flex flex-col gap-5 py-16 sm:py-24 about-layout-container">
           <FadeIn direction="up" delay={100}>
             <Badge>Our Mission</Badge>
           </FadeIn>
 
-          <div className="flex flex-col md:flex-row md:items-start md:gap-12 mx-auto gap-5">
+          <div className="flex flex-col gap-5 md:flex-row md:items-start md:gap-12">
             <FadeIn direction="up" delay={250} className="md:flex-1">
               <Heading level={3} className="!text-black font-extrabold leading-wide">
                 We exist to provide gas and power solutions to the businesses
@@ -102,8 +102,8 @@ export default function About() {
           </div>
         </div>
 
-        <FadeIn direction="left" delay={200} className="h-72 w-full sm:h-[30rem]">
-          <div className="h-full lg:w-[calc(100%-4rem)] -mt-15 mx-auto">
+        <FadeIn direction="left" delay={200} className="site-container h-72 w-full sm:h-[30rem] about-layout-container">
+          <div className="-mt-15 h-full">
             <img
               src={visionImg}
               alt="Power plant cooling towers at sunset"

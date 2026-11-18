@@ -74,14 +74,14 @@ function PrincipleCard({ principle, featured = false }: { principle: Principle; 
 
 export default function PrinciplesSection() {
   return (
-    <section className="relative mx-auto px-10 overflow-hidden bg-[#16280A] py-12 sm:py-16">
+    <section className="relative mx-auto overflow-hidden bg-[#16280A] py-12 sm:py-16">
       {/* Diagonal transition shape, bottom, into the section below */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 h-16 w-full bg-white sm:h-20"
         style={{ clipPath: "polygon(60% 0, 100% 0, 100% 100%, 40% 100%)" }}
       />
 
-      <div className={`${containerClass} relative`}>
+      <div className={`${containerClass} relative about-layout-container`}>
         <FadeIn direction="up" delay={100}>
           <Heading
             level={2}

@@ -59,11 +59,11 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
     <div
       id={service.id}
       ref={ref}
-      className="grid scroll-mt-[60px] grid-cols-1 items-center justify-between gap-10 py-10 px-20 sm:grid-cols-[repeat(2,minmax(0,560px))] sm:gap-12 sm:py-14"
+      className="grid scroll-mt-[60px] grid-cols-1 items-center gap-7 py-8 sm:gap-10 sm:py-12 md:grid-cols-2 md:gap-12 lg:py-14"
     >
       <div
         className={`flex w-full max-w-[560px] flex-col justify-center xl:h-[380px] transition-all duration-700 ease-out ${
-          imageOnLeft ? "sm:order-2" : "sm:order-1"
+          imageOnLeft ? "md:order-2" : "md:order-1"
         } ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
       >
         <span className="text-2xl font-bold tracking-wide text-[#FFFFFF] sm:text-3xl md:text-4xl">
@@ -82,7 +82,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
 
       <div
         className={`aspect-[560/380] w-full max-w-[560px] overflow-hidden xl:h-[380px] xl:aspect-auto transition-all duration-700 ease-out ${
-          imageOnLeft ? "sm:order-1" : "sm:order-2"
+          imageOnLeft ? "md:order-1" : "md:order-2"
         } ${
           inView
             ? "translate-y-0 scale-100 opacity-100"
@@ -130,7 +130,7 @@ export default function Services() {
         {/* Header */}
         <div
           ref={headerRef}
-          className={`px-6 transition-all duration-700 ease-out sm:px-10 lg:px-20 ${
+          className={`transition-all duration-700 ease-out lg:px-10 ${
             headerInView
               ? "translate-y-0 opacity-100"
               : "translate-y-6 opacity-0"
@@ -139,11 +139,11 @@ export default function Services() {
           <div className="w-full pt-5">
             <Heading
               level={3}
-              className="font-bold leading-tight !text-[18px] !text-white sm:!text-[34px] md:!text-[46px]"
+              className="font-bold leading-tight !text-2xl !text-white sm:!text-[34px] md:!text-[46px]"
             >
               Energy solutions built
               <br className="hidden md:block" /> for efficient{" "}
-              <span className="whitespace-nowrap text-[#7BC24F]">
+              <span className="text-[#7BC24F]">
                 business operation
               </span>
             </Heading>
@@ -157,7 +157,7 @@ export default function Services() {
         </div>
 
         {/* Rows */}
-        <div className="mt-8 divide-y divide-white/10">
+        <div className="mt-8 divide-y divide-white/10 lg:px-10">
           {SERVICES.map((service, i) => (
             <ServiceRow key={service.number} service={service} index={i} />
           ))}

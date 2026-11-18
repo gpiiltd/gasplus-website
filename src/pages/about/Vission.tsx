@@ -5,8 +5,8 @@ import { FadeIn } from "../../components/animations/Animations";
 export default function VisionSection() {
   return (
     <section className="flex flex-col bg-[#1D151D]">
-      <div className="site-container !pt-15 pb-6 sm:pt-24 sm:pb-8">
-        <div className=" flex w-full px-11 flex-col gap-6">
+      <div className="site-container !pt-15 pb-6 sm:pt-24 sm:pb-8 about-layout-container">
+        <div className="flex w-full flex-col gap-6">
           <FadeIn direction="up" delay={100}>
             <h6 className="!text-white font-semibold text-[14px]">Our Vision</h6>
           </FadeIn>
@@ -30,9 +30,9 @@ export default function VisionSection() {
       <FadeIn
         direction="right"
         delay={200}
-        className="site-container w-full pb-16 sm:pb-24"
+        className="site-container w-full pb-16 sm:pb-24 about-layout-container"
       >
-        <div className="px-11">
+        <div>
           <div className="h-64 w-full overflow-hidden rounded-lg sm:h-96">
             <img
               src={visionImg}

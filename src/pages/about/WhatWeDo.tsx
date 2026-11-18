@@ -97,7 +97,7 @@ export default function WhatWeDoSection() {
 
   return (
     <section className="bg-white -mt-15 pb-16 sm:pt-12 sm:pb-24">
-      <div className="lg:mx-20 mx-10">
+      <div className="site-container about-layout-container">
         <FadeIn direction="up" delay={100}>
           <Heading
             level={2}

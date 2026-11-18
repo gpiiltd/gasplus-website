@@ -131,7 +131,7 @@ export default function Hero() {
 
         <div
           ref={thumbnailsRef}
-          className="hero-thumbnail-viewport relative z-10 -mt-15 pb-5"
+          className="hero-thumbnail-viewport relative z-10 mt-4 pb-5 sm:-mt-15"
         >
           <div
             role="group"

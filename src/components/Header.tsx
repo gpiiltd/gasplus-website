@@ -35,12 +35,12 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full px-6 bg-white z-40">
+    <header className="fixed inset-x-0 top-0 z-50 w-full bg-white">
       <nav
         className={`${containerClass} flex mx-auto h-[60px] items-center justify-between`}
       >
         {/* Logo */}
-        <Link to="/" className="flex h-full shrink-0 items-center">
+        <Link to="/" className="-ml-3 flex h-full shrink-0 items-center">
           <img src={LOGO} alt="Gasplus Logo" width="90" height="18" />
         </Link>
 
@@ -67,7 +67,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
-          className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-md text-gray-800 hover:text-green-600 md:hidden"
+          className="-mr-3 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-md text-gray-800 hover:text-green-600 md:hidden"
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
           aria-controls="mobile-menu"

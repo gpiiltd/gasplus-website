@@ -51,7 +51,7 @@ export default function Executives() {
         style={{ clipPath: "polygon(0 0, 40% 0, 60% 100%, 0 100%)" }}
       />
 
-      <div className={containerClass}>
+      <div className={`${containerClass} about-layout-container`}>
         <header className="mx-auto w-full text-center">
           <Heading
             level={3}
@@ -67,7 +67,7 @@ export default function Executives() {
           </Paragraph>
         </header>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-x-3 gap-y-8 px-4 sm:px-6 lg:px-8">
+        <div className="mt-10 flex flex-wrap justify-center gap-x-3 gap-y-8">
           {EXECUTIVES.map((executive) => (
             <article key={executive.name} className="w-full sm:w-[calc(50%-0.625rem)] xl:w-[calc(25%-0.9375rem)]">
               <div className="mx-auto aspect-[3/2] w-full max-w-[260px] overflow-hidden rounded-xl bg-gray-200">

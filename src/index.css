@@ -129,6 +129,13 @@
   :root { --site-gutter: 2rem; }
 }
 
+/* About content uses the same inner desktop inset as the home page sections. */
+@media (min-width: 1024px) {
+  .about-layout-container {
+    padding-inline: calc(var(--site-gutter) + 2.5rem);
+  }
+}
+
 /* Align split-section copy while letting its adjacent image reach the edge. */
 .site-split-copy {
   padding-left: max(var(--site-gutter), calc((100vw - 88rem) / 2 + var(--site-gutter)));
@@ -153,9 +160,16 @@
 }
 
 .hero-thumbnail {
-  aspect-ratio: 2.2 / 1;
+  aspect-ratio: 1.6 / 1;
   box-sizing: border-box;
-  flex: 0 0 calc((100% - 42px) / 4.5);
+  flex: 0 0 calc((100% - 14px) / 2.2);
+}
+
+@media (min-width: 640px) {
+  .hero-thumbnail {
+    aspect-ratio: 2.2 / 1;
+    flex-basis: calc((100% - 42px) / 4.5);
+  }
 }
 
 @media (min-width: 1024px) {

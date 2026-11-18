@@ -106,7 +106,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
       className="group relative isolate min-w-0 flex-1 overflow-hidden mb-10 rounded-xl md:w-[45%] md:flex-none"
     >
       <div className="relative min-h-[420px] sm:min-h-[400px] lg:min-h-[420px] ">
-        <div className="absolute inset-x-0 bottom-0 z-10 px-10 flex lg:h-[35%] w-full items-center bg-white p-4 shadow-lg sm:p-6">
+        <div className="absolute inset-x-0 bottom-0 z-10 flex lg:h-[35%] w-full items-center bg-white p-4 shadow-lg sm:p-6">
           <div>
             <Heading
               level={3}
