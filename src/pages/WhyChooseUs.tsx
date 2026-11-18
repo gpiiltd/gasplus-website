@@ -43,7 +43,7 @@ const FEATURES: Feature[] = [
 
 const IMAGE_PARALLAX = 0;
 function FeatureCard({ feature }: { feature: Feature }) {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const [cardRef, inView] = useInView<HTMLDivElement>({ threshold: 0.3 });
   const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -98,15 +98,19 @@ function FeatureCard({ feature }: { feature: Feature }) {
       window.removeEventListener("resize", schedule);
       if (frame !== null) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [cardRef]);
 
   return (
     <div
       ref={cardRef}
-      className="group relative isolate min-w-0 flex-1 overflow-hidden mb-10 rounded-xl md:w-[45%] md:flex-none"
+      className="group relative isolate mb-10 min-w-0 flex-1 overflow-hidden rounded-xl md:w-[45%] md:flex-none"
     >
       <div className="relative min-h-[420px] sm:min-h-[400px] lg:min-h-[420px] ">
-        <div className="absolute inset-x-0 bottom-0 z-10 flex lg:h-[35%] w-full items-center bg-white p-4 shadow-lg sm:p-6">
+        <div
+          className={`absolute inset-x-0 bottom-0 z-10 flex w-full items-center bg-white p-4 shadow-lg transition-all duration-700 ease-out motion-reduce:transition-none sm:p-6 lg:h-[35%] ${
+            inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          }`}
+        >
           <div>
             <Heading
               level={3}
@@ -119,7 +123,11 @@ function FeatureCard({ feature }: { feature: Feature }) {
             </Paragraph>
           </div>
         </div>
-        <div className="absolute inset-0 h-full w-full overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none">
+        <div
+          className={`absolute inset-0 h-full w-full overflow-hidden transition-all duration-700 ease-out motion-reduce:transition-none ${
+            inView ? "translate-y-0 scale-100 opacity-100" : "translate-y-8 scale-95 opacity-0"
+          } group-hover:scale-105`}
+        >
           <img
             ref={imageRef}
             src={feature.image}
