@@ -130,14 +130,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
                   GasPlus Energy Solution
                 </Link>
               </li>
-              <li>
-                <a
-                  href="mailto:info@gasplus.ng?subject=Careers%20Enquiry"
-                  className="underline underline-offset-2 hover:text-green-700 text-base"
-                >
-                  Careers
-                </a>
-              </li>
+          
             </ul>
           </div>
         </div>
