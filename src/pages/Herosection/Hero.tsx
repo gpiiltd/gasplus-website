@@ -98,18 +98,18 @@ export default function Hero() {
         <div
           className={`relative z-10 ${containerClass} flex flex-1 items-center pt-8 pb-20 sm:pt-10 lg:pt-22`}
         >
-          <div className="max-w-2xl lg:pl-10">
+          <div className="w-full max-w-3xl lg:pl-10">
             <FadeIn direction="up" delay={100} threshold={0}>
               <Heading
                 level={1}
-                className="!text-4xl font-semibold !font-serif leading-[1.1] !text-white sm:!text-5xl"
+                className="!text-[40px] font-bold leading-[1.1] !text-white sm:!text-[56px] lg:!text-[65px]"
               >
                 Dependable power and gas solutions for your operations
               </Heading>
             </FadeIn>
 
             <FadeIn direction="up" delay={250} threshold={0}>
-              <Paragraph className="mt-5 max-w-md !text-base text-white sm:!text-[15px]">
+              <Paragraph className="mt-5 max-w-md !text-base text-white">
                 GasPlus is committed to delivering high-quality, sustainable and
                 advanced energy solutions, with extensive experience in gas
                 power generation and maintenance.
