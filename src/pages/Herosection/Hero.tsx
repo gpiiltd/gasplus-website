@@ -77,7 +77,7 @@ export default function Hero() {
       <section
         aria-label="GasPlus energy solutions"
         aria-roledescription="carousel"
-        className="relative overflow-hidden bg-gray-950"
+        className="relative flex min-h-[calc(100svh-60px)] flex-col overflow-hidden bg-gray-950"
       >
         <div className="absolute inset-0">
           {HERO_SLIDES.map((image, index) => (
@@ -86,7 +86,7 @@ export default function Hero() {
               src={image}
               alt=""
               aria-hidden="true"
-              className={`absolute inset-0 h-screen w-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
                 index === activeSlide ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -96,7 +96,7 @@ export default function Hero() {
 
         {/* Content */}
         <div
-          className={`relative z-10 ${containerClass} pt-8 pb-16 sm:pt-10 sm:pb-20 lg:pt-22 lg:pb-20`}
+          className={`relative z-10 ${containerClass} flex flex-1 items-center pt-8 pb-20 sm:pt-10 lg:pt-22`}
         >
           <div className="max-w-2xl lg:pl-10">
             <FadeIn direction="up" delay={100} threshold={0}>
@@ -131,7 +131,7 @@ export default function Hero() {
 
         <div
           ref={thumbnailsRef}
-          className="hero-thumbnail-viewport relative z-10 mt-4 pb-5 sm:-mt-15"
+          className="hero-thumbnail-viewport relative z-10 mt-4 pb-5"
         >
           <div
             role="group"
